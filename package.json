@@ -10,7 +10,7 @@
     "lint-fix": "yarn lint --fix",
     "serve": "rojo serve",
     "test": "yarn compile && yarn test-run",
-    "test-run": "run-in-roblox --place ./game.rbxlx --script ./out/server/testBootstrap.server.lua",
+    "test-run": "run-in-roblox --place ./build.rbxlx --script ./out/server/testBootstrap.server.lua",
     "watch": "rbxtsc --verbose -w"
   },
   "devDependencies": {
