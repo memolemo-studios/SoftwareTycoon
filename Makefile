@@ -10,6 +10,3 @@ cleanup:
 
 test:
 	echo UNIT_TEST=true >> .env
-
-
-
