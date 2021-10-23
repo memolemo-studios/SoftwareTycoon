@@ -21,7 +21,7 @@ jobs:
         uses: bahmutov/npm-install@v1.7.4
 
       - name: Run ESLint
-        run: npm run eslint
+        run: npm run lint
 
   unit-tests:
     name: Unit Tests
@@ -45,8 +45,14 @@ jobs:
       - name: Install NPM dependencies
         uses: bahmutov/npm-install@v1.7.4
 
-      - name: Compile and run tests
-        run: npm test
+      - name: Prepare for compilation
+        run: make test-env
+
+      - name: Compile game
+        run: make game
+
+      - name: Perform unit tests
+        run: yarn test-run
 
       - name: Report Coverage
         continue-on-error: true

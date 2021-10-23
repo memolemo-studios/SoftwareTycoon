@@ -8,5 +8,5 @@ game:
 cleanup:
 	rm .env
 
-test:
+test-env:
 	echo UNIT_TEST=true >> .env
