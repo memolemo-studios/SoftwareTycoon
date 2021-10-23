@@ -8,7 +8,7 @@
 		"$className": "DataModel",
 		"ServerScriptService": {
 			"$className": "ServerScriptService",
-			"TS": {
+			"Game": {
 				"$path": "out/server"
 			}
 		},
@@ -26,7 +26,7 @@
           }
 				}
 			},
-			"TS": {
+			"Game": {
 				"$path": "out/shared"
 			}
 		},
@@ -34,7 +34,7 @@
 			"$className": "StarterPlayer",
 			"StarterPlayerScripts": {
 				"$className": "StarterPlayerScripts",
-				"TS": {
+				"Game": {
 					"$path": "out/client"
 				}
 			}
