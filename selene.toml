@@ -1,1 +1,6 @@
 std = "roblox+remodel"
+
+[rules]
+unused_variable = "allow"
+global_usage = "allow"
+incorrect_standard_library_use = "allow"
