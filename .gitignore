@@ -1,0 +1,15 @@
+# roblox-ts built directories
+/node_modules
+/out
+/include
+
+# Logs
+*.tsbuildinfo
+*.log
+
+# Built files
+build.rbxlx
+build.rbxlx.lock
+
+# Selene built files
+roblox.toml
