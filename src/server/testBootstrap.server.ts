@@ -6,7 +6,7 @@ import { $fileContents, $instance, $resolveFile } from "rbxts-transformer-fs";
 
 function performBootstrap() {
 	const dotEnvFile = $fileContents("../../.env").split("\n");
-	if (dotEnvFile[0] === "UNIT_TEST=true") {
+	if (dotEnvFile.findIndex(v => v === "UNIT_TEST=true") !== -1) {
 		// so that it won't actually go unit testing while in production
 		if (RunService.IsStudio()) {
 			TestBootstrap.run([$instance("src/shared/specs")]);
