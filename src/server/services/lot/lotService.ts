@@ -13,7 +13,9 @@ import { getRandomArrayMember } from "shared/util/array";
 export class LotService implements OnStart, OnInit {
 	private logger = Log.ForContext(LotService);
 	private component!: ComponentManager<ServerLot>;
+
 	private requestLotRemote = Remotes.Create("requestOwnLot");
+	public onOwnedLotEvent = Remotes.Create("onOwnedLot");
 
 	public onInit() {
 		this.requestLotRemote.SetCallback((player: Player): SerTypes.Result<string, LotRequestErrors> => {

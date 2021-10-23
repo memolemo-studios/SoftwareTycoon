@@ -13,6 +13,7 @@
 		"softwaretycoon:out/client/controllers/lot/lotController@LotController": "client/controllers/lot/lotController@LotController",
 		"softwaretycoon:out/client/components/game/lot@ClientLot": "client/components/game/lot@ClientLot",
 		"softwaretycoon:out/client/controllers/lot/lotController/init@LotController": "client/controllers/lot/lotController/init@LotController",
-		"softwaretycoon:out/client/controllers/lot/lotController/decorator.d.ts@OnOwnedLot": "client/controllers/lot/lotController/decorator.d.ts@OnOwnedLot"
+		"softwaretycoon:out/client/controllers/lot/lotController/decorator.d.ts@OnOwnedLot": "client/controllers/lot/lotController/decorator.d.ts@OnOwnedLot",
+		"softwaretycoon:out/client/controllers/test@TestController": "client/controllers/test@TestController"
 	}
 }
