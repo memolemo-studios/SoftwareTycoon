@@ -29,31 +29,30 @@ export = () => {
 			}).to.throw();
 		});
 
-		it("should throw if value is defined and the type is 'Some'", () => {
-			expect(() => {
-				assert(SerTypes.Option({ type: "Some" }));
-			}).to.throw();
+		it("should throw if value is nil and the type is 'Some'", () => {
+			expect(() => assert(SerTypes.Option({ type: "Some" }))).to.throw();
 		});
 
-		it("should throw if value is nil and the type is 'None'", () => {
-			expect(() => {
+		it("should throw if value is defined and the type is 'None'", () => {
+			expect(() =>
 				assert(
 					SerTypes.Option({
 						type: "None",
 						value: 23383289,
 					}),
-				);
-			}).to.throw();
+				),
+			).to.throw();
 		});
 	});
 
 	describe("Ser.Option serialize", () => {
 		it("should return exact value of serialized option", () => {
 			const res = Option.some(123);
-			expect(Serialize.option(res)).to.equal({
-				type: "Some",
-				value: 123,
-			});
+			expect(() => {
+				const serializeRes = Serialize.option(res);
+				assert(serializeRes.type === "Some");
+				assert(serializeRes.value === 123);
+			}).never.throw();
 		});
 
 		it("should return type 'Some' if option is some", () => {
@@ -86,10 +85,10 @@ export = () => {
 		});
 
 		it("should correctly set to specific 'Some' or 'None' type", () => {
-			expect(() => Deserialize.option({ type: "Some", value: "idk" }).isSome()).to.equal(true);
-			expect(() => Deserialize.option({ type: "None" }).isNone()).to.equal(true);
-			expect(() => Deserialize.option({ type: "Some", value: "idk" }).isNone()).to.equal(false);
-			expect(() => Deserialize.option({ type: "None" }).isSome()).to.equal(false);
+			expect(Deserialize.option({ type: "Some", value: "idk" }).isSome()).to.equal(true);
+			expect(Deserialize.option({ type: "None" }).isNone()).to.equal(true);
+			expect(Deserialize.option({ type: "Some", value: "idk" }).isNone()).to.equal(false);
+			expect(Deserialize.option({ type: "None" }).isSome()).to.equal(false);
 		});
 	});
 };

@@ -4,11 +4,11 @@ import { t } from "@rbxts/t";
 export namespace SerTypes {
 	export type Result<S = defined, V = defined> = { type: "Ok"; value: S } | { type: "Err"; value: V };
 	export const Result: t.check<Result> = t.union(
-		t.interface({
+		t.strictInterface({
 			type: t.literal("Ok"),
 			value: t.any,
 		}),
-		t.interface({
+		t.strictInterface({
 			type: t.literal("Err"),
 			value: t.any,
 		}),
@@ -16,10 +16,10 @@ export namespace SerTypes {
 
 	export type Option<T extends defined = defined> = { type: "None" } | { type: "Some"; value: T };
 	export const Option = t.union(
-		t.interface({
+		t.strictInterface({
 			type: t.literal("None"),
 		}),
-		t.interface({
+		t.strictInterface({
 			type: t.literal("Some"),
 			value: t.any,
 		}),

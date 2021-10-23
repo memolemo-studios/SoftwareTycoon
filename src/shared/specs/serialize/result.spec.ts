@@ -51,10 +51,11 @@ export = () => {
 	describe("Ser.Result serialize", () => {
 		it("should return exact value of serialized result", () => {
 			const res = Result.ok(123);
-			expect(Serialize.result(res)).to.equal({
-				type: "Ok",
-				value: 123,
-			});
+			expect(() => {
+				const result = Serialize.result(res);
+				assert(result.type === "Ok");
+				assert(result.value === 123);
+			}).never.throw();
 		});
 
 		it("should return type 'Ok' if result is ok", () => {
