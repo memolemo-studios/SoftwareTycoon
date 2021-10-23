@@ -2,7 +2,7 @@ import { Controller, Flamework, OnInit, OnStart, Reflect, Service } from "@flame
 import { Constructor } from "shared/types/class";
 import { Component, ComponentConfig } from "./decorator";
 import { DecoratorMetadata } from "shared/types/flamework";
-import { BaseComponent } from "./base";
+import { AnyBaseComponent, BaseComponent } from "./base";
 import { ComponentManager } from "./manager";
 import { Option, Result } from "@rbxts/rust-classes";
 
@@ -17,7 +17,7 @@ const component_key = `flamework:decorators.${Flamework.id<typeof Component>()}`
 export class Components implements OnInit, OnStart {
 	private componentManagers = new Map<string, ComponentManager>();
 
-	public getManagersFromTag<T extends BaseComponent = BaseComponent>(
+	public getManagersFromTag<T extends AnyBaseComponent = AnyBaseComponent>(
 		tag: string,
 	): Result<Array<ComponentManager<T>>, string> {
 		const managers_from_tag = new Array<ComponentManager<T>>();
@@ -32,7 +32,7 @@ export class Components implements OnInit, OnStart {
 		return Result.ok(managers_from_tag);
 	}
 
-	public getManager<T extends BaseComponent = BaseComponent>(className: string) {
+	public getManager<T extends AnyBaseComponent = AnyBaseComponent>(className: string) {
 		const component = this.componentManagers.get(className);
 		return Option.wrap(component as ComponentManager<T>);
 	}
@@ -41,7 +41,6 @@ export class Components implements OnInit, OnStart {
 	public onInit() {
 		for (const [_, obj] of Reflect.idToObj) {
 			const config = Reflect.getOwnMetadata<DecoratorMetadata<ComponentConfig>>(obj, component_key)?.arguments[0];
-
 			if (config) {
 				// to avoid overriding a component from the map
 				const component_name = tostring(obj);

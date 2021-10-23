@@ -5,12 +5,12 @@ import { Option, Result } from "@rbxts/rust-classes";
 import { CollectionService, RunService } from "@rbxts/services";
 import { Constructor } from "shared/types/class";
 import { Components } from ".";
-import { BaseComponent } from "./base";
+import { AnyBaseComponent, BaseComponent } from "./base";
 import { ComponentConfig } from "./decorator";
 
 type InferBaseComponentInstance<C extends BaseComponent> = C extends BaseComponent<infer I> ? I : never;
 
-export class ComponentManager<C extends BaseComponent = BaseComponent> {
+export class ComponentManager<C extends AnyBaseComponent = AnyBaseComponent> {
 	private components = new Array<C>();
 	private isStarted = false;
 
@@ -74,7 +74,7 @@ export class ComponentManager<C extends BaseComponent = BaseComponent> {
 			managers.push(manager.unwrap());
 		}
 
-		return managers.every((c) => c.getFromInstance(instance).isSome());
+		return managers.every((c: ComponentManager) => c.getFromInstance(instance).isSome());
 	}
 
 	private _isDescendantOfWhitelisted(instance: Instance) {
@@ -83,12 +83,12 @@ export class ComponentManager<C extends BaseComponent = BaseComponent> {
 			return true;
 		}
 
-		const whitelisted = this.config.withinDescendants.some((v) => instance.IsDescendantOf(v));
+		const whitelisted = this.config.withinDescendants.some(v => instance.IsDescendantOf(v));
 		return whitelisted;
 	}
 
 	private _removeComponentAsTagged(instance: Instance): Result<true, string> {
-		const componentIndex = this.components.findIndex((c) => c.instance === instance);
+		const componentIndex = this.components.findIndex(c => c.instance === instance);
 		if (componentIndex !== -1) return Result.err(`Cannot find: ${instance.GetFullName()}`);
 
 		// attempting to destroy that component, but be sure it is really exists
@@ -124,13 +124,13 @@ export class ComponentManager<C extends BaseComponent = BaseComponent> {
 		}
 
 		this.janitor.Add(
-			CollectionService.GetInstanceAddedSignal(this.config.tag!).Connect((tagged) => {
+			CollectionService.GetInstanceAddedSignal(this.config.tag!).Connect(tagged => {
 				this._addComponentAsTagged(tagged);
 			}),
 		);
 
 		this.janitor.Add(
-			CollectionService.GetInstanceRemovedSignal(this.config.tag!).Connect((tagged) => {
+			CollectionService.GetInstanceRemovedSignal(this.config.tag!).Connect(tagged => {
 				this._removeComponentAsTagged(tagged);
 			}),
 		);
@@ -167,7 +167,7 @@ export class ComponentManager<C extends BaseComponent = BaseComponent> {
 
 		if (this.doesHaveOnRender && RunService.IsClient()) {
 			this.componentJanitors.get(id)?.Add(
-				RunService.Stepped.Connect((dt) => {
+				RunService.Stepped.Connect(dt => {
 					(component as C & OnRender).onRender(dt);
 				}),
 			);
@@ -175,7 +175,7 @@ export class ComponentManager<C extends BaseComponent = BaseComponent> {
 
 		if (this.doesHaveOnTick) {
 			this.componentJanitors.get(id)?.Add(
-				RunService.Heartbeat.Connect((dt) => {
+				RunService.Heartbeat.Connect(dt => {
 					(component as C & OnTick).onTick(dt);
 				}),
 			);
@@ -187,7 +187,7 @@ export class ComponentManager<C extends BaseComponent = BaseComponent> {
 	}
 
 	public getFromInstance(instance: InferBaseComponentInstance<C>) {
-		return Option.wrap(this.components.filter((c) => c.instance === instance)[0]);
+		return Option.wrap(this.components.filter(c => c.instance === instance)[0]);
 	}
 
 	public addComponent(instance: InferBaseComponentInstance<C>) {
@@ -215,12 +215,12 @@ export class ComponentManager<C extends BaseComponent = BaseComponent> {
 
 	public observeInstance(instance: Instance) {
 		return this.getFromInstance(instance as InferBaseComponentInstance<C>).match(
-			(c) => Promise.resolve(c),
+			c => Promise.resolve(c),
 			() =>
 				new Promise<C>((resolve, onCancel) => {
 					let conn: RBXScriptConnection;
 					// eslint-disable-next-line prefer-const
-					conn = this.added.Connect((c) => {
+					conn = this.added.Connect(c => {
 						if (c.instance === instance) {
 							conn.Disconnect();
 							resolve(c);
