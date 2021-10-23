@@ -1,4 +1,5 @@
 import { RunService } from "@rbxts/services";
+import { t } from "@rbxts/t";
 import { $terrify } from "rbxts-transformer-t";
 
 export enum LotRequestErrors {
@@ -7,8 +8,9 @@ export enum LotRequestErrors {
 	NoVacantLots = "LOT_REQ_ERR_3",
 }
 
-export const isLotRequestErr = $terrify<LotRequestErrors>();
+export const isLotRequestErr = $terrify<LotRequestErrors>() as t.check<LotRequestErrors>;
 
+// error in typescript...
 export function lotRequestErrorWrapper(code: LotRequestErrors, isUI = false) {
 	switch (code) {
 		case LotRequestErrors.PlayerAlreadyOwned:

@@ -10,6 +10,9 @@
 		"softwaretycoon:out/shared/flamework/components/manager@ComponentManager": "shared/flamework/components/manager@ComponentManager",
 		"softwaretycoon:out/shared/flamework/components/init@Components": "shared/flamework/components/init@Components",
 		"softwaretycoon:out/server/services/lot/lotService@LotService": "server/services/lot/lotService@LotService",
-		"softwaretycoon:out/client/controllers/lot/lotController@LotController": "client/controllers/lot/lotController@LotController"
+		"softwaretycoon:out/client/controllers/lot/lotController@LotController": "client/controllers/lot/lotController@LotController",
+		"softwaretycoon:out/client/components/game/lot@ClientLot": "client/components/game/lot@ClientLot",
+		"softwaretycoon:out/client/controllers/lot/lotController/init@LotController": "client/controllers/lot/lotController/init@LotController",
+		"softwaretycoon:out/client/controllers/lot/lotController/decorator.d.ts@OnOwnedLot": "client/controllers/lot/lotController/decorator.d.ts@OnOwnedLot"
 	}
 }
