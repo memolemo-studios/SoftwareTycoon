@@ -142,7 +142,12 @@
   resolved "https://registry.yarnpkg.com/@rbxts/t/-/t-2.1.5.tgz#583d1feee5ca26dfae85254ebac0514316ed7c3e"
   integrity sha512-eH2faj6wh4IJnZaqLi0jSmbOmnSFndSXJbXNwobrNAKwmdzxvM64sSsHZ5v1R02BQXuZP/zUjKeL7WS2416pxQ==
 
-"@rbxts/types@^1.0.542":
+"@rbxts/testez@^0.3.1-ts.6":
+  version "0.3.1-ts.6"
+  resolved "https://registry.yarnpkg.com/@rbxts/testez/-/testez-0.3.1-ts.6.tgz#455c59c9e165164fb4c7d2ceb6a1229541e984f2"
+  integrity sha512-WiiRmYF1bvq4rgiXpzAgvgajZ+Iq49b+d0ki+WrqflUMuDTpUfBduqEWg1bS5t1KAZ22OHfH2pjeqwXwlaif8w==
+
+"@rbxts/types@^1.0.537", "@rbxts/types@^1.0.542":
   version "1.0.542"
   resolved "https://registry.yarnpkg.com/@rbxts/types/-/types-1.0.542.tgz#484cd4d0e649a138a5e146e70cb5657c35e0c8ce"
   integrity sha512-uZvLFKl2Se5Ocn4UL8djOjzmd4b45wQ5200T7WKKXQKsgOzgPf5cX2m2FFE+Tsj+uiSvpKktgbnuoJX44ehnkQ==
@@ -254,6 +259,16 @@ acorn@^8.5.0:
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.5.0.tgz#4512ccb99b3698c752591e9bb4472e38ad43cee2"
   integrity sha512-yXbYeFy+jUuYd3/CDcg2NkIYE991XYX/bje7LmjJigUciaeO1JR4XxXgCIV1/Zc/dRuFEyw1L0pbA+qynJkW5Q==
 
+ajv@8.6.3, ajv@^8.6.3:
+  version "8.6.3"
+  resolved "https://registry.yarnpkg.com/ajv/-/ajv-8.6.3.tgz#11a66527761dc3e9a3845ea775d2d3c0414e8764"
+  integrity sha512-SMJOdDP6LqTkD0Uq8qLi+gMwSt0imXLSV080qFVwJCpH9U6Mb+SUGHAXM0KNbcBPguytWyvFxcHgMLe2D2XSpw==
+  dependencies:
+    fast-deep-equal "^3.1.1"
+    json-schema-traverse "^1.0.0"
+    require-from-string "^2.0.2"
+    uri-js "^4.2.2"
+
 ajv@^6.10.0, ajv@^6.12.4, ajv@^6.12.6:
   version "6.12.6"
   resolved "https://registry.yarnpkg.com/ajv/-/ajv-6.12.6.tgz#baf5a62e802b07d977034586f8c3baf5adf26df4"
@@ -262,16 +277,6 @@ ajv@^6.10.0, ajv@^6.12.4, ajv@^6.12.6:
     fast-deep-equal "^3.1.1"
     fast-json-stable-stringify "^2.0.0"
     json-schema-traverse "^0.4.1"
-    uri-js "^4.2.2"
-
-ajv@^8.6.3:
-  version "8.6.3"
-  resolved "https://registry.yarnpkg.com/ajv/-/ajv-8.6.3.tgz#11a66527761dc3e9a3845ea775d2d3c0414e8764"
-  integrity sha512-SMJOdDP6LqTkD0Uq8qLi+gMwSt0imXLSV080qFVwJCpH9U6Mb+SUGHAXM0KNbcBPguytWyvFxcHgMLe2D2XSpw==
-  dependencies:
-    fast-deep-equal "^3.1.1"
-    json-schema-traverse "^1.0.0"
-    require-from-string "^2.0.2"
     uri-js "^4.2.2"
 
 ansi-colors@^4.1.1:
@@ -1149,6 +1154,17 @@ rbxts-transformer-flamework@^1.0.0-beta.7:
     typescript "^4.3.5"
     uuid "^8.3.2"
 
+rbxts-transformer-fs@^1.1.0-rc.5:
+  version "1.1.0-rc.5"
+  resolved "https://registry.yarnpkg.com/rbxts-transformer-fs/-/rbxts-transformer-fs-1.1.0-rc.5.tgz#26b3f3a4c659a944125a7d5c9c0b8fd0725aaf40"
+  integrity sha512-xHyLMqmSI3qLSB8McKW1nt6QO1S1b1+iIHOqjwhBAY5X7el+vMpSCBTFrehA6znvYayTN5YiWbC/1PU4LZ8DbQ==
+  dependencies:
+    "@rbxts/types" "^1.0.537"
+    ajv "8.6.3"
+    ansi-colors "^4.1.1"
+    fs-extra "^10.0.0"
+    typescript "=4.3.5"
+
 rbxts-transformer-t@^1.1.4:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/rbxts-transformer-t/-/rbxts-transformer-t-1.1.4.tgz#d6e7d3855bd9e1c3470c5264f97261e6fa73edf2"
@@ -1350,7 +1366,7 @@ type-fest@^0.20.2:
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.20.2.tgz#1bf207f4b28f91583666cb5fbd327887301cd5f4"
   integrity sha512-Ne+eE4r0/iWnpAxD852z3A+N0Bt5RN//NjJwRd2VFHEmrywxf5vsZlh4R6lixl6B+wz/8d+maTSAkN1FIkI3LQ==
 
-typescript@=4.4.4, typescript@^4.2.3, typescript@^4.3.5, typescript@^4.4.4:
+typescript@=4.3.5, typescript@=4.4.4, typescript@^4.2.3, typescript@^4.3.5, typescript@^4.4.4:
   version "4.4.4"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.4.4.tgz#2cd01a1a1f160704d3101fd5a58ff0f9fcb8030c"
   integrity sha512-DqGhF5IKoBl8WNf8C1gu8q0xZSInh9j1kJJMqT3a94w1JzVaBU4EXOSMrz9yDqMT0xt3selp83fuFMQ0uzv6qA==

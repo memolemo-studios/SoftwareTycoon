@@ -38,6 +38,8 @@
     "@rbxts/rust-classes": "^0.11.0-beta.1",
     "@rbxts/services": "^1.2.0",
     "@rbxts/t": "^2.1.5",
+    "@rbxts/testez": "^0.3.1-ts.6",
+    "rbxts-transformer-fs": "^1.1.0-rc.5",
     "rbxts-transformer-t": "^1.1.4"
   }
 }

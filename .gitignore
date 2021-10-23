@@ -3,6 +3,9 @@
 /out
 /include
 
+# Environment secrets
+.env
+
 # Logs
 *.tsbuildinfo
 *.log
