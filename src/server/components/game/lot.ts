@@ -24,4 +24,9 @@ export class ServerLot extends SharedLot implements OnInit {
 		Dependency<LotService>().onOwnedLotEvent.SendToAllPlayers(player.UserId, this.getComponentId());
 		return Result.ok(true);
 	}
+
+	public cleanup() {
+		this.janitor.Cleanup();
+		this.attributes.delete("Owner");
+	}
 }

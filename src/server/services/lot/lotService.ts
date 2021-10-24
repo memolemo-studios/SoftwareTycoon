@@ -8,9 +8,10 @@ import { ComponentManager } from "shared/flamework/components/manager";
 import { Serialize, SerTypes } from "shared/replication/serialize";
 import { LotRequestErrors } from "shared/types/enums/errors/lotErrors";
 import { getRandomArrayMember } from "shared/util/array";
+import { OnPlayerLeft } from "../player/service/decorator";
 
 @Service({})
-export class LotService implements OnStart, OnInit {
+export class LotService implements OnStart, OnInit, OnPlayerLeft {
 	private logger = Log.ForContext(LotService);
 	private component!: ComponentManager<ServerLot>;
 
@@ -21,6 +22,13 @@ export class LotService implements OnStart, OnInit {
 		this.requestLotRemote.SetCallback((player: Player): SerTypes.Result<string, LotRequestErrors> => {
 			return Serialize.result(this.assignPlayerToLot(player));
 		});
+	}
+
+	public onPlayerLeft(player: Player) {
+		this.getLotFromPlayer(player).match(
+			lot => lot.cleanup(),
+			() => {},
+		);
 	}
 
 	public onStart() {
