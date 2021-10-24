@@ -122,6 +122,11 @@
   resolved "https://registry.yarnpkg.com/@rbxts/object-utils/-/object-utils-1.0.4.tgz#c53d80f89e75c401365446be63fa1396bc2cffe7"
   integrity sha512-dLLhf022ipV+9i910sOE7kl9losKHoon0WgeerHqVMQA5EYsLUsVT2AxhJuhk8MiDn5oJ2GiFofE/LadY9TpJQ==
 
+"@rbxts/profileservice@^1.4.1":
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/@rbxts/profileservice/-/profileservice-1.4.1.tgz#892c41afa40b77677da9b9684cb18360a88c5073"
+  integrity sha512-cB9+hz7EOaqMKMDLrYE/aSzN2+hNlOBgmJTRdFwbZJ/EsJVqXVwaNx4REh+b6doqlnkPv6O2VIKP9LC2WypeYA==
+
 "@rbxts/rust-classes@^0.11.0-beta.1":
   version "0.11.0-beta.1"
   resolved "https://registry.yarnpkg.com/@rbxts/rust-classes/-/rust-classes-0.11.0-beta.1.tgz#6fb82c3f02950104030615b0bcc5c73b6e39566c"
