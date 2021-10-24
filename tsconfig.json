@@ -32,8 +32,9 @@
     // transformers
     "plugins": [
       { "transform": "rbxts-transformer-flamework" },
-      { "transform": "rbxts-transformer-fs" },
-      { "transform": "rbxts-transformer-t" }
+      { "transform": "rbxts-transform-env" },
+      { "transform": "rbxts-transformer-t" },
+      { "transform": "rbxts-transformer-fs" }
     ]
 	}
 }

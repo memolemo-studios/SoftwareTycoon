@@ -2,7 +2,8 @@
 
 import { RunService } from "@rbxts/services";
 import { TestBootstrap } from "@rbxts/testez";
-import { $instance, $resolveFile } from "rbxts-transformer-fs";
+import { $ifEnv, $env } from "rbxts-transform-env";
+import { $instance } from "rbxts-transformer-fs";
 
 function performBootstrap() {
 	if (RunService.IsStudio()) {
@@ -10,6 +11,4 @@ function performBootstrap() {
 	}
 }
 
-// rbxts-transform-env broke in typescript 4.4.4
-// so here's my temporary solution using my transformer
-$resolveFile("../../.env", performBootstrap, () => {});
+$ifEnv("UNIT_TEST", "true", () => performBootstrap());
