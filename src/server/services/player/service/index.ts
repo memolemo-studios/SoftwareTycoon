@@ -4,14 +4,19 @@ import Log from "@rbxts/log";
 import { Option } from "@rbxts/rust-classes";
 import { Players } from "@rbxts/services";
 import PlayerEntity from "server/classes/player/entity";
+import { PlayerDataProfile } from "shared/data/types";
+import { PlayerDataErrors } from "shared/types/enums/errors/dataErrors";
 import { PlayerDataService } from "../dataService";
+import { PlayerKickService } from "../kickService";
 import { OnPlayerJoined, OnPlayerLeft } from "./decorator";
 
 @Service({})
 export class PlayerService implements OnInit, OnStart {
 	private logger = Log.ForContext(PlayerService);
-	private dataService = Dependency<PlayerDataService>();
 	private entityPerPlayer = new Map<Player, PlayerEntity>();
+
+	private dataService = Dependency<PlayerDataService>();
+	private kickService = Dependency<PlayerKickService>();
 
 	private connectedOnJoinedObjs = new Map<string, OnPlayerJoined>();
 	private connectedOnLeftObjs = new Map<string, OnPlayerLeft>();
@@ -24,21 +29,31 @@ export class PlayerService implements OnInit, OnStart {
 		this.connectedOnJoinedObjs.forEach(v => task.spawn((e: PlayerEntity) => v.onPlayerJoined(e), entity));
 	}
 
+	private loadPlayerWithProfile(player: Player, profile: PlayerDataProfile) {
+		const janitor = new Janitor();
+		const entity = new PlayerEntity(player, janitor, profile);
+
+		janitor.Add(() => profile.Release());
+		this.entityPerPlayer.set(player, entity);
+		this.callConnectedOnJoinObjs(entity);
+	}
+
 	private onPlayerAdded(player: Player) {
 		// load player's profile
 		this.logger.Info("{@Player} joined the game", player);
 		return this.dataService
 			.loadPlayerProfile(player)
-			.then(res => res.unwrap())
-			.then(profile => {
-				const janitor = new Janitor();
-				const entity = new PlayerEntity(player, janitor, profile);
-
-				janitor.Add(() => profile.Release());
-				this.entityPerPlayer.set(player, entity);
-				this.callConnectedOnJoinObjs(entity);
+			.then(res => {
+				if (res.isErr()) {
+					// kick the player
+					return this.kickService.kickPlayerForError(player, res.unwrapErr());
+				}
+				this.loadPlayerWithProfile(player, res.unwrap());
 			})
-			.catch(warn);
+			.catch(reason => {
+				warn(reason);
+				this.kickService.kickPlayerForError(player, PlayerDataErrors.FailedToLoad);
+			});
 	}
 
 	private onPlayerRemoving(player: Player) {

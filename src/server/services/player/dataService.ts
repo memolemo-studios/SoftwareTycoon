@@ -1,4 +1,4 @@
-import { Service } from "@flamework/core";
+import { Dependency, Service } from "@flamework/core";
 import Log from "@rbxts/log";
 import ProfileService from "@rbxts/profileservice";
 import { Result } from "@rbxts/rust-classes";
@@ -6,11 +6,14 @@ import { Players } from "@rbxts/services";
 import { DefaultPlayerData } from "shared/data/defaults";
 import { PlayerDataProfile } from "shared/data/types";
 import { PlayerDataErrors } from "shared/types/enums/errors/dataErrors";
+import { PlayerKickService } from "./kickService";
 
 @Service({})
 export class PlayerDataService {
 	private logger = Log.ForContext(PlayerDataService);
 	private profileStore = ProfileService.GetProfileStore("PlayerData", DefaultPlayerData);
+
+	private kickService = Dependency<PlayerKickService>();
 
 	public async loadPlayerProfile(player: Player): Promise<Result<PlayerDataProfile, PlayerDataErrors>> {
 		const data_key = tostring(player.UserId);
@@ -26,7 +29,6 @@ export class PlayerDataService {
 		// the player left before the profile could be loaded
 		if (!player.IsDescendantOf(Players)) {
 			profile.Release();
-			this.logger.Info(`${player.UserId} left the game`);
 			return Result.err(PlayerDataErrors.PlayerLeftGame);
 		}
 
@@ -39,6 +41,9 @@ export class PlayerDataService {
 		// session locking
 		profile.ListenToRelease(() => {
 			if (!player.IsDescendantOf(Players)) return;
+
+			// kick the player for session locking!
+			this.kickService.kickPlayerForError(player, PlayerDataErrors.SessionLocked);
 		});
 
 		return Result.ok(profile);
