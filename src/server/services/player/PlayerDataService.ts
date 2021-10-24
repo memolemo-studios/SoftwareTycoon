@@ -1,19 +1,27 @@
-import { Dependency, Service } from "@flamework/core";
+import { Dependency, OnInit, Service } from "@flamework/core";
 import Log from "@rbxts/log";
 import ProfileService from "@rbxts/profileservice";
 import { Result } from "@rbxts/rust-classes";
-import { Players } from "@rbxts/services";
+import { Players, RunService } from "@rbxts/services";
 import { DefaultPlayerData } from "shared/data/defaults";
 import { PlayerDataProfile } from "shared/data/types";
 import { PlayerDataErrors } from "shared/types/enums/errors/dataErrors";
 import { PlayerKickService } from "./PlayerKickService";
 
 @Service({})
-export class PlayerDataService {
+export class PlayerDataService implements OnInit {
 	private logger = Log.ForContext(PlayerDataService);
 	private profileStore = ProfileService.GetProfileStore("PlayerData", DefaultPlayerData);
 
 	private kickService = Dependency<PlayerKickService>();
+
+	/** @hidden */
+	public onInit() {
+		// use mock if it is in studio
+		if (RunService.IsStudio()) {
+			this.profileStore = this.profileStore.Mock;
+		}
+	}
 
 	public async loadPlayerProfile(player: Player): Promise<Result<PlayerDataProfile, PlayerDataErrors>> {
 		const data_key = tostring(player.UserId);
