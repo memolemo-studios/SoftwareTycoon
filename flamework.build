@@ -2,21 +2,21 @@
 	"version": 1,
 	"flameworkVersion": "1.0.0-beta.7",
 	"identifiers": {
-		"softwaretycoon:out/shared/flamework/components/base@BaseComponent": "shared/flamework/components/base@BaseComponent",
+		"softwaretycoon:out/shared/flamework/Components/base@BaseComponent": "shared/flamework/Components/base@BaseComponent",
 		"softwaretycoon:out/shared/components/game/lot@SharedLot": "shared/components/game/lot@SharedLot",
-		"softwaretycoon:out/shared/flamework/components/decorator.d.ts@Component": "shared/flamework/components/decorator.d.ts@Component",
+		"softwaretycoon:out/shared/flamework/Components/decorator.d.ts@Component": "shared/flamework/Components/decorator.d.ts@Component",
 		"softwaretycoon:out/client/components/game/lot@ClientLot": "client/components/game/lot@ClientLot",
-		"softwaretycoon:out/shared/flamework/components/manager@ComponentManager": "shared/flamework/components/manager@ComponentManager",
-		"softwaretycoon:out/shared/flamework/components/init@Components": "shared/flamework/components/init@Components",
-		"softwaretycoon:out/client/controllers/lot/lotController/init@LotController": "client/controllers/lot/lotController/init@LotController",
+		"softwaretycoon:out/shared/flamework/Components/manager@ComponentManager": "shared/flamework/Components/manager@ComponentManager",
+		"softwaretycoon:out/shared/flamework/Components/init@Components": "shared/flamework/Components/init@Components",
+		"softwaretycoon:out/client/controllers/lot/LotController/init@LotController": "client/controllers/lot/LotController/init@LotController",
 		"softwaretycoon:out/server/classes/player/entity@PlayerEntity": "server/classes/player/entity@PlayerEntity",
-		"softwaretycoon:out/server/services/lot/lotService@LotService": "server/services/lot/lotService@LotService",
+		"softwaretycoon:out/server/services/lot/LotService@LotService": "server/services/lot/LotService@LotService",
 		"softwaretycoon:out/server/components/game/lot@ServerLot": "server/components/game/lot@ServerLot",
-		"softwaretycoon:out/server/services/player/kickService@PlayerKickService": "server/services/player/kickService@PlayerKickService",
-		"softwaretycoon:out/server/services/player/dataService@PlayerDataService": "server/services/player/dataService@PlayerDataService",
-		"softwaretycoon:out/server/services/player/service/init@PlayerService": "server/services/player/service/init@PlayerService",
-		"softwaretycoon:out/client/controllers/lot/lotController/decorator.d.ts@OnOwnedLot": "client/controllers/lot/lotController/decorator.d.ts@OnOwnedLot",
-		"softwaretycoon:out/server/services/player/service/decorator.d.ts@OnPlayerLeft": "server/services/player/service/decorator.d.ts@OnPlayerLeft",
-		"softwaretycoon:out/server/services/player/service/decorator.d.ts@OnPlayerJoined": "server/services/player/service/decorator.d.ts@OnPlayerJoined"
+		"softwaretycoon:out/server/services/player/PlayerKickService@PlayerKickService": "server/services/player/PlayerKickService@PlayerKickService",
+		"softwaretycoon:out/server/services/player/PlayerDataService@PlayerDataService": "server/services/player/PlayerDataService@PlayerDataService",
+		"softwaretycoon:out/server/services/player/PlayerService/init@PlayerService": "server/services/player/PlayerService/init@PlayerService",
+		"softwaretycoon:out/client/controllers/lot/LotController/decorator.d.ts@OnOwnedLot": "client/controllers/lot/LotController/decorator.d.ts@OnOwnedLot",
+		"softwaretycoon:out/server/services/player/PlayerService/decorator.d.ts@OnPlayerLeft": "server/services/player/PlayerService/decorator.d.ts@OnPlayerLeft",
+		"softwaretycoon:out/server/services/player/PlayerService/decorator.d.ts@OnPlayerJoined": "server/services/player/PlayerService/decorator.d.ts@OnPlayerJoined"
 	}
 }

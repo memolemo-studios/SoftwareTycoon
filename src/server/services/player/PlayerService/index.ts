@@ -6,8 +6,8 @@ import { Players } from "@rbxts/services";
 import PlayerEntity from "server/classes/player/entity";
 import { PlayerDataProfile } from "shared/data/types";
 import { PlayerDataErrors } from "shared/types/enums/errors/dataErrors";
-import { PlayerDataService } from "../dataService";
-import { PlayerKickService } from "../kickService";
+import { PlayerDataService } from "../PlayerDataService";
+import { PlayerKickService } from "../PlayerKickService";
 import { OnPlayerJoined, OnPlayerLeft } from "./decorator";
 
 @Service({})

@@ -1,8 +1,8 @@
 import { Option } from "@rbxts/rust-classes";
 import { Players, Workspace } from "@rbxts/services";
 import { t } from "@rbxts/t";
-import { BaseComponent } from "shared/flamework/components/base";
-import { Component } from "shared/flamework/components/decorator";
+import { BaseComponent } from "shared/flamework/Components/base";
+import { Component } from "shared/flamework/Components/decorator";
 import { LotAttributes, LotModel } from "shared/types/game";
 
 @Component({
