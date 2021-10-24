@@ -41,9 +41,7 @@ export class LotController implements OnStart, OnInit {
 
 	public onInit() {
 		// eslint-disable-next-line prettier/prettier
-		this.component = Dependency<Components>()
-			.getManager<ClientLot>("ClientLot")
-			.expect("'ClientLot' not found");
+		this.component = Dependency<Components>().getManager<ClientLot>("ClientLot").expect("'ClientLot' not found");
 	}
 
 	public onStart() {

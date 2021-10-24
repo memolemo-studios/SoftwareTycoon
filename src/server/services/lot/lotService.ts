@@ -32,10 +32,7 @@ export class LotService implements OnStart, OnInit, OnPlayerLeft {
 	}
 
 	public onStart() {
-		// eslint-disable-next-line prettier/prettier
-		this.component = Dependency<Components>()
-			.getManager<ServerLot>("ServerLot")
-			.expect("'ServerLot' not found");
+		this.component = Dependency<Components>().getManager<ServerLot>("ServerLot").expect("'ServerLot' not found");
 
 		// warn the server if lot components are not there
 		if (this.getVacantLots().isErr()) {
