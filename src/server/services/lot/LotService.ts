@@ -3,12 +3,12 @@ import Log from "@rbxts/log";
 import { Option, Result } from "@rbxts/rust-classes";
 import { ServerLot } from "server/components/game/lot";
 import { Remotes } from "server/events";
-import { Components } from "shared/flamework/components";
-import { ComponentManager } from "shared/flamework/components/manager";
+import { Components } from "shared/flamework/Components";
+import { ComponentManager } from "shared/flamework/Components/manager";
 import { Serialize, SerTypes } from "shared/replication/serialize";
 import { LotRequestErrors } from "shared/types/enums/errors/lotErrors";
 import { getRandomArrayMember } from "shared/util/array";
-import { OnPlayerLeft } from "../player/service/decorator";
+import { OnPlayerLeft } from "../player/PlayerService/decorator";
 
 @Service({})
 export class LotService implements OnStart, OnInit, OnPlayerLeft {

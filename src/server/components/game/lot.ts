@@ -1,9 +1,9 @@
 import { Dependency, OnInit } from "@flamework/core";
 import { Result } from "@rbxts/rust-classes";
 import { HttpService, Workspace } from "@rbxts/services";
-import { LotService } from "server/services/lot/lotService";
+import { LotService } from "server/services/lot/LotService";
 import { SharedLot } from "shared/components/game/lot";
-import { Component } from "shared/flamework/components/decorator";
+import { Component } from "shared/flamework/Components/decorator";
 import { LotRequestErrors } from "shared/types/enums/errors/lotErrors";
 
 @Component({

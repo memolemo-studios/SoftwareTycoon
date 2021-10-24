@@ -6,7 +6,7 @@ import { Players } from "@rbxts/services";
 import { DefaultPlayerData } from "shared/data/defaults";
 import { PlayerDataProfile } from "shared/data/types";
 import { PlayerDataErrors } from "shared/types/enums/errors/dataErrors";
-import { PlayerKickService } from "./kickService";
+import { PlayerKickService } from "./PlayerKickService";
 
 @Service({})
 export class PlayerDataService {
