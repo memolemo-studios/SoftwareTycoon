@@ -12,6 +12,7 @@
 		"softwaretycoon:out/server/classes/player/entity@PlayerEntity": "server/classes/player/entity@PlayerEntity",
 		"softwaretycoon:out/server/services/lot/lotService@LotService": "server/services/lot/lotService@LotService",
 		"softwaretycoon:out/server/components/game/lot@ServerLot": "server/components/game/lot@ServerLot",
+		"softwaretycoon:out/server/services/player/kickService@PlayerKickService": "server/services/player/kickService@PlayerKickService",
 		"softwaretycoon:out/server/services/player/dataService@PlayerDataService": "server/services/player/dataService@PlayerDataService",
 		"softwaretycoon:out/server/services/player/service/init@PlayerService": "server/services/player/service/init@PlayerService",
 		"softwaretycoon:out/client/controllers/lot/lotController/decorator.d.ts@OnOwnedLot": "client/controllers/lot/lotController/decorator.d.ts@OnOwnedLot",
