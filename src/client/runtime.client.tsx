@@ -19,7 +19,9 @@ Log.Info("Mounting Roact UI");
 
 const element = (
 	<StoreProvider store={ClientStore}>
-		<GameStart />
+		<screengui ResetOnSpawn={true}>
+			<GameStart />
+		</screengui>
 	</StoreProvider>
 );
 
