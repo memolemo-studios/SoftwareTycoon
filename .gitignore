@@ -10,6 +10,9 @@
 *.tsbuildinfo
 *.log
 
+# Game secrets
+/publish.sh
+
 # Built files
 build.rbxlx
 build.rbxlx.lock
