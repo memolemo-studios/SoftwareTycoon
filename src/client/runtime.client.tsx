@@ -11,7 +11,6 @@ Log.SetLogger(
 		.EnrichWithProperty("$VERSION", PKG_VERSION)
 		.SetMinLogLevel(RunService.IsStudio() ? LogLevel.Verbose : LogLevel.Information)
 		.WriteTo(Log.RobloxOutput())
-		.WriteTo(Log.RobloxOutput())
 		.Create(),
 );
 
