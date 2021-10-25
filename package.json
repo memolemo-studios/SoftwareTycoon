@@ -6,6 +6,7 @@
   "scripts": {
     "build": "rojo build -o ./build.rbxlx",
     "compile": "rbxtsc --verbose",
+    "extract-assets": "remodel run ./scripts/extractAssets.lua",
     "lint-eslint": "eslint \"src/**/*.*\"",
     "lint-prettier": "prettier --check \"src/**/*.*\"",
     "lint-fix": "eslint --fix \"src/**/*.*\" && prettier --write \"src/**/*.*\"",

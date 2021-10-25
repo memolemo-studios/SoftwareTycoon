@@ -1,9 +1,0 @@
-{
-  "className": "Lighting",
-  "properties": {
-    "Ambient": {
-      "Type": "Color3",
-      "Value": [255, 255, 255]
-    }
-  }
-}
