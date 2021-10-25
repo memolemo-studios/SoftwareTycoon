@@ -1,5 +1,5 @@
 # Taken from roblox-ts under the MIT license https://github.com/roblox-ts/roblox-ts/blob/master/.github/workflows/publish.yml
-name: Deploy
+name: Publish
 
 on:
   pull_request:
@@ -21,7 +21,7 @@ jobs:
       - name: Compile game
         run: make game
 
-      - name: Deploy game
+      - name: Publish game
         run: |
           git rev-parse --abbrev-ref HEAD >> current_branch
           yarn deploy --auth $ROBLOSECURITY
