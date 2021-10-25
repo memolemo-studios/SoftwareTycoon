@@ -34,8 +34,12 @@ export default class FadeBackgroundFrame extends Component<Props> {
 		this.updateBackground();
 	}
 
+	public canBeVisible() {
+		return (this.props.visible === undefined ? false : this.props.visible) === true ? 0 : 1;
+	}
+
 	public updateBackground() {
-		const constant_value = (this.props.visible === undefined ? false : this.props.visible) === true ? 0 : 1;
+		const constant_value = this.canBeVisible();
 		this.motor.setGoal(
 			this.props.tweenMethod === "Linear"
 				? new Linear(constant_value, { velocity: this.props.linearProps?.speed })
