@@ -30,6 +30,6 @@ jobs:
       - name: Publish game
         run: |
           git rev-parse --abbrev-ref HEAD >> current_branch
-          yarn deploy --auth $ROBLOSECURITY
+          yarn deploy 
         env:
-          ROBLOSECURITY: ${{ secrets.PUBLISHER_RBX_TOKEN }}
+          REMODEL_AUTH: ${{ secrets.PUBLISHER_RBX_TOKEN }}
