@@ -9,14 +9,18 @@ import { AppState } from "shared/types/enums/store/apps";
 interface Props extends MappedProps, MappedDispatch {}
 
 interface MappedProps {
-	visible: boolean;
+	currentState: AppState;
 }
 
 interface MappedDispatch {}
 
+interface State {
+	rendered: boolean;
+}
+
 const mapStateToProps = (state: ClientStoreState): MappedProps => {
 	return {
-		visible: state.app.state === AppState.GameStart,
+		currentState: state.app.state,
 	};
 };
 
@@ -28,10 +32,25 @@ const GameStart = connect(
 	mapStateToProps,
 	mapDispatchToProps,
 )(
-	class extends Component<Props> {
+	class extends Component<Props, State> {
+		public constructor(props: Props) {
+			super(props);
+			this.setState({ rendered: this.canBeSeen() });
+		}
+
+		public canBeSeen() {
+			return this.props.currentState === AppState.GameStart;
+		}
+
+		public didUpdate(lastProps: Props, lastState: State) {
+			if (this.props.currentState !== lastProps.currentState || lastState.rendered !== this.state.rendered) {
+				this.setState({ rendered: this.canBeSeen() });
+			}
+		}
+
 		public render() {
 			return (
-				<FadeBackgroundFrame color={new Color3()} tweenMethod="Linear" visible={this.props.visible}>
+				<FadeBackgroundFrame color={new Color3()} tweenMethod="Linear" visible={this.state.rendered}>
 					{withTransparency(alpha => (
 						<textlabel
 							BackgroundTransparency={1}

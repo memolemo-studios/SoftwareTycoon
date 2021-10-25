@@ -3,6 +3,8 @@ import Log, { Logger, LogLevel } from "@rbxts/log";
 import Roact, { mount } from "@rbxts/roact";
 import { StoreProvider } from "@rbxts/roact-rodux";
 import { Players, RunService } from "@rbxts/services";
+import { $NODE_ENV } from "rbxts-transform-env";
+import { AppState } from "shared/types/enums/store/apps";
 import GameStart from "./apps/gameStart";
 import { ClientStore } from "./store/store";
 
@@ -35,3 +37,11 @@ Flamework.addPaths("src/client/components", "src/shared/flamework", "src/client/
 Flamework.ignite();
 
 Log.Info("Flamework is now initialized");
+
+// only use the main one if $NODE_ENV is development
+ClientStore.dispatch({
+	type: "set_app_state",
+
+	// main menu screen
+	newState: $NODE_ENV === "development" ? AppState.Main : AppState.Main,
+});
