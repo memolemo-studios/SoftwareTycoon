@@ -8,6 +8,7 @@ on:
 
 jobs:
   publish:
+    if: github.repository == 'roblox-ts/roblox-ts' && github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -17,7 +18,7 @@ jobs:
         uses: bahmutov/npm-install@v1.7.4
 
       - name: Compile game
-        uses: make game
+        run: make game
 
       - name: Deploy game
         run: yarn deploy --auth $ROBLOSECURITY
