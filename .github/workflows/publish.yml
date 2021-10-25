@@ -9,7 +9,7 @@ on:
 
 jobs:
   publish:
-    if: github.repository == 'memolemo-studios/SoftwareTycoon' && github.ref == 'refs/heads/master' || github.ref == "refs/heads/release"
+    if: github.repository == 'memolemo-studios/SoftwareTycoon' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/release')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
