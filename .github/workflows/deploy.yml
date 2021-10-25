@@ -1,3 +1,4 @@
+# Taken from roblox-ts under the MIT license https://github.com/roblox-ts/roblox-ts/blob/master/.github/workflows/publish.yml
 name: Deploy
 
 on:
@@ -8,7 +9,7 @@ on:
 
 jobs:
   publish:
-    if: github.repository == 'roblox-ts/roblox-ts' && github.ref == 'refs/heads/master'
+    if: github.repository == 'memolemo-studios/SoftwareTycoon' && (github.ref == 'refs/heads/master' || github.ref == "refs/heads/release")
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -21,7 +22,8 @@ jobs:
         run: make game
 
       - name: Deploy game
-        run: yarn deploy --auth $ROBLOSECURITY
+        run: |
+          git rev-parse --abbrev-ref HEAD >> current_branch
+          yarn deploy --auth $ROBLOSECURITY
         env:
           ROBLOSECURITY: ${{ secrets.PUBLISHER_RBX_TOKEN }}
-          
