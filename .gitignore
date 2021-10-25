@@ -10,6 +10,9 @@
 *.tsbuildinfo
 *.log
 
+# Temporary files
+current_branch
+
 # Game secrets
 /publish.sh
 
