@@ -2,7 +2,7 @@ import { $terrify } from "rbxts-transformer-t";
 
 export const enum AppState {
 	GameStart = "GAME_START",
-	Main = "Main",
+	Main = "MAIN",
 }
 
 export const appStateCheck = $terrify<AppState>();
