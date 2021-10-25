@@ -12,5 +12,9 @@
 	"typescript.tsdk": "node_modules/typescript/lib",
 	"robloxLsp.diagnostics.disable": [
 		"unused-local"
+	],
+	"robloxLsp.diagnostics.globals": [
+		"remodel",
+		"json"
 	]
 }

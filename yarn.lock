@@ -80,6 +80,11 @@
   resolved "https://registry.yarnpkg.com/@rbxts/compiler-types/-/compiler-types-1.2.3-types.1.tgz#d7945531c917d62bafadd2b5aa6c2f2e88a2036a"
   integrity sha512-SXXIBazyJ7N6d2xcy471/kqZZpCv7EDOWrRJ45jcv3g00VQaZwYl4Elr10woqRloIblQanwJ7yUqGXAsWv7iuQ==
 
+"@rbxts/flipper@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@rbxts/flipper/-/flipper-2.0.1.tgz#25bd840441055da419c234a9d045309e40ac3ad2"
+  integrity sha512-kxb5AZizP05XSmo3waS/QkcfNMD5b6HX4gGwyHOyBow260R5MIT4L/ZUPLvleXXyb9b67X4NVmHoac1tPXOLNA==
+
 "@rbxts/goodsignal@^0.2.0":
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/@rbxts/goodsignal/-/goodsignal-0.2.0.tgz#15e4853fc9c93bff9ec3f5faaeb7d5e04e2035ad"
@@ -126,6 +131,26 @@
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/@rbxts/profileservice/-/profileservice-1.4.1.tgz#892c41afa40b77677da9b9684cb18360a88c5073"
   integrity sha512-cB9+hz7EOaqMKMDLrYE/aSzN2+hNlOBgmJTRdFwbZJ/EsJVqXVwaNx4REh+b6doqlnkPv6O2VIKP9LC2WypeYA==
+
+"@rbxts/roact-hooks@^0.3.0-ts.2":
+  version "0.3.0-ts.2"
+  resolved "https://registry.yarnpkg.com/@rbxts/roact-hooks/-/roact-hooks-0.3.0-ts.2.tgz#dd80ac363aba94a99e48ffc74bb9d9a9186814df"
+  integrity sha512-k8rbqVAp9ZCIJ5EG/dY/UoQsN66o8s/Yc8GvDRqXkacGbf8u0In0ktyatXE3QZUljFf5IUyiBZuaSbbqGdnDfg==
+
+"@rbxts/roact-rodux@^0.2.2-ts.5":
+  version "0.2.2-ts.5"
+  resolved "https://registry.yarnpkg.com/@rbxts/roact-rodux/-/roact-rodux-0.2.2-ts.5.tgz#200b828c105ff8e2750dda7cb0d4a3db2e6ae819"
+  integrity sha512-WzWpKuZLeUEKJG7dR8Zog1MKQlvz6zA2/GhF0N0wkzvZll2CU8CfhKFRHkMwkLjBLSe69sKDveYo+hBjN3Zl+Q==
+
+"@rbxts/roact@^1.4.0-ts.2":
+  version "1.4.0-ts.2"
+  resolved "https://registry.yarnpkg.com/@rbxts/roact/-/roact-1.4.0-ts.2.tgz#4b8c6067f71638b10fd27f9482204838296dbe7f"
+  integrity sha512-JnbezUhKiVs8ID0cjjmYeGdf4N/Uao8BEMqNQSHUjOOKAI1GVBW2txRE3wUD3Svmw2PMtgCUJAa4mLEKutsQiA==
+
+"@rbxts/rodux@^3.0.0-ts.3":
+  version "3.0.0-ts.3"
+  resolved "https://registry.yarnpkg.com/@rbxts/rodux/-/rodux-3.0.0-ts.3.tgz#5cb4541975bfa28973d788585fd7a9b3d59f56f3"
+  integrity sha512-LrLowiF1YL5U+lQheCNMo8sbrSEoZAIlVFOGB7Edjein5TtZAeNgyJrhY5yFH5gAfJQzFRnZWVOxWFaMlD0GRg==
 
 "@rbxts/rust-classes@^0.11.0-beta.1":
   version "0.11.0-beta.1"

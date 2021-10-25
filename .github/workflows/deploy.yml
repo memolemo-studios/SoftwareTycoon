@@ -1,0 +1,29 @@
+# Taken from roblox-ts under the MIT license https://github.com/roblox-ts/roblox-ts/blob/master/.github/workflows/publish.yml
+name: Deploy
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  publish:
+    if: github.repository == 'memolemo-studios/SoftwareTycoon' && (github.ref == 'refs/heads/master' || github.ref == "refs/heads/release")
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2.3.4
+
+      - name: Install NPM dependencies
+        uses: bahmutov/npm-install@v1.7.4
+
+      - name: Compile game
+        run: make game
+
+      - name: Deploy game
+        run: |
+          git rev-parse --abbrev-ref HEAD >> current_branch
+          yarn deploy --auth $ROBLOSECURITY
+        env:
+          ROBLOSECURITY: ${{ secrets.PUBLISHER_RBX_TOKEN }}

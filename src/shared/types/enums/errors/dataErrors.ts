@@ -4,3 +4,7 @@ export enum PlayerDataErrors {
 	PlayerLeftGame = "PLR_LEFT_GAME",
 	SessionLocked = "PLR_SESSION_LOCKED",
 }
+
+export enum DataRequestErrors {
+	DataNotLoaded = "DATA_REQ_ERR_1",
+}
