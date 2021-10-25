@@ -20,6 +20,9 @@
 		"softwaretycoon:out/server/services/player/PlayerService/decorator.d.ts@OnPlayerJoined": "server/services/player/PlayerService/decorator.d.ts@OnPlayerJoined",
 		"softwaretycoon:out/client/apps/main@MainApp": "client/apps/main@MainApp",
 		"softwaretycoon:out/client/controllers/replication/DataReplicaController@DataReplicaController": "client/controllers/replication/DataReplicaController@DataReplicaController",
-		"softwaretycoon:out/server/services/replication/DataReplicaService@DataReplicaService": "server/services/replication/DataReplicaService@DataReplicaService"
+		"softwaretycoon:out/server/services/replication/DataReplicaService@DataReplicaService": "server/services/replication/DataReplicaService@DataReplicaService",
+		"softwaretycoon:out/client/interface/components/frame/background/fade@FadeBackgroundFrame": "client/interface/components/frame/background/fade@FadeBackgroundFrame",
+		"softwaretycoon:out/client/interface/stories/frame/background/fade/linear.story@FadeStory": "client/interface/stories/frame/background/fade/linear.story@FadeStory",
+		"softwaretycoon:out/client/interface/stories/frame/background/fade/spring.story@FadeStory": "client/interface/stories/frame/background/fade/spring.story@FadeStory"
 	}
 }
