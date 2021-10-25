@@ -1,6 +1,6 @@
 # Software Tycoon
 
-Software Tycoon is an open source game focsues on software stuff.
+Software Tycoon is an open source game focuses on software stuff.
 
 ## Notice
 
