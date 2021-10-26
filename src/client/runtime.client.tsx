@@ -35,6 +35,7 @@ Log.Info("Initializing Flamework");
 
 Flamework.addPaths("src/client/components", "src/shared/flamework", "src/client/controllers");
 Flamework.ignite();
+Flamework.isInitialized = true;
 
 Log.Info("Flamework is now initialized");
 
