@@ -22,6 +22,10 @@
 		"softwaretycoon:out/server/services/replication/DataReplicaService@DataReplicaService": "server/services/replication/DataReplicaService@DataReplicaService",
 		"softwaretycoon:out/client/controllers/lot/LotController/decorator.d.ts@OnOwnedLot": "client/controllers/lot/LotController/decorator.d.ts@OnOwnedLot",
 		"softwaretycoon:out/server/services/player/PlayerService/decorator.d.ts@OnPlayerLeft": "server/services/player/PlayerService/decorator.d.ts@OnPlayerLeft",
-		"softwaretycoon:out/server/services/player/PlayerService/decorator.d.ts@OnPlayerJoined": "server/services/player/PlayerService/decorator.d.ts@OnPlayerJoined"
+		"softwaretycoon:out/server/services/player/PlayerService/decorator.d.ts@OnPlayerJoined": "server/services/player/PlayerService/decorator.d.ts@OnPlayerJoined",
+		"softwaretycoon:out/client/interface/components/frame/spring/base@BaseSpringFrame": "client/interface/components/frame/spring/base@BaseSpringFrame",
+		"softwaretycoon:out/client/interface/stories/frame/spring/base.story@TestStory": "client/interface/stories/frame/spring/base.story@TestStory",
+		"softwaretycoon:out/client/interface/components/frame/spring/transition@TransitionSpringFrame": "client/interface/components/frame/spring/transition@TransitionSpringFrame",
+		"softwaretycoon:out/client/interface/stories/frame/spring/transition.story@TestStory": "client/interface/stories/frame/spring/transition.story@TestStory"
 	}
 }
