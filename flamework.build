@@ -11,8 +11,12 @@
 		"softwaretycoon:out/shared/flamework/Components/init@Components": "shared/flamework/Components/init@Components",
 		"softwaretycoon:out/client/controllers/lot/LotController/init@LotController": "client/controllers/lot/LotController/init@LotController",
 		"softwaretycoon:out/client/controllers/replication/DataReplicaController@DataReplicaController": "client/controllers/replication/DataReplicaController@DataReplicaController",
+		"softwaretycoon:out/client/interface/components/frame/spring/base@BaseSpringFrame": "client/interface/components/frame/spring/base@BaseSpringFrame",
+		"softwaretycoon:out/client/interface/components/frame/spring/transition@TransitionSpringFrame": "client/interface/components/frame/spring/transition@TransitionSpringFrame",
 		"softwaretycoon:out/client/interface/stories/frame/background/fade/linear.story@FadeStory": "client/interface/stories/frame/background/fade/linear.story@FadeStory",
 		"softwaretycoon:out/client/interface/stories/frame/background/fade/spring.story@FadeStory": "client/interface/stories/frame/background/fade/spring.story@FadeStory",
+		"softwaretycoon:out/client/interface/stories/frame/spring/base.story@TestStory": "client/interface/stories/frame/spring/base.story@TestStory",
+		"softwaretycoon:out/client/interface/stories/frame/spring/transition.story@TestStory": "client/interface/stories/frame/spring/transition.story@TestStory",
 		"softwaretycoon:out/server/classes/player/entity@PlayerEntity": "server/classes/player/entity@PlayerEntity",
 		"softwaretycoon:out/server/services/lot/LotService@LotService": "server/services/lot/LotService@LotService",
 		"softwaretycoon:out/server/components/game/lot@ServerLot": "server/components/game/lot@ServerLot",
@@ -22,10 +26,6 @@
 		"softwaretycoon:out/server/services/replication/DataReplicaService@DataReplicaService": "server/services/replication/DataReplicaService@DataReplicaService",
 		"softwaretycoon:out/client/controllers/lot/LotController/decorator.d.ts@OnOwnedLot": "client/controllers/lot/LotController/decorator.d.ts@OnOwnedLot",
 		"softwaretycoon:out/server/services/player/PlayerService/decorator.d.ts@OnPlayerLeft": "server/services/player/PlayerService/decorator.d.ts@OnPlayerLeft",
-		"softwaretycoon:out/server/services/player/PlayerService/decorator.d.ts@OnPlayerJoined": "server/services/player/PlayerService/decorator.d.ts@OnPlayerJoined",
-		"softwaretycoon:out/client/interface/components/frame/spring/base@BaseSpringFrame": "client/interface/components/frame/spring/base@BaseSpringFrame",
-		"softwaretycoon:out/client/interface/stories/frame/spring/base.story@TestStory": "client/interface/stories/frame/spring/base.story@TestStory",
-		"softwaretycoon:out/client/interface/components/frame/spring/transition@TransitionSpringFrame": "client/interface/components/frame/spring/transition@TransitionSpringFrame",
-		"softwaretycoon:out/client/interface/stories/frame/spring/transition.story@TestStory": "client/interface/stories/frame/spring/transition.story@TestStory"
+		"softwaretycoon:out/server/services/player/PlayerService/decorator.d.ts@OnPlayerJoined": "server/services/player/PlayerService/decorator.d.ts@OnPlayerJoined"
 	}
 }
