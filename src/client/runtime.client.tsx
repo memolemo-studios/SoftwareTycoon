@@ -46,5 +46,5 @@ ClientStore.dispatch({
 	type: "set_app_state",
 
 	// main menu screen
-	newState: (node_env as string) === "development" ? AppState.Main : AppState.Main,
+	newState: (node_env as unknown as string) === "development" ? AppState.Main : AppState.Main,
 });
