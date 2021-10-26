@@ -60,10 +60,10 @@ export class LotService implements OnStart, OnInit, OnPlayerLeft {
 	}
 
 	public getLotFromId(id: string) {
-		return Option.wrap(this.component.getAll().filter(v => v.getComponentId() === id)[0]);
+		return Option.wrap(this.component?.getAll().filter(v => v.getComponentId() === id)[0]);
 	}
 
 	public getLotFromPlayer(player: Player) {
-		return Option.wrap(this.component.getAll().filter(v => v.getOwner().contains(player))[0]);
+		return Option.wrap(this.component?.getAll().filter(v => v.getOwner().contains(player))[0]);
 	}
 }

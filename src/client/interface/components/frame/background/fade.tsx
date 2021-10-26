@@ -30,16 +30,26 @@ export default class FadeBackgroundFrame extends Component<Props> {
 
 		this.motor = new SingleMotor(0);
 		this.binding = makeBindingFromMotor(this.motor);
+
+		this.updateBackground();
+	}
+
+	public canBeVisible() {
+		return (this.props.visible === undefined ? false : this.props.visible) === true ? 0 : 1;
+	}
+
+	public updateBackground() {
+		const constant_value = this.canBeVisible();
+		this.motor.setGoal(
+			this.props.tweenMethod === "Linear"
+				? new Linear(constant_value, { velocity: this.props.linearProps?.speed })
+				: new Spring(constant_value, { ...this.props.springProps! }),
+		);
 	}
 
 	public didUpdate(lastProps: Props) {
 		if (this.props.visible !== lastProps.visible) {
-			const constant_value = this.props.visible ?? false ? 1 : 0;
-			this.motor.setGoal(
-				this.props.tweenMethod === "Linear"
-					? new Linear(constant_value, { velocity: this.props.linearProps?.speed })
-					: new Spring(constant_value, { ...this.props.springProps! }),
-			);
+			this.updateBackground();
 		}
 	}
 

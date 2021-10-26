@@ -9,10 +9,22 @@ export interface BackgroundFrameProps {
 
 export default function BackgroundFrame(props: PropsWithChildren<BackgroundFrameProps>) {
 	return (
-		<frame Size={UDim2.fromScale(1, 1)} BackgroundColor3={props.color} Transparency={props.transparency}>
-			<TransparencyContext.Provider value={props.transparency ?? 0}>
-				{props[Roact.Children]}
-			</TransparencyContext.Provider>
+		<frame
+			Size={new UDim2(1, 0, 1, 40)}
+			Position={UDim2.fromOffset(0, -40)}
+			BackgroundColor3={props.color}
+			Transparency={props.transparency}
+		>
+			<frame
+				Key="Container"
+				Position={UDim2.fromOffset(0, 40)}
+				Size={UDim2.fromScale(1, 1)}
+				BackgroundTransparency={1}
+			>
+				<TransparencyContext.Provider value={props.transparency ?? 0}>
+					{props[Roact.Children]}
+				</TransparencyContext.Provider>
+			</frame>
 		</frame>
 	);
 }

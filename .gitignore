@@ -14,7 +14,7 @@
 current_branch
 
 # Game secrets
-/publish.sh
+publish.sh
 
 # Built files
 build.rbxlx
