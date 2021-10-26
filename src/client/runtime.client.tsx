@@ -39,10 +39,12 @@ Flamework.isInitialized = true;
 
 Log.Info("Flamework is now initialized");
 
+const node_env = $NODE_ENV;
+
 // only use the main one if $NODE_ENV is development
 ClientStore.dispatch({
 	type: "set_app_state",
 
 	// main menu screen
-	newState: $NODE_ENV === "development" ? AppState.Main : AppState.Main,
+	newState: (node_env as string) === "development" ? AppState.Main : AppState.Main,
 });
