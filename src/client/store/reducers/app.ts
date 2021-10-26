@@ -7,7 +7,7 @@ export interface AppReducer {
 }
 
 const initial_state: AppReducer = {
-	state: AppState.GameStart,
+	state: AppState.MainMenu,
 };
 
 export type AppReducerActions = SetAppStateAction;
