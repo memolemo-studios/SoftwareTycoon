@@ -2,17 +2,19 @@
 	"version": 1,
 	"flameworkVersion": "1.0.0-beta.7",
 	"identifiers": {
+		"softwaretycoon:out/client/interface/components/frame/spring/base@BaseSpringFrame": "client/interface/components/frame/spring/base@BaseSpringFrame",
+		"softwaretycoon:out/client/interface/components/frame/spring/transition@TransitionSpringFrame": "client/interface/components/frame/spring/transition@TransitionSpringFrame",
+		"softwaretycoon:out/client/apps/Main/toolbar/init@Toolbar": "client/apps/Main/toolbar/init@Toolbar",
 		"softwaretycoon:out/shared/flamework/Components/base@BaseComponent": "shared/flamework/Components/base@BaseComponent",
 		"softwaretycoon:out/shared/components/game/lot@SharedLot": "shared/components/game/lot@SharedLot",
 		"softwaretycoon:out/shared/flamework/Components/decorator.d.ts@Component": "shared/flamework/Components/decorator.d.ts@Component",
 		"softwaretycoon:out/client/components/game/lot@ClientLot": "client/components/game/lot@ClientLot",
+		"softwaretycoon:out/client/controllers/interface/CoreGuiController/init@CoreGuiController": "client/controllers/interface/CoreGuiController/init@CoreGuiController",
 		"softwaretycoon:out/shared/flamework/Components/manager@ComponentManager": "shared/flamework/Components/manager@ComponentManager",
 		"softwaretycoon:out/shared/flamework/Components/init@Components": "shared/flamework/Components/init@Components",
 		"softwaretycoon:out/client/controllers/lot/LotController/init@LotController": "client/controllers/lot/LotController/init@LotController",
 		"softwaretycoon:out/client/controllers/replication/DataReplicaController@DataReplicaController": "client/controllers/replication/DataReplicaController@DataReplicaController",
 		"softwaretycoon:out/client/interface/components/frame/background/fade@FadeBackgroundFrame": "client/interface/components/frame/background/fade@FadeBackgroundFrame",
-		"softwaretycoon:out/client/interface/components/frame/spring/base@BaseSpringFrame": "client/interface/components/frame/spring/base@BaseSpringFrame",
-		"softwaretycoon:out/client/interface/components/frame/spring/transition@TransitionSpringFrame": "client/interface/components/frame/spring/transition@TransitionSpringFrame",
 		"softwaretycoon:out/client/interface/stories/frame/background/fade/linear.story@FadeStory": "client/interface/stories/frame/background/fade/linear.story@FadeStory",
 		"softwaretycoon:out/client/interface/stories/frame/background/fade/spring.story@FadeStory": "client/interface/stories/frame/background/fade/spring.story@FadeStory",
 		"softwaretycoon:out/client/interface/stories/frame/spring/base.story@TestStory": "client/interface/stories/frame/spring/base.story@TestStory",
@@ -26,8 +28,6 @@
 		"softwaretycoon:out/server/services/replication/DataReplicaService@DataReplicaService": "server/services/replication/DataReplicaService@DataReplicaService",
 		"softwaretycoon:out/client/controllers/lot/LotController/decorator.d.ts@OnOwnedLot": "client/controllers/lot/LotController/decorator.d.ts@OnOwnedLot",
 		"softwaretycoon:out/server/services/player/PlayerService/decorator.d.ts@OnPlayerLeft": "server/services/player/PlayerService/decorator.d.ts@OnPlayerLeft",
-		"softwaretycoon:out/server/services/player/PlayerService/decorator.d.ts@OnPlayerJoined": "server/services/player/PlayerService/decorator.d.ts@OnPlayerJoined",
-		"softwaretycoon:out/client/controllers/interface/CoreGuiController/init@CoreGuiController": "client/controllers/interface/CoreGuiController/init@CoreGuiController",
-		"softwaretycoon:out/client/apps/Main/toolbar/init@Toolbar": "client/apps/Main/toolbar/init@Toolbar"
+		"softwaretycoon:out/server/services/player/PlayerService/decorator.d.ts@OnPlayerJoined": "server/services/player/PlayerService/decorator.d.ts@OnPlayerJoined"
 	}
 }
