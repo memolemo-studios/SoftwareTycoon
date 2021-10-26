@@ -5,7 +5,7 @@ import { StoreProvider } from "@rbxts/roact-rodux";
 import { Players, RunService } from "@rbxts/services";
 import { $NODE_ENV } from "rbxts-transform-env";
 import { AppState } from "shared/types/enums/store/apps";
-import GameStart from "./apps/gameStart";
+import MainMenu from "./apps/MainMenu";
 import { ClientStore } from "./store/store";
 
 Log.SetLogger(
@@ -22,7 +22,7 @@ Log.Info("Mounting Roact UI");
 const element = (
 	<StoreProvider store={ClientStore}>
 		<screengui ResetOnSpawn={true}>
-			<GameStart />
+			<MainMenu />
 		</screengui>
 	</StoreProvider>
 );

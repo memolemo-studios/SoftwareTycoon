@@ -1,7 +1,7 @@
 import Roact, { Component } from "@rbxts/roact";
 import BaseSpringFrame, { BaseSpringFrameProps } from "./base";
 
-interface Props extends Omit<BaseSpringFrameProps, "Position"> {
+export interface TransitionSpringProps extends Omit<BaseSpringFrameProps, "Position"> {
 	PositionPhases: UDim2[];
 	PositionPhaseNo?: number;
 }
@@ -10,8 +10,8 @@ interface State {
 	currentPosition: UDim2;
 }
 
-export default class TransitionSpringFrame extends Component<Props, State> {
-	public constructor(props: Props) {
+export default class TransitionSpringFrame extends Component<TransitionSpringProps, State> {
+	public constructor(props: TransitionSpringProps) {
 		super(props);
 		this.updatePhaseProperty();
 	}
@@ -26,7 +26,7 @@ export default class TransitionSpringFrame extends Component<Props, State> {
 		});
 	}
 
-	public didUpdate(lastProps: Props) {
+	public didUpdate(lastProps: TransitionSpringProps) {
 		if (
 			this.props.PositionPhases !== lastProps.PositionPhases ||
 			this.props.PositionPhaseNo !== lastProps.PositionPhaseNo

@@ -26,19 +26,15 @@ const mapDispatchToProps = (dispatch: Dispatch<ClientStoreActions>): MappedDispa
 	return {};
 };
 
-const GameStart = connect(
+const MainMenu = connect(
 	mapStateToProps,
 	mapDispatchToProps,
 )(
 	class extends Component<Props, State> {
-		public constructor(props: Props) {
-			super(props);
-		}
-
 		public render() {
 			return <></>;
 		}
 	},
 );
 
-export default GameStart;
+export default MainMenu;
