@@ -2,7 +2,8 @@ const fs = require("fs");
 const path = require("path");
 
 const repoDirectory = path.join(__dirname, "..", "..");
-const excludedFolders = ["node_modules", "out", ".github", ".vscode", "scripts"];
+const excludedFolders = ["node_modules", "out", "include", ".github", ".vscode", "scripts"];
+const targetExts = [".tsx", ".ts", ".lua"];
 
 let linesOfCode = 0;
 
@@ -19,7 +20,7 @@ function visitDirectory(directory, excludeEmptyLines) {
 			visitDirectory(realPath, excludeEmptyLines);
 		} else if (stat.isFile()) {
 			const ext = path.extname(realPath);
-			if (ext === ".ts" || ext === ".tsx") {
+			if (targetExts.some(v => v === ext)) {
 				console.log(`Counting ${realPath}`);
 
 				const lines = fs
