@@ -16,5 +16,6 @@
 	"robloxLsp.diagnostics.globals": [
 		"remodel",
 		"json"
-	]
+	],
+	"discord.enabled": false
 }
