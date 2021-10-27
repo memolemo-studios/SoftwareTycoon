@@ -24,9 +24,11 @@ const MainPage = connect(
 	class MainPage extends Component<Props> {
 		public render() {
 			return (
-				<>
-					<Toolbar AnchorPoint={new Vector2(0.5, 1)} Position={new UDim2(0.5, 0, 1, -10)} Hidden={false} />
-				</>
+				<Toolbar
+					AnchorPoint={new Vector2(0.5, 1)}
+					Position={new UDim2(0.5, 0, 1, -10)}
+					Hidden={false}
+				></Toolbar>
 			);
 		}
 	},

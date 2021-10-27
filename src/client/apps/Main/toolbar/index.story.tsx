@@ -2,7 +2,6 @@ import Roact, { mount, unmount } from "@rbxts/roact";
 import RoactHooks from "@rbxts/roact-hooks";
 import { HoarcekatStory } from "shared/types/hoarcekat";
 import Toolbar from ".";
-import MainMenu from ".";
 
 const TestComponent = new RoactHooks(Roact)((_, { useState }) => {
 	const [hidden, set_hidden] = useState(false);
