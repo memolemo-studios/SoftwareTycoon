@@ -6,6 +6,7 @@ import { Players, RunService } from "@rbxts/services";
 import { $NODE_ENV } from "rbxts-transform-env";
 import { AppState } from "shared/types/enums/store/apps";
 import MainMenu from "./apps/MainMenu";
+import { ThemeProvider } from "./interface/components/others/theme";
 import { ClientStore } from "./store/store";
 
 Log.SetLogger(
@@ -20,11 +21,13 @@ Log.SetLogger(
 Log.Info("Mounting Roact UI");
 
 const element = (
-	<StoreProvider store={ClientStore}>
-		<screengui ResetOnSpawn={true}>
-			<MainMenu />
-		</screengui>
-	</StoreProvider>
+	<ThemeProvider>
+		<StoreProvider store={ClientStore}>
+			<screengui ResetOnSpawn={true}>
+				<MainMenu />
+			</screengui>
+		</StoreProvider>
+	</ThemeProvider>
 );
 
 const player_gui = Players.LocalPlayer.WaitForChild("PlayerGui");
