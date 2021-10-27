@@ -14,6 +14,7 @@ function loadSoundManager() {
 interface Props {
 	Position?: OrBinding<UDim2>;
 	Size?: OrBinding<UDim2>;
+	DisableSounds?: boolean;
 	AnchorPoint?: OrBinding<Vector2>;
 	LayoutOrder?: OrBinding<number>;
 	BackgroundTransparency?: number;
@@ -54,11 +55,15 @@ export default class BaseButton extends Component<Props> {
 					LayoutOrder={this.props.LayoutOrder}
 					Event={{
 						Activated: (rbx, inputObj, clickCount) => {
-							loadSoundManager();
+							if (!this.props.DisableSounds) {
+								loadSoundManager();
 
-							const click_sound_result = sound_manager.playSoundFileImmediately("button_click");
-							if (click_sound_result.isErr()) {
-								warn(`[BaseButton]: Unable to play sound: ${click_sound_result.unwrapErr().message}`);
+								const click_sound_result = sound_manager.playSoundFileImmediately("button_click");
+								if (click_sound_result.isErr()) {
+									warn(
+										`[BaseButton]: Unable to play sound: ${click_sound_result.unwrapErr().message}`,
+									);
+								}
 							}
 
 							// forms a mouse click sound
