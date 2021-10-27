@@ -17,7 +17,17 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@flamework/core@^1.0.0-beta.1":
+"@flamework/components@^1.0.0-beta.4":
+  version "1.0.0-beta.4"
+  resolved "https://registry.yarnpkg.com/@flamework/components/-/components-1.0.0-beta.4.tgz#7ba07d34a047ba28c41e6016c42616ba7008a32b"
+  integrity sha512-RSifH9AUOD56puiYjIja57VY3mHSwgB3RkOlo4phNO9nFV61XKK21SzcLSFwjLfDYgl0ZfjrkqJQiq83gR4L3w==
+  dependencies:
+    "@flamework/core" "^1.0.0-beta.0"
+    "@rbxts/maid" "^1.0.0-ts.1"
+    "@rbxts/services" "^1.1.5"
+    "@rbxts/t" "^2.1.4"
+
+"@flamework/core@^1.0.0-beta.0", "@flamework/core@^1.0.0-beta.1":
   version "1.0.0-beta.1"
   resolved "https://registry.yarnpkg.com/@flamework/core/-/core-1.0.0-beta.1.tgz#7ebe28b0d1c812a654ed74353317dc223e190cee"
   integrity sha512-NsVaSReez97Mw8O8TVVzBYpJZQjR/lk6mm47pFXQ8EXvHlUTqJql0hqg4pJA8dK7+1rt82wJfMjrJLul+DSj+w==
@@ -25,6 +35,17 @@
     "@rbxts/maid" "^1.0.0-ts.1"
     "@rbxts/object-utils" "^1.0.4"
     "@rbxts/services" "^1.1.4"
+    "@rbxts/signal" "^1.0.3"
+    "@rbxts/t" "^2.1.4"
+
+"@flamework/networking@^1.0.0-beta.5":
+  version "1.0.0-beta.5"
+  resolved "https://registry.yarnpkg.com/@flamework/networking/-/networking-1.0.0-beta.5.tgz#4672078f2b0dc5d68c08f1b5f4774813800d6dcd"
+  integrity sha512-ITHeLKt2UPBgo0pSHOZp/XL0kPKcVfumv4fs6SH11Cdor1gz9i/Z48GzgC+uI8WdTdYIWO/IknTEiSkY8fz1qQ==
+  dependencies:
+    "@flamework/core" "^1.0.0-beta.0"
+    "@rbxts/object-utils" "^1.0.4"
+    "@rbxts/services" "^1.1.5"
     "@rbxts/signal" "^1.0.3"
     "@rbxts/t" "^2.1.4"
 
@@ -137,7 +158,7 @@
   resolved "https://registry.yarnpkg.com/@rbxts/rust-classes/-/rust-classes-0.11.0-beta.1.tgz#6fb82c3f02950104030615b0bcc5c73b6e39566c"
   integrity sha512-lZiXBIohK3fg3ImqQ0P+lRNp9EKeSXK4kA3yVf5Tc5bwQVyS6/O5XvlUeh4s7wRYcure+fd8s0qISQ7DP5Gw0Q==
 
-"@rbxts/services@^1.1.4", "@rbxts/services@^1.2.0":
+"@rbxts/services@^1.1.4", "@rbxts/services@^1.1.5", "@rbxts/services@^1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@rbxts/services/-/services-1.2.0.tgz#5dcc980fc937d5634dab31f8e564f6565d78ea47"
   integrity sha512-GEnAGgRz/oFEfBCjr+UChO7D49c/l+Wgr2OHMkURBKbVAqGg7hVQbEs9PUr+9BuVx/8OlsqZ/cvrUYbwAyd60A==
