@@ -2,6 +2,11 @@
 	"version": 1,
 	"flameworkVersion": "1.0.0-beta.7",
 	"identifiers": {
+		"softwaretycoon:out/shared/classes/error@BaseError": "shared/classes/error@BaseError",
+		"softwaretycoon:out/shared/flamework/SoundManager/error@SoundManagerError": "shared/flamework/SoundManager/error@SoundManagerError",
+		"softwaretycoon:out/shared/flamework/SoundManager/file@SoundFile": "shared/flamework/SoundManager/file@SoundFile",
+		"softwaretycoon:out/shared/flamework/SoundManager/init@SoundManager": "shared/flamework/SoundManager/init@SoundManager",
+		"softwaretycoon:out/client/interface/components/button/base@BaseButton": "client/interface/components/button/base@BaseButton",
 		"softwaretycoon:out/client/interface/components/frame/spring/base@BaseSpringFrame": "client/interface/components/frame/spring/base@BaseSpringFrame",
 		"softwaretycoon:out/client/interface/components/frame/spring/transition@TransitionSpringFrame": "client/interface/components/frame/spring/transition@TransitionSpringFrame",
 		"softwaretycoon:out/client/apps/Main/toolbar/init@Toolbar": "client/apps/Main/toolbar/init@Toolbar",
@@ -15,6 +20,7 @@
 		"softwaretycoon:out/client/controllers/lot/LotController/init@LotController": "client/controllers/lot/LotController/init@LotController",
 		"softwaretycoon:out/client/controllers/replication/DataReplicaController@DataReplicaController": "client/controllers/replication/DataReplicaController@DataReplicaController",
 		"softwaretycoon:out/client/interface/components/frame/background/fade@FadeBackgroundFrame": "client/interface/components/frame/background/fade@FadeBackgroundFrame",
+		"softwaretycoon:out/client/interface/components/others/tooltip@Tooltip": "client/interface/components/others/tooltip@Tooltip",
 		"softwaretycoon:out/client/interface/stories/frame/background/fade/linear.story@FadeStory": "client/interface/stories/frame/background/fade/linear.story@FadeStory",
 		"softwaretycoon:out/client/interface/stories/frame/background/fade/spring.story@FadeStory": "client/interface/stories/frame/background/fade/spring.story@FadeStory",
 		"softwaretycoon:out/client/interface/stories/frame/spring/base.story@TestStory": "client/interface/stories/frame/spring/base.story@TestStory",
@@ -28,7 +34,6 @@
 		"softwaretycoon:out/server/services/replication/DataReplicaService@DataReplicaService": "server/services/replication/DataReplicaService@DataReplicaService",
 		"softwaretycoon:out/client/controllers/lot/LotController/decorator.d.ts@OnOwnedLot": "client/controllers/lot/LotController/decorator.d.ts@OnOwnedLot",
 		"softwaretycoon:out/server/services/player/PlayerService/decorator.d.ts@OnPlayerLeft": "server/services/player/PlayerService/decorator.d.ts@OnPlayerLeft",
-		"softwaretycoon:out/server/services/player/PlayerService/decorator.d.ts@OnPlayerJoined": "server/services/player/PlayerService/decorator.d.ts@OnPlayerJoined",
-		"softwaretycoon:out/client/interface/components/others/tooltip@Tooltip": "client/interface/components/others/tooltip@Tooltip"
+		"softwaretycoon:out/server/services/player/PlayerService/decorator.d.ts@OnPlayerJoined": "server/services/player/PlayerService/decorator.d.ts@OnPlayerJoined"
 	}
 }

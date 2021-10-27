@@ -16,10 +16,15 @@ export namespace Theme {
 		TextSize: number;
 	}
 
+	export interface TextButton extends Theme.TextLabel, Theme.PaddingXY {
+		HoveredColor: Color3;
+	}
+
 	export interface Tooltip extends Theme.PaddingXY, Theme.TextLabel {}
 
 	export interface Base {
 		Tooltip: Tooltip;
+		MainButton: TextButton;
 	}
 }
 
@@ -31,6 +36,15 @@ const default_theme: Theme.Base = {
 		PaddingY: 6,
 		TextSize: 18,
 		Font: Enum.Font.GothamBlack,
+	},
+	MainButton: {
+		Background: Color3.fromRGB(240, 240, 240),
+		HoveredColor: Color3.fromRGB(212, 212, 212),
+		PaddingX: 12,
+		PaddingY: 6,
+		TextColor: Color3.fromRGB(28, 28, 28),
+		TextSize: 18,
+		Font: Enum.Font.SourceSansBold,
 	},
 };
 const ThemeContext = createContext(default_theme);

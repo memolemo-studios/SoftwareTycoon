@@ -1,6 +1,7 @@
 import Roact, { Component } from "@rbxts/roact";
 import { connect } from "@rbxts/roact-rodux";
 import { Dispatch } from "@rbxts/rodux";
+import BaseButton from "client/interface/components/button/base";
 import { ClientStoreActions, ClientStoreState } from "client/store/store";
 import Toolbar from "./toolbar";
 
@@ -24,11 +25,14 @@ const MainPage = connect(
 	class MainPage extends Component<Props> {
 		public render() {
 			return (
-				<Toolbar
-					AnchorPoint={new Vector2(0.5, 1)}
-					Position={new UDim2(0.5, 0, 1, -10)}
-					Hidden={false}
-				></Toolbar>
+				<>
+					<Toolbar
+						AnchorPoint={new Vector2(0.5, 1)}
+						Position={new UDim2(0.5, 0, 1, -10)}
+						Hidden={false}
+					></Toolbar>
+					<BaseButton Size={UDim2.fromOffset(200, 50)} />
+				</>
 			);
 		}
 	},

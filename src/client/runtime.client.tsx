@@ -5,7 +5,7 @@ import { StoreProvider } from "@rbxts/roact-rodux";
 import { Players, RunService } from "@rbxts/services";
 import { $NODE_ENV } from "rbxts-transform-env";
 import { AppState } from "shared/types/enums/store/apps";
-import MainMenu from "./apps/MainMenu";
+import MainPage from "./apps/Main";
 import { ThemeProvider } from "./interface/components/others/theme";
 import { ClientStore } from "./store/store";
 
@@ -24,7 +24,7 @@ const element = (
 	<ThemeProvider>
 		<StoreProvider store={ClientStore}>
 			<screengui ResetOnSpawn={true}>
-				<MainMenu />
+				<MainPage />
 			</screengui>
 		</StoreProvider>
 	</ThemeProvider>
