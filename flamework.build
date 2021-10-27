@@ -2,6 +2,7 @@
 	"version": 1,
 	"flameworkVersion": "1.0.0-beta.7",
 	"identifiers": {
+		"softwaretycoon:out/client/controllers/replication/DataReplicaController@DataReplicaController": "client/controllers/replication/DataReplicaController@DataReplicaController",
 		"softwaretycoon:out/shared/classes/error@BaseError": "shared/classes/error@BaseError",
 		"softwaretycoon:out/shared/flamework/SoundManager/error@SoundManagerError": "shared/flamework/SoundManager/error@SoundManagerError",
 		"softwaretycoon:out/shared/flamework/SoundManager/file@SoundFile": "shared/flamework/SoundManager/file@SoundFile",
@@ -18,7 +19,6 @@
 		"softwaretycoon:out/shared/flamework/Components/manager@ComponentManager": "shared/flamework/Components/manager@ComponentManager",
 		"softwaretycoon:out/shared/flamework/Components/init@Components": "shared/flamework/Components/init@Components",
 		"softwaretycoon:out/client/controllers/lot/LotController/init@LotController": "client/controllers/lot/LotController/init@LotController",
-		"softwaretycoon:out/client/controllers/replication/DataReplicaController@DataReplicaController": "client/controllers/replication/DataReplicaController@DataReplicaController",
 		"softwaretycoon:out/client/interface/components/frame/background/fade@FadeBackgroundFrame": "client/interface/components/frame/background/fade@FadeBackgroundFrame",
 		"softwaretycoon:out/client/interface/components/others/tooltip@Tooltip": "client/interface/components/others/tooltip@Tooltip",
 		"softwaretycoon:out/client/interface/stories/frame/background/fade/linear.story@FadeStory": "client/interface/stories/frame/background/fade/linear.story@FadeStory",

@@ -2,6 +2,7 @@ import { Dependency, OnInit, Service } from "@flamework/core";
 import Log from "@rbxts/log";
 import { Result } from "@rbxts/rust-classes";
 import { Remotes } from "server/events";
+import { PlayerData } from "shared/data/types";
 import { Serialize } from "shared/replication/serialize";
 import { DataRequestErrors } from "shared/types/enums/errors/dataErrors";
 import { PlayerService } from "../player/PlayerService";
@@ -18,7 +19,7 @@ export class DataReplicaService implements OnInit {
 	public onInit() {
 		this.requestDataRemote.SetCallback(player => {
 			this.logger.Info("{@Player} requests player data", player);
-			return Serialize.result(
+			return Serialize.result<PlayerData, DataRequestErrors>(
 				this.playerService.getEntityFromPlayer(player).match(
 					entity => Result.ok(entity.data),
 					() => Result.err(DataRequestErrors.DataNotLoaded),
