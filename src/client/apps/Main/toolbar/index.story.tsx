@@ -5,12 +5,12 @@ import Toolbar from ".";
 import MainMenu from ".";
 
 const TestComponent = new RoactHooks(Roact)((_, { useState }) => {
-	const [hidden, setHidden] = useState(false);
+	const [hidden, set_hidden] = useState(false);
 	return (
 		<>
 			<textbutton
 				Event={{
-					MouseButton1Down: () => setHidden(!hidden),
+					MouseButton1Down: () => set_hidden(!hidden),
 				}}
 				Text={`${hidden ? "Open" : "Close"} Toolbar`}
 				Size={UDim2.fromOffset(200, 50)}

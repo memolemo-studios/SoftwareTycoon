@@ -88,13 +88,13 @@ export class ComponentManager<C extends AnyBaseComponent = AnyBaseComponent> {
 	}
 
 	private _removeComponentAsTagged(instance: Instance): Result<true, string> {
-		const componentIndex = this.components.findIndex(c => c.instance === instance);
-		if (componentIndex !== -1) return Result.err(`Cannot find: ${instance.GetFullName()}`);
+		const component_index = this.components.findIndex(c => c.instance === instance);
+		if (component_index !== -1) return Result.err(`Cannot find: ${instance.GetFullName()}`);
 
 		// attempting to destroy that component, but be sure it is really exists
-		return this.getFromId(componentIndex).match(
+		return this.getFromId(component_index).match(
 			() => {
-				this.janitor.Remove(componentIndex);
+				this.janitor.Remove(component_index);
 				return Result.ok(true);
 			},
 			() => Result.err(`${instance.GetFullName()}'s component already destroyed!'`),
@@ -200,13 +200,13 @@ export class ComponentManager<C extends AnyBaseComponent = AnyBaseComponent> {
 				const janitor = new Janitor();
 				component.setInstance(instance);
 
-				const newIndex = this.components.push(component);
-				this.componentJanitors.set(newIndex, janitor);
+				const new_index = this.components.push(component);
+				this.componentJanitors.set(new_index, janitor);
 
 				// halting situations
 				this.added.Fire(component);
-				this.janitor.Add(component as { destroy(): void }, "destroy", newIndex);
-				this.startComponent(newIndex, component);
+				this.janitor.Add(component as { destroy(): void }, "destroy", new_index);
+				this.startComponent(new_index, component);
 
 				return component;
 			},

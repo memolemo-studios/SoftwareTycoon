@@ -47,13 +47,13 @@ export class LotController implements OnStart, OnInit {
 	public onStart() {
 		this.onOwnedLotEvent.Connect((user, component_id) => {
 			if (user === local_player.UserId) {
-				const ownerLot = this.getLotFromId(component_id).expect("Unexpected error!");
-				this.ownerLot = ownerLot;
+				const owner_lot = this.getLotFromId(component_id).expect("Unexpected error!");
+				this.ownerLot = owner_lot;
 
 				// announce every connected `OnOwnedLot` implemented objects
 				for (const [_, obj] of Reflect.idToObj) {
 					if (Flamework.implements<OnOwnedLot>(obj)) {
-						task.spawn(() => obj.onOwnedLot(ownerLot));
+						task.spawn(() => obj.onOwnedLot(owner_lot));
 					}
 				}
 			}

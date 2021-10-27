@@ -49,9 +49,9 @@ export = () => {
 		it("should return exact value of serialized option", () => {
 			const res = Option.some(123);
 			expect(() => {
-				const serializeRes = Serialize.option(res);
-				assert(serializeRes.type === "Some");
-				assert(serializeRes.value === 123);
+				const serialize_res = Serialize.option(res);
+				assert(serialize_res.type === "Some");
+				assert(serialize_res.value === 123);
 			}).never.throw();
 		});
 

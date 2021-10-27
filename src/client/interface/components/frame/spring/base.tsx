@@ -86,14 +86,14 @@ export default class BaseSpringFrame extends Component<BaseSpringFrameProps> {
 	}
 
 	public render() {
-		const initialProps = { ...this.props };
-		initialProps[Roact.Children] = undefined;
-		initialProps.Position = undefined;
-		initialProps.Size = undefined;
-		initialProps.SpringProps = undefined;
+		const injected_props = { ...this.props };
+		injected_props[Roact.Children] = undefined;
+		injected_props.Position = undefined;
+		injected_props.Size = undefined;
+		injected_props.SpringProps = undefined;
 		return (
 			<frame
-				{...initialProps}
+				{...injected_props}
 				Position={this.positionBinding.map(alpha => {
 					const new_position = this.props.Position ?? new UDim2();
 					const last_position = this.lastPosition ?? new UDim2();

@@ -54,11 +54,11 @@ export default class FadeBackgroundFrame extends Component<Props> {
 	}
 
 	public render() {
-		const initialProps = { ...this.props };
-		initialProps.visible = false;
-		initialProps[Roact.Children] = undefined;
+		const injected_props = { ...this.props };
+		injected_props.visible = false;
+		injected_props[Roact.Children] = undefined;
 		return (
-			<BackgroundFrame {...initialProps} transparency={this.binding}>
+			<BackgroundFrame {...injected_props} transparency={this.binding}>
 				{this.props[Roact.Children]}
 			</BackgroundFrame>
 		);

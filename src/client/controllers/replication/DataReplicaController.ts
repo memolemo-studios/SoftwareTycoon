@@ -9,8 +9,8 @@ import { RemoteRequestErrors } from "shared/types/enums/errors/remote";
 
 let player_data_cache: PlayerData;
 
-const requestDataRemote = Remotes.Get("requestPlayerData");
-const onUpdatedRemote = Remotes.Get("onUpdatedPlayerData");
+const request_data_remote = Remotes.Get("requestPlayerData");
+const on_updated_remote = Remotes.Get("onUpdatedPlayerData");
 
 @Controller({})
 export class DataReplicaController implements OnInit {
@@ -26,7 +26,7 @@ export class DataReplicaController implements OnInit {
 	}
 
 	public requestPlayerDataSync(): Result<PlayerData, RemoteRequestErrors | DataRequestErrors> {
-		const [success, value] = requestDataRemote.CallServerAsync().await() as LuaTuple<
+		const [success, value] = request_data_remote.CallServerAsync().await() as LuaTuple<
 			[boolean, SerTypes.Result<PlayerData, DataRequestErrors>]
 		>;
 
@@ -51,7 +51,7 @@ export class DataReplicaController implements OnInit {
 	}
 
 	public async onInit() {
-		onUpdatedRemote.Connect(newData => (player_data_cache = newData));
+		on_updated_remote.Connect(newData => (player_data_cache = newData));
 
 		// load player's data on start and retry if it fails
 		let success = false;

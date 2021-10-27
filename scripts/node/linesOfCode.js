@@ -1,15 +1,15 @@
 const fs = require("fs");
 const path = require("path");
 
-const repoDirectory = path.join(__dirname, "..", "..");
-const excludedFolders = ["node_modules", "out", "include", ".github", ".vscode", "scripts"];
-const targetExts = [".tsx", ".ts", ".lua"];
+const repo_directory = path.join(__dirname, "..", "..");
+const excluded_folders = ["node_modules", "out", "include", ".github", ".vscode", "scripts"];
+const target_exts = [".tsx", ".ts", ".lua"];
 
-let linesOfCode = 0;
+let lines_of_code = 0;
 
 function visitDirectory(directory, excludeEmptyLines) {
 	for (const child of fs.readdirSync(directory)) {
-		if (excludedFolders.includes(child)) {
+		if (excluded_folders.includes(child)) {
 			continue;
 		}
 
@@ -20,7 +20,7 @@ function visitDirectory(directory, excludeEmptyLines) {
 			visitDirectory(realPath, excludeEmptyLines);
 		} else if (stat.isFile()) {
 			const ext = path.extname(realPath);
-			if (targetExts.some(v => v === ext)) {
+			if (target_exts.some(v => v === ext)) {
 				console.log(`Counting ${realPath}`);
 
 				const lines = fs
@@ -34,7 +34,7 @@ function visitDirectory(directory, excludeEmptyLines) {
 						return true;
 					}).length;
 
-				linesOfCode += lines;
+				lines_of_code += lines;
 			}
 		}
 	}
@@ -42,7 +42,7 @@ function visitDirectory(directory, excludeEmptyLines) {
 
 // parse parameters
 const parameters = process.argv.slice(2);
-const excludeEmptyLines = parameters.includes("--exclude-empty-lines");
+const exclude_empty_lines = parameters.includes("--exclude-empty-lines");
 
-visitDirectory(repoDirectory, excludeEmptyLines);
-console.log(`You've written ${linesOfCode} lines of code${excludeEmptyLines ? " without empty lines." : "."}`);
+visitDirectory(repo_directory, exclude_empty_lines);
+console.log(`You've written ${lines_of_code} lines of code${exclude_empty_lines ? " without empty lines." : "."}`);
