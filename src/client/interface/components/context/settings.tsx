@@ -15,7 +15,7 @@ function loadReplicaController() {
 	replica_controller ?? Dependency<DataReplicaController>();
 }
 
-export const SettngsProvider = new RoactHooks(Roact)<RoactHooks.FC<{}>>((props, { useState, useEffect }) => {
+export const SettingsProvider = new RoactHooks(Roact)<RoactHooks.FC<{}>>((props, { useState, useEffect }) => {
 	const [settings, set_settings] = useState(hoarcekat_settings);
 	useEffect(() => {
 		// hoarcekat
