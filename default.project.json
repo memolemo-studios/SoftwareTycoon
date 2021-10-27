@@ -1,5 +1,5 @@
 {
-	"name": "roblox-ts-game",
+	"name": "SoftwareTycoon",
 	"globIgnorePaths": [
 		"**/package.json",
 		"**/tsconfig.json"
@@ -19,12 +19,6 @@
 				"EnvironmentDiffuseScale": 1,
 				"EnvironmentSpecularScale": 1,
 				"ClockTime": 14.5
-      }
-    },
-    "ReplicatedFirst": {
-      "$className": "ReplicatedFirst",
-      "Native": {
-        "$path": "luau/ReplicatedFirst"
       }
     },
 		"ServerScriptService": {

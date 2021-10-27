@@ -1,5 +1,9 @@
 # Changelog (master)
 
+## 0.0.1-alpha.3
+
+- **Entire codebase has been refactored**
+
 ## 0.0.1-alpha.2
 
 ### Patched version
