@@ -59,6 +59,7 @@ local wrapper = make("ScreenGui", {
 	Name = "blackout_gui",
 	Parent = player_gui,
 	ResetOnSpawn = false,
+	DisplayOrder = 10,
 }, {
 	Blackout = blackout,
 })
