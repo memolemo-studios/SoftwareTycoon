@@ -25,6 +25,7 @@ export namespace Theme {
 	export interface Base {
 		Tooltip: Tooltip;
 		MainButton: TextButton;
+		MainFrame: Theme.Frame;
 	}
 }
 
@@ -45,6 +46,9 @@ const default_theme: Theme.Base = {
 		TextColor: Color3.fromRGB(28, 28, 28),
 		TextSize: 18,
 		Font: Enum.Font.SourceSansBold,
+	},
+	MainFrame: {
+		Background: Color3.fromRGB(227, 227, 227),
 	},
 };
 const ThemeContext = createContext(default_theme);

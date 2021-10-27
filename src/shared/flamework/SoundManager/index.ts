@@ -1,15 +1,11 @@
 import { Controller, Dependency, Service } from "@flamework/core";
 import { Option, Result } from "@rbxts/rust-classes";
 import { RunService } from "@rbxts/services";
-import { $json } from "rbxts-transformer-fs";
+import { AssetProvider, AudioAssets } from "shared/classes/assetProvider";
 import { SoundManagerError } from "./error";
 import { SoundFile } from "./file";
 
-interface AudioAssets {
-	button_click: number;
-}
-
-const audio_assets = $json<AudioAssets>("src/shared/sounds.json");
+const audio_assets = AssetProvider.getAllSounds();
 let internal_mock: SoundManager;
 
 /** Gets the mock or live version of SoundManager */
