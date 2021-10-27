@@ -1,4 +1,5 @@
 import { Controller, OnInit } from "@flamework/core";
+import Signal from "@rbxts/goodsignal";
 import Log from "@rbxts/log";
 import { Result } from "@rbxts/rust-classes";
 import { Remotes } from "client/events";
@@ -15,6 +16,8 @@ const on_updated_remote = Remotes.Get("onUpdatedPlayerData");
 @Controller({})
 export class DataReplicaController implements OnInit {
 	private logger = Log.ForContext(DataReplicaController);
+
+	public onPlayerDataChanged = new Signal<(newData: PlayerData) => void>();
 
 	public getPlayerData() {
 		assert(player_data_cache, "Player data didn't load.");
@@ -42,6 +45,7 @@ export class DataReplicaController implements OnInit {
 			// update the cache, if it is successfully load
 			if (res.isOk()) {
 				player_data_cache = res.unwrap();
+				this.onPlayerDataChanged.Fire(player_data_cache);
 			}
 
 			return res;

@@ -1,3 +1,7 @@
 import { PlayerData } from "./types";
 
-export const DefaultPlayerData: PlayerData = {};
+export const DefaultPlayerData: PlayerData = {
+	Settings: {
+		SoundsEnabled: true,
+	},
+};

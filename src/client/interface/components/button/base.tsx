@@ -1,9 +1,9 @@
 import { SingleMotor, Spring } from "@rbxts/flipper";
 import Roact, { Binding, Component } from "@rbxts/roact";
+import withBundle from "client/interface/functions/withBundle";
 import { GetSoundManager, SoundManager } from "shared/flamework/SoundManager";
 import { OrBinding } from "shared/types/roact";
 import { makeBindingFromMotor } from "shared/util/binding";
-import { withTheme } from "../others/theme";
 
 let sound_manager: SoundManager;
 
@@ -40,7 +40,7 @@ export default class BaseButton extends Component<Props> {
 	}
 
 	public render() {
-		return withTheme(providedTheme => {
+		return withBundle((settings, providedTheme) => {
 			const theme = providedTheme.MainButton;
 			return (
 				<textbutton
@@ -55,7 +55,7 @@ export default class BaseButton extends Component<Props> {
 					LayoutOrder={this.props.LayoutOrder}
 					Event={{
 						Activated: (rbx, inputObj, clickCount) => {
-							if (!this.props.DisableSounds) {
+							if (!this.props.DisableSounds || settings.SoundsEnabled) {
 								loadSoundManager();
 
 								const click_sound_result = sound_manager.playSoundFileImmediately("button_click");
@@ -65,7 +65,6 @@ export default class BaseButton extends Component<Props> {
 									);
 								}
 							}
-
 							// forms a mouse click sound
 							this.props.OnClick?.(rbx, inputObj, clickCount);
 						},
