@@ -1,3 +1,4 @@
+import { Result } from "@rbxts/rust-classes";
 import { t } from "@rbxts/t";
 import { $terrify } from "rbxts-transformer-t";
 import { SharedLot } from "shared/components/game/SharedLot";
@@ -26,6 +27,10 @@ function toMessageFromKind(kind: LotRequestErrorKind): string {
 export class LotRequestError extends BaseError {
 	public constructor(public kind: LotRequestErrorKind, public id?: string, inheritedTimes = 2) {
 		super(inheritedTimes);
+	}
+
+	public toMessage() {
+		return toMessageFromKind(this.kind);
 	}
 
 	public static fromLot(kind: LotRequestErrorKind, lot?: SharedLot) {

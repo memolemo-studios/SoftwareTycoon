@@ -1,3 +1,4 @@
+import { Result } from "@rbxts/rust-classes";
 import { $terrify } from "rbxts-transformer-t";
 import { PlayerDataErrorKind, PlayerDataSerializedError } from "types/errors/playerdata";
 import BaseError from "./base";
@@ -14,6 +15,10 @@ function toMessageFromKind(kind: PlayerDataErrorKind) {
 export class PlayerDataError extends BaseError {
 	public constructor(public kind: PlayerDataErrorKind, inheritedTimes = 2) {
 		super(inheritedTimes);
+	}
+
+	public toMessage() {
+		return toMessageFromKind(this.kind);
 	}
 
 	public static fromSerialized(serialized: unknown) {

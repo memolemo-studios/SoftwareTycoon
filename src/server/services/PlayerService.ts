@@ -1,4 +1,5 @@
 import { Flamework, OnInit, OnStart, Reflect, Service } from "@flamework/core";
+import Log from "@rbxts/log";
 import { Players } from "@rbxts/services";
 import { DataService } from "./DataService";
 
@@ -26,6 +27,8 @@ export interface OnPlayerLeft {
 /** PlayerService handles player stuff */
 @Service({})
 export class PlayerService implements OnInit, OnStart {
+	private logger = Log.ForContext(PlayerService);
+
 	private onPlayerJoinObjs = new Map<string, OnPlayerJoined>();
 	private onPlayerLeftObjs = new Map<string, OnPlayerLeft>();
 
@@ -42,11 +45,15 @@ export class PlayerService implements OnInit, OnStart {
 	}
 
 	private onPlayerRemoving(player: Player) {
+		this.logger.Info("{Player} left the game", player.UserId);
+
 		// TODO: clear player's profile
 		this.fireOnPlayerLeft(player);
 	}
 
 	private async onPlayerAdded(player: Player) {
+		this.logger.Info("{Player} joins the game", player.UserId);
+
 		// trying to get player's data
 		const result = await this.dataService.loadPlayerProfile(player);
 		if (result.isErr()) {

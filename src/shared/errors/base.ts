@@ -1,3 +1,4 @@
+import { Result } from "@rbxts/rust-classes";
 import { $terrify } from "rbxts-transformer-t";
 import { BaseSerializedError } from "types/errors/base";
 
@@ -13,6 +14,15 @@ export default class BaseError {
 
 		// https://twitter.com/zeuxcg/status/1403443231103148034
 		this.source = debug.info(2 * inheritedTimes + 1, "s")[0];
+	}
+
+	/**
+	 * Converts an error to a real informative string
+	 *
+	 * *It doesn't happen anytime, some error classes can be not informative*
+	 */
+	public toMessage() {
+		return "Unknown error";
 	}
 
 	/**
