@@ -17,6 +17,9 @@
 		"softwaretycoon:out/shared/networking@GlobalEvents": "shared/networking@GlobalEvents",
 		"softwaretycoon:out/shared/networking@GlobalFunctions": "shared/networking@GlobalFunctions",
 		"softwaretycoon:out/shared/classes/cache@Cache": "shared/classes/cache@Cache",
-		"softwaretycoon:out/client/controllers/DataController@DataController": "client/controllers/DataController@DataController"
+		"softwaretycoon:out/client/controllers/DataController@DataController": "client/controllers/DataController@DataController",
+		"softwaretycoon:out/client/controllers/AppController@AppController": "client/controllers/AppController@AppController",
+		"softwaretycoon:out/client/apps/Main@MainApp": "client/apps/Main@MainApp",
+		"softwaretycoon:out/client/controllers/AppController@ClientApp": "client/controllers/AppController@ClientApp"
 	}
 }

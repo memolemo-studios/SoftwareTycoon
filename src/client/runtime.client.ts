@@ -12,5 +12,5 @@ Log.SetLogger(
 );
 
 // initialize flamework
-Flamework.addPaths("src/client/controllers", "src/client/components", "src/shared/flamework");
+Flamework.addPaths("src/client/controllers", "src/client/apps", "src/client/components", "src/shared/flamework");
 Flamework.ignite();
