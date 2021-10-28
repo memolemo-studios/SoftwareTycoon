@@ -46,7 +46,10 @@
 				}
 			},
 			"Game": {
-				"$path": "out/shared"
+				"$path": "out/shared",
+        "Interface": {
+          "$path": "out/interface"
+        }
 			}
 		},
 		"StarterPlayer": {
