@@ -129,6 +129,11 @@
   resolved "https://registry.yarnpkg.com/@rbxts/janitor/-/janitor-1.13.6-ts.0.tgz#d2540123f78cc8e7d5349b52c6275a022be99568"
   integrity sha512-HlF3LcUrVtz0WD1TQlf0QVAh3fdkGhLqiQOxyClpaRJ+1aQdzZ2iV1hlGNALPMsNmabRZUUsn4VMCNJO2MHOqA==
 
+"@rbxts/llama@^1.1.0-ts2":
+  version "1.1.0-ts2"
+  resolved "https://registry.yarnpkg.com/@rbxts/llama/-/llama-1.1.0-ts2.tgz#116facfa5f9e4a7b9954e98c504b0715c6fa169b"
+  integrity sha512-URwURAZI+O1Ouak31bRoGDo42MgrKp2e4tt5ebb08ie0z/Z15cbS7tLL3DYhzHBokiaZy2y62Dh5m7FZ6mxAtg==
+
 "@rbxts/log@^0.5.0-beta.1":
   version "0.5.0-beta.1"
   resolved "https://registry.yarnpkg.com/@rbxts/log/-/log-0.5.0-beta.1.tgz#2579abb1da7ca4f23aa745c646763fbc9f2faf6f"

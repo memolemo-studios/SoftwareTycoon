@@ -3,3 +3,6 @@
 
 # Lua/u files
 **/*.lua
+
+# Other files
+**/.gitkeep
