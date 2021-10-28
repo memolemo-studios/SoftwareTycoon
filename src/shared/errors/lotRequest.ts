@@ -42,7 +42,7 @@ export class LotRequestError extends BaseError {
 		assert(serialized_check(serialized), "Invalid serialized error");
 
 		// a workaround to solve this problem here
-		const ser = serialized as unknown as LotRequestError;
+		const ser = serialized as unknown as LotRequestSerializedError;
 
 		// constructing new class
 		const new_error = new LotRequestError(ser.kind, serialized.id);

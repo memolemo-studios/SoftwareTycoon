@@ -17,6 +17,10 @@ export class PlayerDataError extends BaseError {
 		super(inheritedTimes);
 	}
 
+	public static makeResult(kind: PlayerDataErrorKind) {
+		return Result.err(new PlayerDataError(kind));
+	}
+
 	public toMessage() {
 		return toMessageFromKind(this.kind);
 	}
@@ -24,10 +28,13 @@ export class PlayerDataError extends BaseError {
 	public static fromSerialized(serialized: unknown) {
 		assert(serialized_check(serialized), "Invalid serialized error");
 
+		// a workaround to solve this problem here
+		const ser = serialized as unknown as PlayerDataSerializedError;
+
 		// constructing new class
-		const new_error = new PlayerDataError(serialized.kind);
-		new_error.source = serialized.source;
-		new_error.stack = serialized.stack;
+		const new_error = new PlayerDataError(ser.kind);
+		new_error.source = ser.source;
+		new_error.stack = ser.stack;
 
 		return new_error;
 	}

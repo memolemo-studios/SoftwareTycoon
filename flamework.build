@@ -15,6 +15,8 @@
 		"softwaretycoon:out/server/services/PlayerService@OnPlayerLeft": "server/services/PlayerService@OnPlayerLeft",
 		"softwaretycoon:out/server/services/PlayerService@OnPlayerJoined": "server/services/PlayerService@OnPlayerJoined",
 		"softwaretycoon:out/shared/networking@GlobalEvents": "shared/networking@GlobalEvents",
-		"softwaretycoon:out/shared/networking@GlobalFunctions": "shared/networking@GlobalFunctions"
+		"softwaretycoon:out/shared/networking@GlobalFunctions": "shared/networking@GlobalFunctions",
+		"softwaretycoon:out/shared/classes/cache@Cache": "shared/classes/cache@Cache",
+		"softwaretycoon:out/client/controllers/DataController@DataController": "client/controllers/DataController@DataController"
 	}
 }

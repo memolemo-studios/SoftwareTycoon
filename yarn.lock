@@ -104,6 +104,11 @@
   resolved "https://registry.yarnpkg.com/@phenomnomnominal/tstemplate/-/tstemplate-0.1.0.tgz#125b2617fa8cead47433bbf34ba7ef4e30a7c0f2"
   integrity sha512-/v+GIVNFHAz4+nQtgy9e5ZAXK3xj6TbP5s9JTpnFuqkcLB+gB2lJ6x/nsDhkKhzR6o4REuzhsYoWYnXqKC/UnQ==
 
+"@rbxts/bin@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@rbxts/bin/-/bin-1.0.1.tgz#3dd7caf87016621bb9a152b9c759579ad26a1c45"
+  integrity sha512-6ViCeSxqxO8gxfReh6xzn/MHiwUrtI1yy/ZEk//lzwrbFQ0MKEsileGb5fxVQ59kwqk08hXPXW796yuYFh8u0g==
+
 "@rbxts/compiler-types@^1.2.3-types.1":
   version "1.2.3-types.1"
   resolved "https://registry.yarnpkg.com/@rbxts/compiler-types/-/compiler-types-1.2.3-types.1.tgz#d7945531c917d62bafadd2b5aa6c2f2e88a2036a"
@@ -118,11 +123,6 @@
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/@rbxts/goodsignal/-/goodsignal-0.2.0.tgz#15e4853fc9c93bff9ec3f5faaeb7d5e04e2035ad"
   integrity sha512-C6T942lSj09u/10IIw/gilKdxnFOgQs/qXYilh5Nqe29hq8xSI/l4ktSTeQp/E4xaHBfYZfpw9jcvmn7KyOtdA==
-
-"@rbxts/janitor@^1.13.12-ts.1":
-  version "1.13.12-ts.1"
-  resolved "https://registry.yarnpkg.com/@rbxts/janitor/-/janitor-1.13.12-ts.1.tgz#ffd334ded97734e973fa58afca68118196663f10"
-  integrity sha512-7rHaoaks10S2y7+/acMuVFqumcPUiiGges5lPAQpAO0GROZhhh4kBNBFrOZX/qtv2PpbdWZ/I315bZGFl5DQAg==
 
 "@rbxts/janitor@^1.13.6-ts.0":
   version "1.13.6-ts.0"
