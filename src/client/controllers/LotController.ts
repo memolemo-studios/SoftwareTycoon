@@ -16,6 +16,10 @@ export class LotController implements OnStart {
 
 	/** @hidden */
 	public async onStart() {
+		// log
+		this.logger.Info("Requesting lot");
+
+		// request to claim a lot
 		const result = ResultSer.deserialize(await this.requestLot());
 		if (result.isErr()) {
 			// deserialize the error though

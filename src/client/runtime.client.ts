@@ -11,6 +11,10 @@ Log.SetLogger(
 		.Create(),
 );
 
+Log.Info("Initializing Flamework");
+
 // initialize flamework
 Flamework.addPaths("src/client/controllers", "src/client/apps", "src/client/components", "src/shared/flamework");
 Flamework.ignite();
+
+Log.Info("Flamework is now initialized");

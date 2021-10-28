@@ -1,4 +1,5 @@
 import { Controller, Flamework, OnInit, OnStart, Reflect } from "@flamework/core";
+import Log from "@rbxts/log";
 import Roact, { ComponentConstructor, mount, unmount } from "@rbxts/roact";
 import RoactRodux, { StoreProvider } from "@rbxts/roact-rodux";
 import { Players } from "@rbxts/services";
@@ -32,6 +33,7 @@ const controller_decorator = `${FLAMEWORK_DECORATOR_PREFIX}${Flamework.id<typeof
 
 @Controller({})
 export class AppController implements OnInit, OnStart {
+	private logger = Log.ForContext(AppController);
 	private connectedApps = new Map<string, AppInfo>();
 	private roactTreeApps = new Map<string, Roact.Tree>();
 
@@ -46,6 +48,8 @@ export class AppController implements OnInit, OnStart {
 	public hideApp(id: string) {
 		const tree = this.roactTreeApps.get(id);
 		if (tree !== undefined) {
+			// printing log
+			this.logger.Info("Unmounting app: {App}", id);
 			unmount(tree);
 		}
 	}
@@ -69,6 +73,9 @@ export class AppController implements OnInit, OnStart {
 
 		// do some variables
 		const config = app_info.config;
+
+		// printing log
+		this.logger.Info("Mounting app: {App}", id);
 
 		// because react jsx recognizes as a intrinsic element if the starting letter is in lowercase
 		let Contents = app_info.component as unknown as Roact.ComponentConstructor;

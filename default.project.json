@@ -21,6 +21,10 @@
 				"ClockTime": 14.5
       }
     },
+    "ReplicatedFirst": {
+      "$className": "ReplicatedFirst",
+      "$path": "out/services/replicatedfirst"
+    },
 		"ServerScriptService": {
 			"$className": "ServerScriptService",
 			"Game": {
