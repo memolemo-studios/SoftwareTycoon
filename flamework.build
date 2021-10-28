@@ -2,6 +2,17 @@
 	"version": 1,
 	"flameworkVersion": "1.0.0-beta.7",
 	"identifiers": {
-		"softwaretycoon:out/server/services/PlayerService@PlayerService": "server/services/PlayerService@PlayerService"
+		"softwaretycoon:out/server/services/PlayerService@PlayerService": "server/services/PlayerService@PlayerService",
+		"softwaretycoon:out/shared/errors/base@BaseError": "shared/errors/base@BaseError",
+		"softwaretycoon:out/server/services/DataService@DataService": "server/services/DataService@DataService",
+		"softwaretycoon:out/shared/components/game/SharedLot@SharedLot": "shared/components/game/SharedLot@SharedLot",
+		"softwaretycoon:out/shared/errors/lotRequest@LotRequestError": "shared/errors/lotRequest@LotRequestError",
+		"softwaretycoon:out/server/components/game/ServerLot@ServerLot": "server/components/game/ServerLot@ServerLot",
+		"softwaretycoon:out/server/services/lot/LotService@LotService": "server/services/lot/LotService@LotService",
+		"softwaretycoon:out/shared/errors/playerdata@PlayerDataError": "shared/errors/playerdata@PlayerDataError",
+		"softwaretycoon:out/server/services/player/DataService@DataService": "server/services/player/DataService@DataService",
+		"softwaretycoon:out/server/services/player/PlayerService@PlayerService": "server/services/player/PlayerService@PlayerService",
+		"softwaretycoon:out/server/services/player/PlayerService@OnPlayerJoined": "server/services/player/PlayerService@OnPlayerJoined",
+		"softwaretycoon:out/server/services/player/PlayerService@OnPlayerLeft": "server/services/player/PlayerService@OnPlayerLeft"
 	}
 }
