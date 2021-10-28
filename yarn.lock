@@ -1347,10 +1347,10 @@ rimraf@^3.0.2:
   dependencies:
     glob "^7.1.3"
 
-roblox-ts@=1.2.6:
-  version "1.2.6"
-  resolved "https://registry.yarnpkg.com/roblox-ts/-/roblox-ts-1.2.6.tgz#faae21c30552558554071b84816dee573b26ad83"
-  integrity sha512-tFh0SfcIM/QhjxIa2LxMhCHmvg0VEAI7L+ZodAgncn5oHMdFta4ZDdFQsXIGkpF354OanOEJinkNEQoM6Kk9XA==
+roblox-ts@=1.2.7:
+  version "1.2.7"
+  resolved "https://registry.yarnpkg.com/roblox-ts/-/roblox-ts-1.2.7.tgz#25dd8b23caae29d8031c5c82915e872642fdfd34"
+  integrity sha512-wxwMfdWwN1RwWj3ZrKYGXHqc3eZ1SvLoZ9RkphM7ClJrNfahrCfCnUJUuAXQ0fIBktbAKAUPBPqjEBl6yNfDZw==
   dependencies:
     ajv "^8.6.3"
     chokidar "^3.5.2"
