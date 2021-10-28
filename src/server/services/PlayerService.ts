@@ -14,23 +14,12 @@ export interface OnPlayerJoined {
 	onPlayerJoined(player: Player): void;
 }
 
-/** Hook into the OnPlayerLeft event */
-export interface OnPlayerLeft {
-	/**
-	 * This function will be called whenever the player left the game.
-	 *
-	 * There's nothing special about expect making any service clean
-	 */
-	onPlayerLeft(player: Player): void;
-}
-
 /** PlayerService handles player stuff */
 @Service({})
 export class PlayerService implements OnInit, OnStart {
 	private logger = Log.ForContext(PlayerService);
 
 	private onPlayerJoinObjs = new Map<string, OnPlayerJoined>();
-	private onPlayerLeftObjs = new Map<string, OnPlayerLeft>();
 
 	private fireOnPlayerJoin(player: Player) {
 		for (const [_, obj] of this.onPlayerJoinObjs) {
@@ -38,17 +27,8 @@ export class PlayerService implements OnInit, OnStart {
 		}
 	}
 
-	private fireOnPlayerLeft(player: Player) {
-		for (const [_, obj] of this.onPlayerLeftObjs) {
-			task.spawn(() => obj.onPlayerLeft(player));
-		}
-	}
-
 	private onPlayerRemoving(player: Player) {
 		this.logger.Info("{Player} left the game", player.UserId);
-
-		// TODO: clear player's profile
-		this.fireOnPlayerLeft(player);
 	}
 
 	private async onPlayerAdded(player: Player) {
@@ -74,9 +54,6 @@ export class PlayerService implements OnInit, OnStart {
 		for (const [id, obj] of Reflect.idToObj) {
 			if (Flamework.implements<OnPlayerJoined>(obj)) {
 				this.onPlayerJoinObjs.set(id, obj);
-			}
-			if (Flamework.implements<OnPlayerLeft>(obj)) {
-				this.onPlayerLeftObjs.set(id, obj);
 			}
 		}
 

@@ -1,16 +1,41 @@
 import { Components } from "@flamework/components";
-import { Service } from "@flamework/core";
+import { OnInit, Service } from "@flamework/core";
+import { ResultSer } from "@memolemo-studios/result-option-ser";
 import Log from "@rbxts/log";
 import { Option, Result } from "@rbxts/rust-classes";
+import { Players } from "@rbxts/services";
 import { ServerLot } from "server/components/game/ServerLot";
+import { Functions } from "server/networking";
 import { LotRequestError } from "shared/errors/lotRequest";
 import ArrayUtil from "shared/util/array";
-import { LotRequestErrorKind } from "types/errors/lotRequest";
-import { OnPlayerLeft } from "./PlayerService";
+import { LotRequestErrorKind, LotRequestSerializedError } from "types/errors/lotRequest";
 
 @Service({})
-export class LotService implements OnPlayerLeft {
+export class LotService implements OnInit {
 	private logger = Log.ForContext(LotService);
+
+	/** @hidden */
+	public onInit() {
+		// if lots are empty, warn the server
+		if (this.components.getAllComponents<ServerLot>().isEmpty()) {
+			this.logger.Warn("This server has no available lots, avoid requesting lot as possible to prevent issues");
+		}
+
+		// when the player leaves the game
+		Players.PlayerRemoving.Connect(player => this.onPlayerLeft(player));
+
+		// connecting some functions
+		Functions.requestLot.setCallback(player => {
+			const result = this.assignPlayerToLot(player);
+			let final_result: Result<string, LotRequestSerializedError>;
+			if (result.isOk()) {
+				final_result = Result.ok(result.unwrap().attributes.Id!);
+			} else {
+				final_result = Result.err(result.unwrapErr());
+			}
+			return ResultSer.serialize<string, LotRequestSerializedError>(final_result);
+		});
+	}
 
 	public constructor(private components: Components) {}
 
@@ -87,8 +112,7 @@ export class LotService implements OnPlayerLeft {
 		return Option.wrap(player_owned_lots[0]);
 	}
 
-	/** @hidden */
-	public onPlayerLeft(player: Player) {
+	private onPlayerLeft(player: Player) {
 		for (const lot of this.getLotsFromPlayer(player)) {
 			const clear_result = lot.clearOwner();
 			if (clear_result.isErr()) {

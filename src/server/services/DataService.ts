@@ -14,7 +14,7 @@ export class DataService {
 	 * @returns Result with `PlayerData` and `PlayerDataError`
 	 */
 	public async loadPlayerProfile(player: Player): Promise<Result<PlayerData, PlayerDataError>> {
-		this.logger.Info("Fetching {@Player}'s data", player);
+		this.logger.Info("Fetching {Player}'s data", player.UserId);
 
 		// TODO: load data something like that
 		return Result.ok(DEFAULT_PLAYER_DATA);

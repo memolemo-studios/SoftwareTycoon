@@ -42,6 +42,7 @@
     "@flamework/core": "^1.0.0-beta.1",
     "@flamework/networking": "^1.0.0-beta.5",
     "@memolemo-studios/rbxts-attributes": "^1.2.2",
+    "@memolemo-studios/result-option-ser": "^1.0.0",
     "@rbxts/flipper": "^2.0.1",
     "@rbxts/goodsignal": "^0.2.0",
     "@rbxts/janitor": "^1.13.12-ts.1",

@@ -70,6 +70,14 @@
   dependencies:
     "@rbxts/janitor" "^1.13.6-ts.0"
 
+"@memolemo-studios/result-option-ser@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@memolemo-studios/result-option-ser/-/result-option-ser-1.0.0.tgz#c7a381b13ca8f8112fecc06b8f44e18c3428cc48"
+  integrity sha512-PWJZPoewGT65uqH/lGxuadxY7C8vzW+zBZVMbMb41/7nfLzMbi52CnfjYljmjr2FSdF5690p9rqRPXdaUPpJnA==
+  dependencies:
+    "@rbxts/rust-classes" "^0.11.0-beta.1"
+    "@rbxts/t" "^2.2.1"
+
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz#7619c2eb21b25483f6d167548b4cfd5a7488c3d5"
@@ -172,6 +180,11 @@
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/@rbxts/t/-/t-2.1.5.tgz#583d1feee5ca26dfae85254ebac0514316ed7c3e"
   integrity sha512-eH2faj6wh4IJnZaqLi0jSmbOmnSFndSXJbXNwobrNAKwmdzxvM64sSsHZ5v1R02BQXuZP/zUjKeL7WS2416pxQ==
+
+"@rbxts/t@^2.2.1":
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/@rbxts/t/-/t-2.2.1.tgz#19b8be095a503bc2835bd70bf8cd45cb9d958ca7"
+  integrity sha512-MoFLHRQdm1tpAviAVxgkQj/ktxtnGBund2HXQj5xRqgYUWuC3kYuLkctuxXiJHUd1o1JzfU/HvVHtZfpqp61tg==
 
 "@rbxts/testez@^0.3.1-ts.6":
   version "0.3.1-ts.6"

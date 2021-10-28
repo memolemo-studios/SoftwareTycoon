@@ -1,15 +1,30 @@
 import { Components } from "@flamework/components";
-import { Controller } from "@flamework/core";
+import { Controller, OnStart } from "@flamework/core";
+import { ResultSer } from "@memolemo-studios/result-option-ser";
 import Log from "@rbxts/log";
 import { Option } from "@rbxts/rust-classes";
 import { Players } from "@rbxts/services";
 import { ClientLot } from "client/components/ClientLot";
+import { Functions } from "client/networking";
+import { LotRequestError } from "shared/errors/lotRequest";
 
 const local_player = Players.LocalPlayer;
 
 @Controller({})
-export class LotController {
+export class LotController implements OnStart {
 	private logger = Log.ForContext(LotController);
+
+	/** @hidden */
+	public async onStart() {
+		const result = ResultSer.deserialize(await this.requestLot());
+		if (result.isErr()) {
+			// deserialize the error though
+			const request_error = LotRequestError.fromSerialized(result.unwrapErr());
+			this.logger.Warn("[LotController::onStart]: {Message}", request_error.toMessage());
+		} else {
+			this.logger.Info("Success!");
+		}
+	}
 
 	public constructor(private components: Components) {}
 
@@ -23,6 +38,13 @@ export class LotController {
 	 */
 	public getOwnerLot() {
 		return this.getLotFromPlayer(local_player);
+	}
+
+	/**
+	 * Requests a lot and sends it over to the server to process it
+	 */
+	public requestLot() {
+		return Functions.requestLot();
 	}
 
 	/**

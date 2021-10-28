@@ -12,5 +12,5 @@ Log.SetLogger(
 );
 
 // initialize flamework
-Flamework.addPaths("src/server/services", "src/shared/flamework");
+Flamework.addPaths("src/server/services", "src/server/components", "src/shared/flamework");
 Flamework.ignite();
