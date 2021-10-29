@@ -4,15 +4,15 @@ import { withSettings } from "interface/context/settings";
 import { getAssetServices } from "interface/util/asset";
 import { BindingUtil } from "shared/util/binding";
 
-export interface BaseButtonProps
-	extends Omit<JsxInstance<TextButton>, "BackgroundColor3" | "AutoButtonColor" | "Text"> {
+export interface BaseButtonProps extends Omit<JsxInstance<GuiButton>, "BackgroundColor3" | "AutoButtonColor" | "Ref"> {
 	BaseColor?: Color3;
-	HoveredColor3?: Color3;
+	Ref?: Roact.Ref<TextButton>;
+	HoveredColor?: Color3;
 	SoundsEnabled?: boolean;
 	OnClick?: (rbx: TextButton, inputObject: InputObject, clickCount: number) => void;
 }
 
-/** BaseButton */
+/** Basic button for the rest of the components to reuse */
 export default class BaseButton extends Component<BaseButtonProps> {
 	private hoverMotor: SingleMotor;
 	private hoverBinding: Binding<number>;
@@ -49,13 +49,13 @@ export default class BaseButton extends Component<BaseButtonProps> {
 			spread_props.SoundsEnabled = undefined;
 			spread_props.OnClick = undefined;
 			spread_props.BaseColor = undefined;
-			spread_props.HoveredColor3 = undefined;
+			spread_props.HoveredColor = undefined;
 			return (
 				<textbutton
 					AutoButtonColor={false}
 					BackgroundColor3={this.hoverBinding.map(alpha => {
 						return (
-							this.props.BaseColor?.Lerp(this.props.HoveredColor3 ?? new Color3(), alpha) ?? new Color3()
+							this.props.BaseColor?.Lerp(this.props.HoveredColor ?? new Color3(), alpha) ?? new Color3()
 						);
 					})}
 					Event={{

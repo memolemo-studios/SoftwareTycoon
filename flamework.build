@@ -26,6 +26,9 @@
 		"softwaretycoon:out/server/services/PlayerService@PlayerService": "server/services/PlayerService@PlayerService",
 		"softwaretycoon:out/shared/networking@GlobalEvents": "shared/networking@GlobalEvents",
 		"softwaretycoon:out/shared/networking@GlobalFunctions": "shared/networking@GlobalFunctions",
-		"softwaretycoon:out/server/services/PlayerService@OnPlayerJoined": "server/services/PlayerService@OnPlayerJoined"
+		"softwaretycoon:out/server/services/PlayerService@OnPlayerJoined": "server/services/PlayerService@OnPlayerJoined",
+		"softwaretycoon:out/client/controllers/CharacterController@CharacterController": "client/controllers/CharacterController@CharacterController",
+		"softwaretycoon:out/client/controllers/CoreGuiController/init@CoreGuiController": "client/controllers/CoreGuiController/init@CoreGuiController",
+		"softwaretycoon:out/client/controllers/CharacterController@OnCharacterSpawned": "client/controllers/CharacterController@OnCharacterSpawned"
 	}
 }

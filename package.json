@@ -57,8 +57,10 @@
     "@rbxts/rodux": "^3.0.0-ts.3",
     "@rbxts/rust-classes": "^0.11.0-beta.1",
     "@rbxts/services": "^1.2.0",
+    "@rbxts/string-utils": "^1.0.3",
     "@rbxts/t": "^2.2.1",
     "@rbxts/testez": "^0.3.1-ts.6",
+    "@rbxts/validate-tree": "^2.0.1",
     "rbxts-transform-env": "^1.0.0-ts4.4",
     "rbxts-transformer-fs": "^1.1.0-rc.5",
     "rbxts-transformer-t": "^1.1.4"
