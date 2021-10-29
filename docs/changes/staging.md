@@ -2,7 +2,18 @@
 
 ## 0.0.1-alpha.3
 
+**Global**:
 - **Entire codebase has been refactored**
+- Added `SoundManager` and `AssetManager`
+	- Responsible for handling asset stuff to the game
+- Result and Option serialization modules are separated to `@memolemo-studios/result-option-ser` package
+- Added latency system for lag detection (*kind of useless service but it can be useful in the future*)
+- Revised some error classes?
+
+**Client**:
+- Added `CharacterController`
+	- Handling character from the client
+- Added `AppController` (*responsible for connected app components*)
 
 ## 0.0.1-alpha.2
 
