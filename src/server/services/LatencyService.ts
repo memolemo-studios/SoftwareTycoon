@@ -1,4 +1,4 @@
-import { OnStart, Service } from "@flamework/core";
+import { OnInit, Service } from "@flamework/core";
 import { ResultSer } from "@memolemo-studios/result-option-ser";
 import { Result } from "@rbxts/rust-classes";
 import { HttpService, Players } from "@rbxts/services";
@@ -19,7 +19,7 @@ interface PingInfo {
  * - It is useful for player is having a problem with their internet connection.
  */
 @Service({})
-export class LatencyService implements OnStart {
+export class LatencyService implements OnInit {
 	private pingMsPerPlayer = new Map<Player, number>();
 	private pingInfoPerPlayer = new Map<Player, PingInfo>();
 
@@ -73,13 +73,19 @@ export class LatencyService implements OnStart {
 		return false;
 	}
 
+	private onPlayerLeft(player: Player) {
+		// cleaning up!
+		this.pingMsPerPlayer.delete(player);
+		this.pingInfoPerPlayer.delete(player);
+	}
+
 	private onPlayerJoined(player: Player) {
 		// start with ping ms: 1
 		this.pingMsPerPlayer.set(player, 1);
 	}
 
 	/** @hidden */
-	public onStart() {
+	public onInit() {
 		// do a routine right now
 		Thread.Loop(5, () => this.doLatencyRoutine());
 
@@ -102,6 +108,7 @@ export class LatencyService implements OnStart {
 
 		// evens
 		Players.PlayerAdded.Connect(player => this.onPlayerJoined(player));
+		Players.PlayerRemoving.Connect(player => this.onPlayerLeft(player));
 
 		// requester
 		Functions.getPlayerLatency.setCallback(player_userid => {
