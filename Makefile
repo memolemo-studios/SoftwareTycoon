@@ -24,4 +24,4 @@ cleanup:
 
 ## Makes a unit test environment ##
 test-env:
-	echo UNIT_TEST=true >> .envs
+	echo UNIT_TEST=true >> .env
