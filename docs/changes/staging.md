@@ -5,7 +5,9 @@
 **Global**:
 - **Entire codebase has been refactored**
 - Added `SoundManager` and `AssetManager`
-	- Responsible for handling asset stuff to the game
+	- Responsible for handling asset and sounf stuff to the game
+- Added `assets/audio` directory (*where I can keep all of my audio files*)
+- Added `config` directory (*for game configurations*)
 - Result and Option serialization modules are separated to `@memolemo-studios/result-option-ser` package
 - Added latency system for lag detection (*kind of useless service but it can be useful in the future*)
 - Revised some error classes?
