@@ -27,8 +27,15 @@ export class CharacterController implements OnInit {
 	}
 
 	/**
+	 * Returns a boolean as a result of is character spawned in Workspace.
+	 */
+	public isCharacterSpawned() {
+		return local_player.Character !== undefined && local_player.Character.Parent !== undefined;
+	}
+
+	/**
 	 * Gets the player's character based on the currentCharacter
-	 * saved during the initialization of Flamework
+	 * saved in this service.
 	 */
 	public getCurrentCharacter() {
 		return Option.wrap(this.currentCharacter?.Parent !== undefined ? this.currentCharacter : undefined);
@@ -51,7 +58,7 @@ export class CharacterController implements OnInit {
 
 		// connecting this real guy :)
 		local_player.CharacterAdded.Connect(r => this.onCharacterAdded(r));
-		if (local_player.Character !== undefined) {
+		if (this.isCharacterSpawned()) {
 			task.spawn(() => this.onCharacterAdded(local_player.Character!));
 		}
 	}
