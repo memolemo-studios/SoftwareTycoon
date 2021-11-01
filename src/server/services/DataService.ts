@@ -4,7 +4,7 @@ import { GetProfileStore } from "@rbxts/profileservice";
 import { Result } from "@rbxts/rust-classes";
 import { Players, RunService } from "@rbxts/services";
 import { PlayerDataError } from "shared/errors/playerdata";
-import { DEFAULT_PLAYER_DATA } from "shared/util/playerdata";
+import { DEFAULT_PLAYER_DATA } from "shared/constants/playerdata";
 import { PlayerDataErrorKind } from "types/errors/playerdata";
 import { PlayerDataProfile } from "types/player/data";
 

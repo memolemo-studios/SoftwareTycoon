@@ -11,9 +11,11 @@
 		"softwaretycoon:out/interface/frame/spring/transition@TransitionSpringFrame": "interface/frame/spring/transition@TransitionSpringFrame",
 		"softwaretycoon:out/client/apps/Main/init@MainApp": "client/apps/Main/init@MainApp",
 		"softwaretycoon:out/client/controllers/AppController@ClientApp": "client/controllers/AppController@ClientApp",
+		"softwaretycoon:out/client/cameras/base@BaseScriptableCamera": "client/cameras/base@BaseScriptableCamera",
 		"softwaretycoon:out/shared/components/game/SharedLot@SharedLot": "shared/components/game/SharedLot@SharedLot",
 		"softwaretycoon:out/client/components/ClientLot@ClientLot": "client/components/ClientLot@ClientLot",
 		"softwaretycoon:out/client/controllers/CharacterController@CharacterController": "client/controllers/CharacterController@CharacterController",
+		"softwaretycoon:out/client/controllers/CameraController@CameraController": "client/controllers/CameraController@CameraController",
 		"softwaretycoon:out/shared/classes/cache@Cache": "shared/classes/cache@Cache",
 		"softwaretycoon:out/shared/errors/base@BaseError": "shared/errors/base@BaseError",
 		"softwaretycoon:out/shared/errors/playerdata@PlayerDataError": "shared/errors/playerdata@PlayerDataError",
@@ -23,9 +25,14 @@
 		"softwaretycoon:out/shared/errors/lotRequest@LotRequestError": "shared/errors/lotRequest@LotRequestError",
 		"softwaretycoon:out/client/controllers/LotController@LotController": "client/controllers/LotController@LotController",
 		"softwaretycoon:out/client/controllers/CoreGuiController/init@CoreGuiController": "client/controllers/CoreGuiController/init@CoreGuiController",
+		"softwaretycoon:out/client/input/keyboard@Keyboard": "client/input/keyboard@Keyboard",
+		"softwaretycoon:out/client/input/mouse@Mouse": "client/input/mouse@Mouse",
+		"softwaretycoon:out/shared/classes/placement@BasePlacement": "shared/classes/placement@BasePlacement",
+		"softwaretycoon:out/client/placement/base@BaseClientPlacement": "client/placement/base@BaseClientPlacement",
 		"softwaretycoon:out/interface/frame/background/fade@FadeBackgroundFrame": "interface/frame/background/fade@FadeBackgroundFrame",
 		"softwaretycoon:out/interface/others/tooltip@Tooltip": "interface/others/tooltip@Tooltip",
 		"softwaretycoon:out/server/components/game/ServerLot@ServerLot": "server/components/game/ServerLot@ServerLot",
+		"softwaretycoon:out/server/services/BuilderService@BuilderService": "server/services/BuilderService@BuilderService",
 		"softwaretycoon:out/server/services/DataService@DataService": "server/services/DataService@DataService",
 		"softwaretycoon:out/server/services/LatencyService@LatencyService": "server/services/LatencyService@LatencyService",
 		"softwaretycoon:out/server/services/LotService@LotService": "server/services/LotService@LotService",
@@ -33,6 +40,7 @@
 		"softwaretycoon:out/shared/networking@GlobalEvents": "shared/networking@GlobalEvents",
 		"softwaretycoon:out/shared/networking@GlobalFunctions": "shared/networking@GlobalFunctions",
 		"softwaretycoon:out/server/services/PlayerService@OnPlayerJoined": "server/services/PlayerService@OnPlayerJoined",
-		"softwaretycoon:out/client/controllers/CharacterController@OnCharacterSpawned": "client/controllers/CharacterController@OnCharacterSpawned"
+		"softwaretycoon:out/client/controllers/CharacterController@OnCharacterSpawned": "client/controllers/CharacterController@OnCharacterSpawned",
+		"softwaretycoon:out/client/controllers/CharacterController@OnCharacterDied": "client/controllers/CharacterController@OnCharacterDied"
 	}
 }

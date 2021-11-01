@@ -4,7 +4,7 @@ import Log from "@rbxts/log";
 import { Functions } from "client/networking";
 import Cache from "shared/classes/cache";
 import { PlayerDataError } from "shared/errors/playerdata";
-import { DEFAULT_PLAYER_DATA } from "shared/util/playerdata";
+import { DEFAULT_PLAYER_DATA } from "shared/constants/playerdata";
 import { PlayerDataSerializedError } from "types/errors/playerdata";
 import { PlayerData } from "types/player/data";
 

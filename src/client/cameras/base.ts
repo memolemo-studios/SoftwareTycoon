@@ -17,7 +17,7 @@ const {
 	CAMERA_ROTATION_SPEED,
 } = CameraDebugConfig;
 
-export interface ScriptableCameraDebugAttribs {
+interface Attrib {
 	CameraAngle: Vector3;
 	CameraPosition: Vector3;
 	CameraPositionDamper: number;
@@ -27,9 +27,9 @@ export interface ScriptableCameraDebugAttribs {
 }
 
 /** Bare bones of ScriptableCamera */
-export default class ScriptableCamera {
+export default class BaseScriptableCamera {
 	/** Use this for debugging purposes */
-	protected attributes?: Attributes<ScriptableCameraDebugAttribs>;
+	protected attributes?: Attributes<Attrib>;
 	protected bin = new Bin();
 	protected dummyDebugger?: Folder;
 
