@@ -45,7 +45,6 @@ export class DataController implements OnTick, OnInit {
 	public onTick() {
 		// time to update player's data
 		if (this.dataCache.canUpdate()) {
-			this.logger.Verbose("Fetching player's data to DataService");
 			this.dataCache.updateValue();
 		}
 	}

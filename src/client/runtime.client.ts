@@ -18,9 +18,4 @@ Log.Info("Initializing Flamework");
 Flamework.addPaths("src/client/controllers", "src/client/apps", "src/client/components", "src/shared/flamework");
 Flamework.ignite();
 
-// allow element tracebacks in Roact
-Roact.setGlobalConfig({
-	elementTracing: true,
-});
-
 Log.Info("Flamework is now initialized");

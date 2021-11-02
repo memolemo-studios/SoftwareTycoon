@@ -1,4 +1,5 @@
 import { Controller, Flamework, OnInit, Reflect } from "@flamework/core";
+import Log from "@rbxts/log";
 import { Option } from "@rbxts/rust-classes";
 import { Players } from "@rbxts/services";
 import CharacterUtil from "shared/util/character";
@@ -31,17 +32,19 @@ const local_player = Players.LocalPlayer;
 
 @Controller({})
 export class CharacterController implements OnInit {
-	private connectedCharacterSpawned = new Map<string, OnCharacterSpawned>();
-	private connectedCharacterDied = new Map<string, OnCharacterDied>();
+	private logger = Log.ForContext(CharacterController);
+
+	private connectedSpawned = new Map<string, OnCharacterSpawned>();
+	private connectedrDied = new Map<string, OnCharacterDied>();
 
 	private currentCharacter?: BaseCharacterModel;
 
 	private fireOnCharacterSpawned(character: BaseCharacterModel) {
-		this.connectedCharacterSpawned.forEach(c => task.spawn(() => c.onCharacterSpawned(character)));
+		this.connectedSpawned.forEach(c => task.spawn(() => c.onCharacterSpawned(character)));
 	}
 
 	private fireOnCharacterDied(character: BaseCharacterModel) {
-		this.connectedCharacterDied.forEach(c => task.spawn(() => c.onCharacterDied(character)));
+		this.connectedrDied.forEach(c => task.spawn(() => c.onCharacterDied(character)));
 	}
 
 	/**
@@ -62,6 +65,8 @@ export class CharacterController implements OnInit {
 	private async onCharacterAdded(raw: Model) {
 		// wait for character to load like BaseCharacter model tree
 		const character = await promiseForCharacter(raw);
+		this.logger.Info("Character spawned successfully");
+
 		this.fireOnCharacterSpawned(character);
 
 		// do something during their death
@@ -69,6 +74,8 @@ export class CharacterController implements OnInit {
 
 		// eslint-disable-next-line prefer-const
 		conn = CharacterUtil.watchToDie(character, () => {
+			this.logger.Info("Character died");
+
 			conn.Disconnect();
 			this.fireOnCharacterDied(character);
 		});
@@ -79,10 +86,10 @@ export class CharacterController implements OnInit {
 		// connecting flamework objects that implements `OnCharacterSpawned` and `OnCharacterDied`
 		for (const [id, obj] of Reflect.idToObj) {
 			if (Flamework.implements<OnCharacterSpawned>(obj)) {
-				this.connectedCharacterSpawned.set(id, obj);
+				this.connectedSpawned.set(id, obj);
 			}
 			if (Flamework.implements<OnCharacterDied>(obj)) {
-				this.connectedCharacterDied.set(id, obj);
+				this.connectedrDied.set(id, obj);
 			}
 		}
 
