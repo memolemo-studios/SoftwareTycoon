@@ -15,7 +15,12 @@ const TestComponent = new RoactHooks(Roact)((_, { useState }) => {
 				Text={`${hidden ? "Open" : "Close"} Toolbar`}
 				Size={UDim2.fromOffset(200, 50)}
 			/>
-			<Toolbar AnchorPoint={new Vector2(0.5, 1)} Position={new UDim2(0.5, 0, 1, -10)} Hidden={hidden} />
+			<Toolbar
+				AnchorPoint={new Vector2(0.5, 1)}
+				Size={UDim2.fromOffset(340, 70)}
+				Position={new UDim2(0.5, 0, 1, -10)}
+				Hidden={hidden}
+			/>
 		</StyleProvider>
 	);
 });

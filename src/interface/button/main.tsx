@@ -1,4 +1,5 @@
 import Roact, { PropsWithChildren } from "@rbxts/roact";
+import GameCornerConstraint from "interface/constraints/corner";
 import { withStyle } from "interface/context/style";
 import TextButton, { TextButtonProps } from "./text";
 
@@ -25,6 +26,7 @@ export default function MainButton(props: PropsWithChildren<Props>) {
 				TextSize={theme.TextSize}
 				{...spread_props}
 			>
+				<GameCornerConstraint />
 				{props[Roact.Children]}
 			</TextButton>
 		);

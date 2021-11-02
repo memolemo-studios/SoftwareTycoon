@@ -29,7 +29,7 @@ export default class Tooltip extends Component<Props> {
 		if (this.props.Hidden !== lastProps.Hidden) {
 			this.transparencyMotor.setGoal(
 				new Spring(this.getTransparency(), {
-					frequency: 1,
+					frequency: 5,
 					dampingRatio: 1,
 				}),
 			);
@@ -39,6 +39,7 @@ export default class Tooltip extends Component<Props> {
 	public render() {
 		return withStyle(style => {
 			const spread_props = { ...this.props };
+			spread_props.Hidden = undefined;
 			spread_props.Text = undefined;
 			spread_props[Roact.Children] = undefined;
 
