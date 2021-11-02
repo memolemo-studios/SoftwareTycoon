@@ -14,7 +14,7 @@ export default function BackgroundFrame(props: Roact.PropsWithChildren<Backgroun
 	return (
 		<frame
 			Size={props.FullScreen ? new UDim2(1, 0, 1, 40) : UDim2.fromScale(1, 1)}
-			Position={UDim2.fromOffset(0, -40)}
+			Position={props.FullScreen ? UDim2.fromOffset(0, -40) : undefined}
 			BackgroundColor3={props.Color}
 			Transparency={props.Transparency}
 		>

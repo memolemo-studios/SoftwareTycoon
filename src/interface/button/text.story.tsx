@@ -7,6 +7,7 @@ import TextButton from "./text";
 export = identity<HoarcekatStory>(parent => {
 	const tree = mount(
 		<BundleProvider>
+			{/* Strict size property */}
 			<TextButton
 				BaseColor={new Color3(1, 1, 1)}
 				HoveredColor={new Color3(0.9, 0.9, 0.9)}
@@ -15,6 +16,17 @@ export = identity<HoarcekatStory>(parent => {
 				Font={Enum.Font.SourceSans}
 				TextColor={new Color3(0, 0, 0)}
 				Size={UDim2.fromOffset(200, 50)}
+				SoundsEnabled={false}
+			/>
+			{/* Automatic sizing */}
+			<TextButton
+				BaseColor={new Color3(1, 1, 1)}
+				HoveredColor={new Color3(0.9, 0.9, 0.9)}
+				Position={UDim2.fromOffset(210, 0)}
+				Text="Yo!"
+				TextSize={18}
+				Font={Enum.Font.SourceSans}
+				TextColor={new Color3(0, 0, 0)}
 				SoundsEnabled={false}
 			/>
 		</BundleProvider>,

@@ -7,7 +7,7 @@ import MainButton from "./main";
 export = identity<HoarcekatStory>(parent => {
 	const tree = mount(
 		<BundleProvider>
-			<MainButton Size={UDim2.fromOffset(200, 50)} SoundsEnabled={false} />
+			<MainButton SoundsEnabled={false} />
 		</BundleProvider>,
 		parent,
 	);

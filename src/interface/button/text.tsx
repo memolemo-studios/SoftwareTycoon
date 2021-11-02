@@ -19,14 +19,14 @@ const DEFAULTS = {
 	TextSize: 18,
 };
 
-function adjustSizeOnText(text: string, { TextSize, Font }: TextButtonProps) {
+function adjustSizeOnText(text: string, { TextSize, Font, PaddingX, PaddingY }: TextButtonProps) {
 	const ideal_size = TextService.GetTextSize(
 		text,
 		TextSize ?? DEFAULTS.TextSize,
 		Font ?? DEFAULTS.Font,
 		new Vector2(math.huge, math.huge),
 	);
-	return UDim2.fromOffset(ideal_size.X, ideal_size.Y);
+	return UDim2.fromOffset(ideal_size.X + (PaddingX ?? 0 * 2), ideal_size.Y + (PaddingY ?? 0 * 2));
 }
 
 /**
@@ -39,23 +39,27 @@ export default function TextButton(props: PropsWithChildren<TextButtonProps>) {
 	const spread_props = { ...props };
 	spread_props.Text = undefined;
 	spread_props.TextSize = undefined;
+	spread_props.TextColor = undefined;
 	spread_props.Font = undefined;
 	spread_props.PaddingX = undefined;
 	spread_props.PaddingY = undefined;
+	spread_props[Roact.Children] = undefined;
+
 	return (
-		<BaseButton {...spread_props}>
-			<frame
-				Key="TextContainer"
-				BackgroundTransparency={1}
-				Size={
-					RoactUtil.isBinding(props.Text)
-						? props.Text.map(v => adjustSizeOnText(v, props))
-						: adjustSizeOnText(props.Text ?? "Button", props)
-				}
-			>
-				<XYPadding Key="Padding" offsetX={props.PaddingX} offsetY={props.PaddingY} />
+		<BaseButton
+			Size={
+				RoactUtil.isBinding(props.Text)
+					? props.Text.map(v => adjustSizeOnText(v, props))
+					: adjustSizeOnText(props.Text ?? "Button", props)
+			}
+			{...spread_props}
+		>
+			<frame Key="TextContainer" BackgroundTransparency={1} Size={UDim2.fromScale(1, 1)}>
 				<textlabel
 					Key="Label"
+					AnchorPoint={new Vector2(0.5, 0.5)}
+					Position={UDim2.fromScale(0.5, 0.5)}
+					Size={UDim2.fromScale(1, 1)}
 					BackgroundTransparency={1}
 					TextColor3={props.TextColor}
 					Font={props.Font ?? DEFAULTS.Font}
@@ -63,6 +67,7 @@ export default function TextButton(props: PropsWithChildren<TextButtonProps>) {
 					Text={props.Text}
 				/>
 			</frame>
+			{props[Roact.Children]}
 		</BaseButton>
 	);
 }

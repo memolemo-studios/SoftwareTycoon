@@ -1,6 +1,6 @@
 import { createContext, PropsWithChildren } from "@rbxts/roact";
 import Roact from "@rbxts/roact";
-import { DEFAULT_PLAYER_SETTINGS } from "shared/util/playersettings";
+import { DEFAULT_PLAYER_SETTINGS } from "shared/constants/playersettings";
 import { PlayerSettings } from "types/player/settings";
 
 const SettingsContext = createContext(DEFAULT_PLAYER_SETTINGS);

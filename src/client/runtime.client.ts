@@ -1,5 +1,6 @@
 import { Flamework } from "@flamework/core";
 import Log, { Logger, LogLevel } from "@rbxts/log";
+import Roact from "@rbxts/roact";
 import { RunService } from "@rbxts/services";
 
 // logger setup
