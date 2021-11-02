@@ -39,6 +39,22 @@ export default class Keyboard {
 		return keycodes.some(keycode => this.isKeyDown(keycode));
 	}
 
+	public isLocked() {
+		return UserInputService.MouseBehavior !== Enum.MouseBehavior.Default;
+	}
+
+	public lock() {
+		UserInputService.MouseBehavior = Enum.MouseBehavior.LockCurrentPosition;
+	}
+
+	public lockAtCenter() {
+		UserInputService.MouseBehavior = Enum.MouseBehavior.LockCenter;
+	}
+
+	public unlock() {
+		UserInputService.MouseBehavior = Enum.MouseBehavior.Default;
+	}
+
 	public destroy() {
 		this.bin.destroy();
 	}
