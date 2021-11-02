@@ -1,178 +1,152 @@
-import Attributes from "@memolemo-studios/rbxts-attributes";
+import { Dependency } from "@flamework/core";
 import { Bin } from "@rbxts/bin";
-import { Option } from "@rbxts/rust-classes";
-import { Workspace } from "@rbxts/services";
-import Spring from "shared/classes/spring";
+import { Result } from "@rbxts/rust-classes";
+import { CameraController } from "client/controllers/CameraController";
 import { CameraDebugConfig } from "shared/constants/camera";
 import CFrameUtil from "shared/util/cframe";
 import VectorUtil from "shared/util/vector";
 
-// long constant values
-const {
-	CAMERA_ANGLE,
-	CAMERA_POSITION,
-	CAMERA_POSITION_DAMPER,
-	CAMERA_POSITION_SPEED,
-	CAMERA_ROTATION_DAMPER,
-	CAMERA_ROTATION_SPEED,
-} = CameraDebugConfig;
+const { POSITION, ROTATION } = CameraDebugConfig;
+let camera_controller: CameraController;
 
-interface Attrib {
-	CameraAngle: Vector3;
-	CameraPosition: Vector3;
-	CameraPositionDamper: number;
-	CameraPositionSpeed: number;
-	CameraRotationDamper: number;
-	CameraRotationSpeed: number;
-}
-
-/** Bare bones of ScriptableCamera */
+/**
+ * BaseScriptableCamera is a class where it is responsible
+ * for mainpulating camera and do something with it.
+ */
 export default class BaseScriptableCamera {
-	/** Use this for debugging purposes */
-	protected attributes?: Attributes<Attrib>;
 	protected bin = new Bin();
-	protected dummyDebugger?: Folder;
 
-	protected positionSpring = new Spring(new Vector3());
-	protected rotationSpring = new Spring(new Vector3());
+	protected currentPosition = POSITION;
+	protected currentRotation = ROTATION;
 
-	public constructor(public readonly debugMode = false) {
-		// debug attributes
-		if (this.debugMode) {
-			const dummy_debugger = new Instance("Folder");
-			this.dummyDebugger = dummy_debugger;
-			this.attributes = new Attributes(dummy_debugger);
-			this.bin.add(this.attributes);
-
-			// making a temporary instance?
-			dummy_debugger.Name = "DUMMY_CAM_ATTRIBS";
-			dummy_debugger.Parent = Workspace;
-			this.bin.add(dummy_debugger);
-
-			this.attributes.setMultiple({
-				CameraAngle: CAMERA_ANGLE,
-				CameraPosition: CAMERA_POSITION,
-				CameraPositionDamper: CAMERA_POSITION_DAMPER,
-				CameraPositionSpeed: CAMERA_POSITION_SPEED,
-				CameraRotationDamper: CAMERA_ROTATION_DAMPER,
-				CameraRotationSpeed: CAMERA_ROTATION_SPEED,
-			});
-
-			// one ship container
-			this.bin.add(
-				this.attributes.changed.Connect(() => {
-					const current_attribs = this.attributes!.getAll();
-					this.setPosition(current_attribs.CameraPosition!);
-					this.setRotation(current_attribs.CameraAngle!);
-					this.setPositionSpringDamping(current_attribs.CameraPositionDamper!);
-					this.setRotationSpringDamping(current_attribs.CameraRotationDamper!);
-					this.setPositionSpringSpeed(current_attribs.CameraPositionSpeed!);
-					this.setRotationSpringSpeed(current_attribs.CameraRotationSpeed!);
-				}),
-			);
-
-			this.setupDebugAttributes();
+	/**
+	 * Creates a new BaseScriptableCamera.
+	 *
+	 * **NOTE**: This will instantly stop the previous scriptable
+	 * camera from CameraController if it is in session.
+	 *
+	 * If you debug mode is enabled, then it will create a new
+	 * attributes storage
+	 *
+	 * @param debug_mode Debugging mode (attributes)
+	 */
+	public constructor(private debugMode = false) {
+		// load camera controller upon instantiating
+		if (camera_controller === undefined) {
+			camera_controller = Dependency<CameraController>();
 		}
 	}
 
-	/** Sets up other debug attributes */
-	protected setupDebugAttributes() {}
+	protected getCamera() {
+		return camera_controller.getCamera();
+	}
 
-	/**
-	 * Sets the speed of the rotation spring
-	 * @param speed Speed value to change
-	 */
-	public setRotationSpringSpeed(speed: number) {
-		this.rotationSpring.Speed = speed;
+	protected onAttributeChanged(cam: Camera, changed: string) {
+		switch (changed) {
+			case "POSITION":
+				this.setPosition(cam.GetAttribute("POSITION") as Vector3);
+				break;
+			case "ROTATION":
+				this.setRotation(cam.GetAttribute("ROTATION") as Vector3);
+				break;
+			default:
+				break;
+		}
+	}
 
-		// attributes update
-		this.attributes?.set("CameraRotationSpeed", speed);
+	protected listenDebugAttributes() {
+		// only truly listen if it is in debug mode
+		if (!this.debugMode) return;
+
+		// listener :D
+		this.getCamera().map(cam =>
+			this.bin.add(cam.AttributeChanged.Connect(changed => this.onAttributeChanged(cam, changed))),
+		);
+	}
+
+	protected updateDebugAttributes(): Result<true, false> {
+		// only truly update if it is in debug mode
+		if (!this.debugMode) return Result.err(false);
+
+		// update attributes
+		this.getCamera().map(cam => {
+			cam.SetAttribute("POSITION", this.currentPosition);
+			cam.SetAttribute("ROTATION", this.currentRotation);
+		});
+
+		return Result.ok(true);
 	}
 
 	/**
-	 * Sets the speed of the position spring
-	 * @param speed Speed value to change
-	 */
-	public setPositionSpringSpeed(speed: number) {
-		this.positionSpring.Speed = speed;
-
-		// attributes update
-		this.attributes?.set("CameraPositionSpeed", speed);
-	}
-
-	/**
-	 * Sets the damping of the rotation spring
-	 * @param damping Damping value to change
-	 */
-	public setRotationSpringDamping(damping: number) {
-		this.rotationSpring.Damper = damping;
-
-		// attributes update
-		this.attributes?.set("CameraRotationDamper", damping);
-	}
-
-	/**
-	 * Sets the damping of the position spring
-	 * @param damping Damping value to change
-	 */
-	public setPositionSpringDamping(damping: number) {
-		this.positionSpring.Damper = damping;
-
-		// attributes update
-		this.attributes?.set("CameraPositionDamper", damping);
-	}
-
-	/**
-	 * Sets the current position of the camera
-	 * @param vector Destination vector
-	 */
-	public setPosition(vector: Vector3) {
-		this.positionSpring.Target = vector;
-
-		// attributes update
-		this.attributes?.set("CameraPosition", vector);
-	}
-
-	/**
-	 * Sets the current rotation of the camera
-	 * @param vector Destination angle (in degress)
-	 */
-	public setRotation(vector: Vector3) {
-		// convert this radians
-		const radian_vector = VectorUtil.toRadians(vector);
-		this.rotationSpring.Target = radian_vector;
-
-		// attributes update
-		this.attributes?.set("CameraAngle", vector);
-	}
-
-	/**
-	 * Updates the `Workspace.CurrentCamera` object's position and rotation
-	 *
-	 * Only run this when using `RenderStepped` or `Heartbeat` events
-	 */
-	public updateCamera() {
-		// make a cframe instantly
-		const cframe = CFrameUtil.fromPositionAndRotation(this.positionSpring.Position, this.rotationSpring.Position);
-
-		// transition away ^_^
-		this.getCamera().map(cam => (cam.CFrame = cframe));
-	}
-
-	/**
-	 * Only run this when using `RenderStepped` or `Heartbeat` events
+	 * Updates the camera with the render delta time
 	 * @param deltaTime Render delta time
 	 */
-	public onTick(deltaTime: number) {
-		this.updateCamera();
+	public update(deltaTime: number) {
+		this.getCamera().map(cam => {
+			cam.CFrame = CFrameUtil.fromPositionAndRotation(
+				this.currentPosition,
+				VectorUtil.toRadians(this.currentRotation),
+			);
+		});
 	}
 
-	/** Gets the Camera instance */
-	public getCamera() {
-		return Option.wrap(Workspace.CurrentCamera);
+	/** Gets the current position */
+	public getPosition() {
+		return this.currentPosition;
 	}
 
-	/** Destroys ScriptableCamera */
+	/** Gets the current rotation */
+	public getRotation() {
+		return this.currentRotation;
+	}
+
+	/** Internal `setPosition` method */
+	protected _setPosition(position: Vector3) {
+		this.currentPosition = position;
+	}
+
+	/** Internal `setRotation` method */
+	protected _setRotation(rotation: Vector3) {
+		this.currentRotation = rotation;
+	}
+
+	/**
+	 * Sets the position
+	 * @param position Position to change to
+	 */
+	public setPosition(position: Vector3) {
+		this._setPosition(position);
+		this.updateDebugAttributes();
+	}
+
+	/**
+	 * Sets the rotation
+	 * @param rotation Rotation to change to
+	 */
+	public setRotation(rotation: Vector3) {
+		print(this.currentRotation, rotation);
+		this._setRotation(rotation);
+		print(this.currentRotation);
+		this.updateDebugAttributes();
+		print(this.currentRotation);
+	}
+
+	/**
+	 * Starts the scriptable camera
+	 */
+	public start() {
+		if (this.debugMode) {
+			this.updateDebugAttributes();
+			this.listenDebugAttributes();
+		}
+	}
+
+	/**
+	 * Destroys the camera
+	 *
+	 * **NOTE**: This will not going to back to normal unless
+	 * it is resetted from the CameraController
+	 */
 	public destroy() {
 		this.bin.destroy();
 	}

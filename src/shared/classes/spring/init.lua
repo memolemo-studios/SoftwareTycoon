@@ -1,7 +1,4 @@
 --[[
-Taken from Quenty's Spring under MIT license (legal notice: all of his packages are in nevermore btw)
-https://github.com/Quenty/NevermoreEngine/blob/main/LICENSE.md
-
 class Spring
 
 Description:

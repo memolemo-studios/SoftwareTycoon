@@ -17,5 +17,5 @@
 		"remodel",
 		"json"
 	],
-	"discord.enabled": false
+	"discord.enabled": true
 }
