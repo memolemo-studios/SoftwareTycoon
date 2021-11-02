@@ -1,5 +1,19 @@
 # Changelog (master)
 
+## 0.0.1-alpha.4
+
+**Client**:
+- Added `CameraController` for camera mainpulation purposes
+	- Added scriptable camera classes
+- Placement system is not completed yet added
+- Added `OnCharacterDied` hook interface
+	- Only triggers when the character dies
+- Refinements and bug fixes on UI components
+
+**Global**:
+- Added default configurations for scriptable cameras
+- Added `BuilderService` (not completed)
+
 ## 0.0.1-alpha.3
 
 **Global**:

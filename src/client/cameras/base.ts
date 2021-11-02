@@ -16,6 +16,8 @@ let camera_controller: CameraController;
 export default class BaseScriptableCamera {
 	protected bin = new Bin();
 
+	protected isStarted = false;
+
 	protected currentPosition = POSITION;
 	protected currentRotation = ROTATION;
 
@@ -135,6 +137,10 @@ export default class BaseScriptableCamera {
 	 * Starts the scriptable camera
 	 */
 	public start() {
+		if (this.isStarted) {
+			error("It is already started!", 2);
+		}
+
 		if (this.debugMode) {
 			this.updateDebugAttributes();
 			this.listenDebugAttributes();

@@ -9,8 +9,8 @@ const { POSITION_DAMPER, POSITION_SPEED, ROTATION_DAMPER, ROTATION_SPEED } = Cam
 
 /** BaseScriptableCamera with smooth spring animations */
 export default class SpringScriptableCamera extends BaseScriptableCamera {
-	private positionSpring: Spring<Vector3>;
-	private rotationSpring: Spring<Vector3>;
+	protected positionSpring: Spring<Vector3>;
+	protected rotationSpring: Spring<Vector3>;
 
 	public constructor(debugMode?: boolean) {
 		super(debugMode);

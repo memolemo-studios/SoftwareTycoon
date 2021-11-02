@@ -31,11 +31,11 @@ export default class Keyboard {
 		return UserInputService.IsKeyDown(keycode);
 	}
 
-	public areKeysDown(keycodes: Enum.KeyCode[]) {
+	public areKeysDown(...keycodes: Enum.KeyCode[]) {
 		return keycodes.every(keycode => this.isKeyDown(keycode));
 	}
 
-	public areAnyKeysDown(keycodes: Enum.KeyCode[]) {
+	public areAnyKeysDown(...keycodes: Enum.KeyCode[]) {
 		return keycodes.some(keycode => this.isKeyDown(keycode));
 	}
 

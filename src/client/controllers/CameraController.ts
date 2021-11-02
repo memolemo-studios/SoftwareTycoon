@@ -3,11 +3,13 @@ import Log from "@rbxts/log";
 import { Option } from "@rbxts/rust-classes";
 import { Workspace } from "@rbxts/services";
 import BaseScriptableCamera from "client/cameras/base";
+import PlacementScriptableCamera from "client/cameras/placement";
 import SpringScriptableCamera from "client/cameras/spring";
 
 const script_cam_types = {
 	Static: BaseScriptableCamera,
 	Spring: SpringScriptableCamera,
+	Placement: PlacementScriptableCamera,
 };
 
 type ScriptCamTypes = typeof script_cam_types;
@@ -81,6 +83,6 @@ export class CameraController implements OnRender, OnStart {
 
 	/** @hidden */
 	public onStart() {
-		this.runScriptableSession("Spring");
+		this.runScriptableSession("Placement");
 	}
 }
