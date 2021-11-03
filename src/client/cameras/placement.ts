@@ -55,6 +55,5 @@ export default class PlacementScriptableCamera extends SpringScriptableCamera {
 	public start() {
 		// this will get an error possibly
 		super.start();
-		this.movementController.onMove.Connect((x, y) => print(x, y));
 	}
 }
