@@ -1,7 +1,7 @@
 import { Bin } from "@rbxts/bin";
 import { Option } from "@rbxts/rust-classes";
 import { UserInputService, Workspace } from "@rbxts/services";
-import Signal from "@rbxts/signal";
+import Signal from "@rbxts/goodsignal";
 
 export default class Mouse {
 	private bin = new Bin();

@@ -1,6 +1,6 @@
 import { Bin } from "@rbxts/bin";
 import { UserInputService } from "@rbxts/services";
-import Signal from "@rbxts/signal";
+import Signal from "@rbxts/goodsignal";
 
 export default class Keyboard {
 	private bin = new Bin();
