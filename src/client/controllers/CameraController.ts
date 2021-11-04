@@ -1,10 +1,11 @@
-import { Controller, OnRender, OnStart } from "@flamework/core";
+import { Controller, Dependency, OnRender, OnStart } from "@flamework/core";
 import Log from "@rbxts/log";
 import { Option } from "@rbxts/rust-classes";
 import { Workspace } from "@rbxts/services";
 import BaseScriptableCamera from "client/cameras/base";
 import PlacementScriptableCamera from "client/cameras/placement";
 import SpringScriptableCamera from "client/cameras/spring";
+import { InputController } from "./InputController";
 
 const script_cam_types = {
 	Static: BaseScriptableCamera,
@@ -83,6 +84,7 @@ export class CameraController implements OnRender, OnStart {
 
 	/** @hidden */
 	public onStart() {
+		Dependency<InputController>().disableMovementBindings();
 		this.runScriptableSession("Placement");
 	}
 }

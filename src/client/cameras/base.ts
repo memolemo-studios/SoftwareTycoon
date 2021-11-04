@@ -126,11 +126,8 @@ export default class BaseScriptableCamera {
 	 * @param rotation Rotation to change to
 	 */
 	public setRotation(rotation: Vector3) {
-		print(this.currentRotation, rotation);
 		this._setRotation(rotation);
-		print(this.currentRotation);
 		this.updateDebugAttributes();
-		print(this.currentRotation);
 	}
 
 	/**

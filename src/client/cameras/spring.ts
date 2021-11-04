@@ -104,16 +104,20 @@ export default class SpringScriptableCamera extends BaseScriptableCamera {
 		return super.getRotation();
 	}
 
-	/**
-	 * Updates the camera with the render delta time
-	 * @param deltaTime Render delta time
-	 */
-	public update(deltaTime: number) {
+	protected updateSpringCam() {
 		this.getCamera().map(cam => {
 			cam.CFrame = CFrameUtil.fromPositionAndRotation(
 				this.positionSpring.Position,
 				VectorUtil.toRadians(this.rotationSpring.Position),
 			);
 		});
+	}
+
+	/**
+	 * Updates the camera with the render delta time
+	 * @param deltaTime Render delta time
+	 */
+	public update(deltaTime: number) {
+		this.updateSpringCam();
 	}
 }
