@@ -84,7 +84,7 @@ export class CameraController implements OnRender, OnStart {
 
 	/** @hidden */
 	public onStart() {
-		Dependency<InputController>().disableMovementBindings();
+		Dependency<InputController>().toggleCharacterMovement(false);
 		this.runScriptableSession("Placement");
 	}
 }

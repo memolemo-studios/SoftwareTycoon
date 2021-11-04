@@ -1,60 +1,47 @@
-import { Controller, OnInit } from "@flamework/core";
+import { Controller } from "@flamework/core";
 import Log from "@rbxts/log";
-import { Players } from "@rbxts/services";
-import { promiseTree } from "@rbxts/validate-tree";
-import { KeyboardCoreScript } from "types/roblox";
+import { BaseCharacterModel } from "types/roblox";
+import { CharacterController, OnCharacterSpawned } from "./CharacterController";
 
-// TODO: disable character movements using walkspeed
-
-/** InputController is responsible managing input */
+/**
+ * InputController is a controller responsible for manging input things
+ * and mainpulate character's controls
+ */
 @Controller({})
-export class InputController implements OnInit {
+export class InputController implements OnCharacterSpawned {
 	private logger = Log.ForContext(InputController);
-	private keyboardCoreScript!: KeyboardCoreScript;
+	private isCharMovementEnabled = true;
 
-	private async getCoreScripts() {
-		const local_player = Players.LocalPlayer;
-		const player_scripts = local_player.WaitForChild("PlayerScripts");
-		return promiseTree(player_scripts, {
-			$className: "PlayerScripts",
-			PlayerModule: {
-				$className: "ModuleScript",
-				ControlModule: {
-					$className: "ModuleScript",
-					Keyboard: "ModuleScript",
-				},
-			},
-		});
+	public constructor(private characterController: CharacterController) {}
+
+	private updateCharacter(character: BaseCharacterModel) {
+		// base values
+		const can_move = this.isCharMovementEnabled;
+		const walk_speed = can_move ? 16 : 0;
+		const jump_power = can_move ? 56 : 0;
+
+		// setting properties
+		character.Humanoid.WalkSpeed = walk_speed;
+		character.Humanoid.JumpPower = jump_power;
 	}
 
-	private async reloadKeyboardCoreScript() {
-		if (this.keyboardCoreScript === undefined) {
-			this.logger.Info("Reloading 'Keyboard' CoreScript module");
-			const tree = await this.getCoreScripts();
-			this.keyboardCoreScript = require(tree.PlayerModule.ControlModule.Keyboard) as KeyboardCoreScript;
+	/**
+	 * Toggles the character movement enabled
+	 * @param enabled Boolean to set to
+	 */
+	public toggleCharacterMovement(enabled: boolean) {
+		this.isCharMovementEnabled = enabled;
+		this.logger.Info(`${enabled ? "Disabling" : "Enabling"} character movement`);
+
+		// if the character already spawns, then it will update the character
+		const character_opt = this.characterController.getCurrentCharacter();
+		if (character_opt.isSome()) {
+			this.updateCharacter(character_opt.unwrap());
 		}
-		return this.keyboardCoreScript;
 	}
 
 	/** @hidden */
-	public onInit() {
-		// reload this guy upon Flamework initialization
-		this.reloadKeyboardCoreScript();
-	}
-
-	/** Disables the movement bindings thus unable to move the character */
-	public async disableMovementBindings() {
-		this.logger.Info("Unbinding keyboard movement actions");
-
-		await this.reloadKeyboardCoreScript();
-		this.keyboardCoreScript.Enable(false);
-	}
-
-	/** Enables the movement bindings thus able to move the character */
-	public async enableMovementBindings() {
-		this.logger.Info("Binding keyboard movement actions");
-
-		await this.reloadKeyboardCoreScript();
-		this.keyboardCoreScript.Enable(true);
+	public onCharacterSpawned(character: BaseCharacterModel) {
+		this.updateCharacter(character);
 	}
 }

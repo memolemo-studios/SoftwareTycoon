@@ -71,6 +71,70 @@ export default class SpringScriptableCamera extends BaseScriptableCamera {
 	}
 
 	/**
+	 * Gets the current position spring damper
+	 * @returns Current spring damper
+	 */
+	public getRotationSpringSpeed() {
+		return this.rotationSpring.Speed;
+	}
+
+	/**
+	 * Sets the current position spring damper
+	 * @param damper Damper to change to
+	 */
+	public setRotationSpringSpeed(damper: number) {
+		this.rotationSpring.Speed = damper;
+	}
+
+	/**
+	 * Gets the current position spring damper
+	 * @returns Current spring damper
+	 */
+	public getRotationSpringDamper() {
+		return this.rotationSpring.Damper;
+	}
+
+	/**
+	 * Sets the current position spring damper
+	 * @param damper Damper to change to
+	 */
+	public setRotationSpringDamper(damper: number) {
+		this.rotationSpring.Damper = damper;
+	}
+
+	/**
+	 * Gets the current position spring damper
+	 * @returns Current spring damper
+	 */
+	public getPositionSpringSpeed() {
+		return this.positionSpring.Speed;
+	}
+
+	/**
+	 * Sets the current position spring damper
+	 * @param damper Damper to change to
+	 */
+	public setPositionSpringSpeed(damper: number) {
+		this.positionSpring.Speed = damper;
+	}
+
+	/**
+	 * Gets the current position spring damper
+	 * @returns Current spring damper
+	 */
+	public getPositionSpringDamper() {
+		return this.positionSpring.Damper;
+	}
+
+	/**
+	 * Sets the current position spring damper
+	 * @param damper Damper to change to
+	 */
+	public setPositionSpringDamper(damper: number) {
+		this.positionSpring.Damper = damper;
+	}
+
+	/**
 	 * Gets the current spring position
 	 * @returns Spring current position
 	 */

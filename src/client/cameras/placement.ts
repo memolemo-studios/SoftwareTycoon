@@ -11,9 +11,9 @@ export default class PlacementScriptableCamera extends SpringScriptableCamera {
 	protected keyboard: Keyboard;
 	protected mouse: Mouse;
 
-	protected sensitivity = 0.5;
-	protected moveSpeed = 10;
-	protected rotateSpeed = 10;
+	protected sensitivity = 1;
+	protected moveSpeed = 30;
+	protected rotateSpeed = 140;
 
 	// 0 - not moving
 	// 1 or -1 - moving
@@ -24,8 +24,14 @@ export default class PlacementScriptableCamera extends SpringScriptableCamera {
 	public constructor(debugMode?: boolean) {
 		super(debugMode);
 
+		// default stuff
+		this.setPosition(new Vector3(0, 10, 0));
+		this.setRotation(new Vector3(-30, 0, 0));
+		this.setPositionSpringSpeed(20);
+		this.setRotationSpringSpeed(20);
+
 		// creating new input classes
-		this.movementController = new MovementController(this.sensitivity);
+		this.movementController = new MovementController(1);
 		this.mouse = new Mouse();
 		this.keyboard = new Keyboard();
 
@@ -49,9 +55,6 @@ export default class PlacementScriptableCamera extends SpringScriptableCamera {
 	protected onAttributeChanged(cam: Camera, changed: string) {
 		super.onAttributeChanged(cam, changed);
 		switch (changed) {
-			case "SENSITIVITY":
-				this.sensitivity = cam.GetAttribute("SENSITIVITY") as number;
-				break;
 			case "MOVE_SPEED":
 				this.moveSpeed = cam.GetAttribute("MOVE_SPEED") as number;
 				break;
@@ -79,13 +82,29 @@ export default class PlacementScriptableCamera extends SpringScriptableCamera {
 		}
 	}
 
+	/**
+	 * Sets the rotate sensitivity
+	 * @param sensitivity Sensitivity to change to
+	 */
+	public setSensitivity(sensitivity: number) {
+		this.sensitivity = sensitivity;
+	}
+
+	/**
+	 * Gets the current rotate sensitivity
+	 * @returns Current rotate sensitivity
+	 */
+	public getSensitivity() {
+		return this.sensitivity;
+	}
+
 	public update(deltaTime: number) {
 		// movement controls
 		const change_x = this.walkChangeSpeedX * this.moveSpeed * deltaTime;
 		const change_z = this.walkChangeSpeedZ * this.moveSpeed * deltaTime;
 
 		// update the rotation
-		const initial_rotation = this.angleChangeSpeed * this.rotateSpeed * deltaTime;
+		const initial_rotation = this.angleChangeSpeed * this.rotateSpeed * this.sensitivity * deltaTime;
 		const final_rotation = new Vector3(
 			this.currentRotation.X,
 			this.currentRotation.Y + initial_rotation,
