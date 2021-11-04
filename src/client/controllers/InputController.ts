@@ -31,7 +31,7 @@ export class InputController implements OnCharacterSpawned {
 	 */
 	public toggleCharacterMovement(enabled: boolean) {
 		this.isCharMovementEnabled = enabled;
-		this.logger.Info(`${enabled ? "Disabling" : "Enabling"} character movement`);
+		this.logger.Info(`${enabled ? "Enabling" : "Disabling"} character movement`);
 
 		// if the character already spawns, then it will update the character
 		const character_opt = this.characterController.getCurrentCharacter();
