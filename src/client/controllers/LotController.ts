@@ -4,6 +4,7 @@ import { ResultSer } from "@memolemo-studios/result-option-ser";
 import Log from "@rbxts/log";
 import { Option } from "@rbxts/rust-classes";
 import { Players } from "@rbxts/services";
+import Signal from "@rbxts/signal";
 import { ClientLot } from "client/components/ClientLot";
 import { Functions } from "client/networking";
 import { LotRequestError } from "shared/errors/lotRequest";
@@ -13,6 +14,7 @@ const local_player = Players.LocalPlayer;
 @Controller({})
 export class LotController implements OnStart {
 	private logger = Log.ForContext(LotController);
+	public onOwnedLot = new Signal();
 
 	/** @hidden */
 	public async onStart() {
@@ -27,6 +29,7 @@ export class LotController implements OnStart {
 			this.logger.Warn("[LotController::onStart]: {Message}", request_error.toMessage());
 		} else {
 			this.logger.Info("Success!");
+			this.onOwnedLot.Fire();
 		}
 	}
 

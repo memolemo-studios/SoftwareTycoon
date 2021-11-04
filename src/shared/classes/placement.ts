@@ -92,7 +92,7 @@ export default class BasePlacement {
 		const [surface_cf, size] = this.calculateCanvas();
 
 		// rotate the size so that we can properly constrain to the surface
-		let model_size = CFrame.fromEulerAnglesXYZ(0, rotation, 0).mul(model.PrimaryPart!.Size);
+		let model_size = CFrame.fromEulerAnglesYXZ(0, rotation, 0).mul(model.PrimaryPart!.Size);
 		model_size = new Vector3(math.abs(model_size.X), math.abs(model_size.Y), math.abs(model_size.Z));
 
 		// get the position relative to the surface's CFrame
@@ -103,7 +103,7 @@ export default class BasePlacement {
 
 		// constrain the position using half_size
 		let x = math.clamp(relative_pos.X, -half_size.X, half_size.X);
-		let y = math.clamp(relative_pos.Z, -half_size.Y, half_size.Y);
+		let y = math.clamp(relative_pos.Y, -half_size.Y, half_size.Y);
 
 		// grid unit
 		if (this.gridUnit > 0) {

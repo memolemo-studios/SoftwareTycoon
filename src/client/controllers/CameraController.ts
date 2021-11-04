@@ -1,11 +1,10 @@
-import { Controller, Dependency, OnRender, OnStart } from "@flamework/core";
+import { Controller, OnRender } from "@flamework/core";
 import Log from "@rbxts/log";
 import { Option } from "@rbxts/rust-classes";
 import { Workspace } from "@rbxts/services";
 import BaseScriptableCamera from "client/cameras/base";
 import PlacementScriptableCamera from "client/cameras/placement";
 import SpringScriptableCamera from "client/cameras/spring";
-import { InputController } from "./InputController";
 
 const script_cam_types = {
 	Static: BaseScriptableCamera,
@@ -16,7 +15,7 @@ const script_cam_types = {
 type ScriptCamTypes = typeof script_cam_types;
 
 @Controller({})
-export class CameraController implements OnRender, OnStart {
+export class CameraController implements OnRender {
 	private logger = Log.ForContext(CameraController);
 	private currentSession?: BaseScriptableCamera;
 
@@ -80,11 +79,5 @@ export class CameraController implements OnRender, OnStart {
 	/** @hidden */
 	public onRender(dt: number) {
 		this.currentSession?.update(dt);
-	}
-
-	/** @hidden */
-	public onStart() {
-		Dependency<InputController>().toggleCharacterMovement(false);
-		this.runScriptableSession("Placement");
 	}
 }

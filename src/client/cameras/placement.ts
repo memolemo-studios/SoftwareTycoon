@@ -25,7 +25,7 @@ export default class PlacementScriptableCamera extends SpringScriptableCamera {
 		super(debugMode);
 
 		// default stuff
-		this.setPosition(new Vector3(0, 10, 0));
+		this.setPosition(new Vector3(0, 20, 0));
 		this.setRotation(new Vector3(-30, 0, 0));
 		this.setPositionSpringSpeed(20);
 		this.setRotationSpringSpeed(20);

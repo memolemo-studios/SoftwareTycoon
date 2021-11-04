@@ -1,5 +1,5 @@
 import { Components } from "@flamework/components";
-import { OnInit, Service } from "@flamework/core";
+import { OnStart, Service } from "@flamework/core";
 import { ResultSer } from "@memolemo-studios/result-option-ser";
 import Log from "@rbxts/log";
 import { Option, Result } from "@rbxts/rust-classes";
@@ -11,11 +11,11 @@ import ArrayUtil from "shared/util/array";
 import { LotRequestErrorKind, LotRequestSerializedError } from "types/errors/lotRequest";
 
 @Service({})
-export class LotService implements OnInit {
+export class LotService implements OnStart {
 	private logger = Log.ForContext(LotService);
 
 	/** @hidden */
-	public onInit() {
+	public onStart() {
 		// if lots are empty, warn the server
 		if (this.components.getAllComponents<ServerLot>().isEmpty()) {
 			this.logger.Warn("This server has no available lots, avoid requesting lot as possible to prevent issues");
@@ -26,14 +26,12 @@ export class LotService implements OnInit {
 
 		// connecting some functions
 		Functions.requestLot.setCallback(player => {
-			const result = this.assignPlayerToLot(player);
-			let final_result: Result<string, LotRequestSerializedError>;
-			if (result.isOk()) {
-				final_result = Result.ok(result.unwrap().attributes.Id!);
-			} else {
-				final_result = Result.err(result.unwrapErr());
-			}
-			return ResultSer.serialize<string, LotRequestSerializedError>(final_result);
+			return ResultSer.serialize<string, LotRequestSerializedError>(
+				this.assignPlayerToLot(player).match(
+					lot => Result.ok(lot.attributes.Id!),
+					err => Result.err(err.serialize()),
+				),
+			);
 		});
 	}
 

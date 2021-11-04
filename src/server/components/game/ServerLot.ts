@@ -1,4 +1,4 @@
-import { OnInit } from "@flamework/core";
+import { OnStart } from "@flamework/core";
 import { Component } from "@flamework/components";
 import { SharedLot } from "shared/components/game/SharedLot";
 import { Result } from "@rbxts/rust-classes";
@@ -6,11 +6,13 @@ import { LotRequestError } from "shared/errors/lotRequest";
 import { LotRequestErrorKind } from "types/errors/lotRequest";
 import { HttpService } from "@rbxts/services";
 
-@Component({})
-export class ServerLot extends SharedLot implements OnInit {
+@Component({
+	tag: "Lot",
+})
+export class ServerLot extends SharedLot implements OnStart {
 	/** @hidden */
-	public onInit() {
-		this.attributes.Id = HttpService.GenerateGUID(false);
+	public onStart() {
+		this.setAttribute("Id", HttpService.GenerateGUID(false));
 	}
 
 	/**

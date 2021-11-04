@@ -4,7 +4,9 @@ import { Option } from "@rbxts/rust-classes";
 import { Players } from "@rbxts/services";
 import { LotAttributes, LotModel } from "types/game/lot";
 
-@Component({})
+@Component({
+	tag: "Lot",
+})
 export class SharedLot extends BaseComponent<LotAttributes, LotModel> implements OnStart {
 	/** @hidden */
 	public onStart() {
