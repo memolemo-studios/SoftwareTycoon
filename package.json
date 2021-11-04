@@ -30,7 +30,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-roblox-ts": "^0.0.32",
     "prettier": "^2.4.1",
-    "rbxts-transformer-flamework": "^1.0.0-beta.7",
+    "rbxts-transformer-flamework": "^1.0.0-beta.8",
     "roblox-ts": "=1.2.7",
     "typescript": "=4.4.4"
   },
@@ -38,9 +38,9 @@
     "typescript": "=4.4.4"
   },
   "dependencies": {
-    "@flamework/components": "^1.0.0-beta.4",
-    "@flamework/core": "^1.0.0-beta.1",
-    "@flamework/networking": "^1.0.0-beta.5",
+    "@flamework/components": "^1.0.0-beta.5",
+    "@flamework/core": "^1.0.0-beta.2",
+    "@flamework/networking": "^1.0.0-beta.6",
     "@memolemo-studios/rbxts-attributes": "^1.2.2",
     "@memolemo-studios/rbxts-make": "^1.0.0",
     "@memolemo-studios/result-option-ser": "^1.0.0",

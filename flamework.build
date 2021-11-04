@@ -1,6 +1,6 @@
 {
 	"version": 1,
-	"flameworkVersion": "1.0.0-beta.7",
+	"flameworkVersion": "1.0.0-beta.8",
 	"identifiers": {
 		"softwaretycoon:out/client/controllers/AppController@AppController": "client/controllers/AppController@AppController",
 		"softwaretycoon:out/shared/flamework/AssetManager@AssetManager": "shared/flamework/AssetManager@AssetManager",
