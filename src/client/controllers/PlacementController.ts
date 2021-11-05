@@ -1,4 +1,5 @@
 import { Controller, OnRender, OnStart } from "@flamework/core";
+import Keyboard from "client/input/keyboard";
 import ClientBasePlacement from "client/placement/base";
 import { CameraController } from "./CameraController";
 import { InputController } from "./InputController";
@@ -21,7 +22,11 @@ export class PlacementController implements OnStart, OnRender {
 
 	/** @hidden */
 	public onStart() {
-		this.lotController.onOwnedLot.Connect(() => {
+		const keyboard = new Keyboard();
+		keyboard.keyUp.Connect(code => {
+			if (code !== Enum.KeyCode.P) return;
+			keyboard.destroy();
+
 			const ownerLot = this.lotController.getOwnerLot().unwrap();
 			const params = new RaycastParams();
 			params.FilterType = Enum.RaycastFilterType.Whitelist;

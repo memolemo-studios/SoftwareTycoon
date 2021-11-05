@@ -1,7 +1,9 @@
-import { Controller } from "@flamework/core";
+import { Controller, Dependency } from "@flamework/core";
 import Log from "@rbxts/log";
 import { BaseCharacterModel } from "types/roblox";
 import { CharacterController, OnCharacterSpawned } from "./CharacterController";
+
+let isCharMovementEnabled = true;
 
 /**
  * InputController is a controller responsible for manging input things
@@ -10,15 +12,13 @@ import { CharacterController, OnCharacterSpawned } from "./CharacterController";
 @Controller({})
 export class InputController implements OnCharacterSpawned {
 	private logger = Log.ForContext(InputController);
-	private isCharMovementEnabled = true;
 
-	public constructor(private characterController: CharacterController) {}
+	public constructor() {}
 
 	private updateCharacter(character: BaseCharacterModel) {
 		// base values
-		const can_move = this.isCharMovementEnabled;
-		const walk_speed = can_move ? 16 : 0;
-		const jump_power = can_move ? 56 : 0;
+		const walk_speed = isCharMovementEnabled ? 16 : 0;
+		const jump_power = isCharMovementEnabled ? 56 : 0;
 
 		// setting properties
 		character.Humanoid.WalkSpeed = walk_speed;
@@ -30,11 +30,11 @@ export class InputController implements OnCharacterSpawned {
 	 * @param enabled Boolean to set to
 	 */
 	public toggleCharacterMovement(enabled: boolean) {
-		this.isCharMovementEnabled = enabled;
+		isCharMovementEnabled = enabled;
 		this.logger.Info(`${enabled ? "Enabling" : "Disabling"} character movement`);
 
 		// if the character already spawns, then it will update the character
-		const character_opt = this.characterController.getCurrentCharacter();
+		const character_opt = Dependency<CharacterController>().getCurrentCharacter();
 		if (character_opt.isSome()) {
 			this.updateCharacter(character_opt.unwrap());
 		}

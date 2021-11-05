@@ -59,7 +59,7 @@ export class CharacterController implements OnInit {
 	 * saved in this service.
 	 */
 	public getCurrentCharacter() {
-		return Option.wrap(this.currentCharacter?.Parent !== undefined ? this.currentCharacter : undefined);
+		return Option.wrap(local_player.Character);
 	}
 
 	private async onCharacterAdded(raw: Model) {
