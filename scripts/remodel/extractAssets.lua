@@ -57,5 +57,13 @@ end
 -- Iterate every extractable services
 for _, service_name in ipairs(services) do
 	local real_service = game:GetService(service_name)
-	extractDirectory(real_service, "assets/game/" .. service_name .. "/")
+	extractDirectory(real_service, "assets/services/" .. service_name .. "/")
 end
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+-- Since we have a futureproof way to do this, we can actually extract
+-- placement and prefab assets found in the game, however Rojo won't load
+-- any mesh related issues in it right?
+extractDirectory(ReplicatedStorage.Assets.placement, "assets/game/placement/")
+extractDirectory(ReplicatedStorage.Assets.prefabs, "assets/game/prefabs/")

@@ -1,9 +1,18 @@
 import { Controller, OnRender, OnStart } from "@flamework/core";
+import { Option } from "@rbxts/rust-classes";
 import Keyboard from "client/input/keyboard";
 import ClientBasePlacement from "client/placement/base";
+import WallPlacement from "client/placement/wall";
 import { CameraController } from "./CameraController";
 import { InputController } from "./InputController";
 import { LotController } from "./LotController";
+
+const PlacementOptions = {
+	Wall: WallPlacement,
+};
+
+// convert this guy to type
+type PlacementOptions = typeof PlacementOptions;
 
 @Controller({})
 export class PlacementController implements OnStart, OnRender {
@@ -20,30 +29,55 @@ export class PlacementController implements OnStart, OnRender {
 		this.placement?.update(deltaTime);
 	}
 
-	public startPlacement() {
-		const ownerLot = this.lotController.getOwnerLot().unwrap();
+	/**
+	 * Starts a new placement with configured type.
+	 *
+	 * **NOTE**: It will ignore if that placement class constructor
+	 * does not exists in the collection
+	 * @param kind Any placement kind provided with types
+	 */
+	public startPlacement<T extends keyof PlacementOptions>(kind: T): Option<PlacementOptions[T]> {
+		// make sure it is not in session yet
+		if (this.placement) return Option.none();
+
+		// verifying if that kind of placement does exists
+		if (PlacementOptions[kind] === undefined) return Option.none();
+
+		// load it!
+		return this.lotController.getOwnerLot().map(lot => {
+			// instantiate it
+			const placement = new PlacementOptions[kind](lot.instance.Primary);
+			this.placement = placement;
+
+			// initialize it
+			this.initializePlacementClass(placement);
+
+			// start now!
+			placement.start();
+			return placement as unknown as PlacementOptions[T];
+		});
+	}
+
+	/**
+	 * Initializes every placement class in a single method
+	 * @param placement Any placement class would work
+	 */
+	public initializePlacementClass(placement: ClientBasePlacement) {
+		// create game provided raycastparams
 		const params = new RaycastParams();
 		params.FilterType = Enum.RaycastFilterType.Whitelist;
-		params.FilterDescendantsInstances = [ownerLot.instance.PrimaryPart!];
 
-		const placement = new ClientBasePlacement(ownerLot.instance.Primary!, params);
-		const cube = new Instance("Model");
-		const real_cube = new Instance("Part");
-		real_cube.Size = new Vector3(4, 4, 4);
-		real_cube.Anchored = true;
-		real_cube.Parent = cube;
-		cube.PrimaryPart = real_cube;
-
-		placement.setCursor(cube);
-		this.cameraController.getCamera().match(
-			cam => (cube.Parent = cam),
+		// only use owner's lot as of now
+		this.lotController.getOwnerLot().match(
+			lot => (params.FilterDescendantsInstances = [lot.instance.PrimaryPart!]),
 			() => {},
 		);
 
+		placement.raycastParams = params;
+
+		// configurations
 		this.inputController.toggleCharacterMovement(false);
 		this.cameraController.runScriptableSession("Placement");
-		this.placement = placement;
-		placement.start();
 	}
 
 	/** @hidden */
@@ -52,6 +86,7 @@ export class PlacementController implements OnStart, OnRender {
 		keyboard.keyUp.Connect(code => {
 			if (code !== Enum.KeyCode.P) return;
 			keyboard.destroy();
+			this.startPlacement("Wall");
 		});
 	}
 }

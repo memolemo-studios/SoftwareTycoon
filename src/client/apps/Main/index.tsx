@@ -36,7 +36,7 @@ export default class MainApp extends Component {
 			>
 				<XYPadding offsetX={8} />
 				<CenterHorizontalConstraint Pading={new UDim(0, 8)} />
-				<ToolbarButton onClick={() => Dependency<PlacementController>().startPlacement()} />
+				<ToolbarButton onClick={() => Dependency<PlacementController>().startPlacement("Wall")} />
 				<ToolbarButton />
 				<ToolbarButton />
 				<ToolbarButton />

@@ -19,6 +19,8 @@ export default class ClientBasePlacement extends BasePlacement {
 	protected rotation = 0;
 	protected canRotate = true;
 
+	protected isStarted = false;
+
 	public constructor(canvas: BasePart, public raycastParams?: RaycastParams) {
 		super(canvas);
 		this.keyboard = new Keyboard();
@@ -32,8 +34,11 @@ export default class ClientBasePlacement extends BasePlacement {
 		this.rotation += HALF_PI;
 	}
 
-	/** Starts a ClientBasePlacement object */
+	/** Starts a ClientBasePlacement object (if it can) */
 	public start() {
+		if (this.isStarted) return;
+		this.isStarted = true;
+
 		// only enable rotation if it can be
 		if (this.canRotate) {
 			this.bin.add(
@@ -80,6 +85,9 @@ export default class ClientBasePlacement extends BasePlacement {
 	 * @param deltaTime Render delta time
 	 */
 	public update(deltaTime: number) {
+		// do not update if it is not started
+		if (!this.isStarted) return;
+
 		// update stuff
 		this.updatePosition();
 		this.updateRotation();

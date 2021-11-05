@@ -8,7 +8,7 @@
 		"$className": "DataModel",
     "Lighting": {
       "$className": "Lighting",
-      "$path": "assets/game/Lighting",
+      "$path": "assets/services/Lighting",
       "$properties": {
         "Technology": "ShadowMap",
 				"Ambient": [0.27451, 0.27451, 0.27451],
@@ -50,7 +50,16 @@
         "Interface": {
           "$path": "out/interface"
         }
-			}
+			},
+      "Assets": {
+        "$className": "Folder",
+        "placement": {
+          "$path": "assets/game/placement"
+        },
+        "prefabs": {
+          "$path": "assets/game/prefabs"
+        }
+      }
 		},
 		"StarterPlayer": {
 			"$className": "StarterPlayer",
@@ -67,7 +76,7 @@
 				"FilteringEnabled": true
 			},
       "$ignoreUnknownInstances": true,
-      "$path": "assets/game/Workspace"
+      "$path": "assets/services/Workspace"
 		},
 		"HttpService": {
 			"$className": "HttpService",
