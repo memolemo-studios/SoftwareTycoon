@@ -59,7 +59,7 @@ export class CharacterController implements OnInit {
 	 * saved in this service.
 	 */
 	public getCurrentCharacter() {
-		return Option.wrap(local_player.Character);
+		return Option.wrap(local_player.Character as BaseCharacterModel);
 	}
 
 	private async onCharacterAdded(raw: Model) {

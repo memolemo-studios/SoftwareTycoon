@@ -1,14 +1,16 @@
+import { Dependency } from "@flamework/core";
 import Roact, { Component } from "@rbxts/roact";
 import { ClientApp } from "client/controllers/AppController";
+import { PlacementController } from "client/controllers/PlacementController";
 import BaseButton from "interface/button/base";
 import CenterHorizontalConstraint from "interface/constraints/list/centerHorizontal";
 import XYPadding from "interface/constraints/padding/xy";
 import MainToolbar from "./Toolbar";
 
 // this is temporary for awhile
-function ToolbarButton() {
+function ToolbarButton(props: Roact.PropsWithChildren<{ onClick?: () => void }>) {
 	return (
-		<BaseButton Size={UDim2.fromOffset(60, 60)}>
+		<BaseButton Size={UDim2.fromOffset(60, 60)} OnClick={props.onClick}>
 			<textlabel
 				BackgroundTransparency={1}
 				Size={UDim2.fromScale(1, 1)}
@@ -34,7 +36,7 @@ export default class MainApp extends Component {
 			>
 				<XYPadding offsetX={8} />
 				<CenterHorizontalConstraint Pading={new UDim(0, 8)} />
-				<ToolbarButton />
+				<ToolbarButton onClick={() => Dependency<PlacementController>().startPlacement()} />
 				<ToolbarButton />
 				<ToolbarButton />
 				<ToolbarButton />
