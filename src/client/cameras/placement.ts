@@ -26,7 +26,7 @@ export default class PlacementScriptableCamera extends SpringScriptableCamera {
 
 		// default stuff
 		this.setPosition(new Vector3(0, 20, 0));
-		this.setRotation(new Vector3(-30, 0, 0));
+		this.setRotation(new Vector3(-45, 0, 0));
 		this.setPositionSpringSpeed(20);
 		this.setRotationSpringSpeed(20);
 
@@ -121,7 +121,7 @@ export default class PlacementScriptableCamera extends SpringScriptableCamera {
 		this.setRotation(final_rotation);
 
 		// update the spring camera
-		this.updateSpringCam();
+		this.updateSpringCam(deltaTime);
 	}
 
 	public start() {

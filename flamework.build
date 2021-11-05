@@ -46,6 +46,9 @@
 		"softwaretycoon:out/shared/networking@GlobalFunctions": "shared/networking@GlobalFunctions",
 		"softwaretycoon:out/server/services/PlayerService@OnPlayerJoined": "server/services/PlayerService@OnPlayerJoined",
 		"softwaretycoon:out/client/controllers/CharacterController@OnCharacterSpawned": "client/controllers/CharacterController@OnCharacterSpawned",
-		"softwaretycoon:out/client/controllers/CharacterController@OnCharacterDied": "client/controllers/CharacterController@OnCharacterDied"
+		"softwaretycoon:out/client/controllers/CharacterController@OnCharacterDied": "client/controllers/CharacterController@OnCharacterDied",
+		"softwaretycoon:out/shared/classes/modelSpring@ModelSpring": "shared/classes/modelSpring@ModelSpring",
+		"softwaretycoon:out/shared/placement/base@BasePlacement": "shared/placement/base@BasePlacement",
+		"softwaretycoon:out/client/placement/base@ClientBasePlacement": "client/placement/base@ClientBasePlacement"
 	}
 }

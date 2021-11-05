@@ -12,4 +12,12 @@ export = () => {
 			expect(callback(5.5, 3)).to.be.equal(6);
 		});
 	});
+
+	describe("MathUtil.floorToMultiple", () => {
+		const callback = MathUtil.floorToMultiple;
+		expect(callback(0, 4)).to.be.equal(0);
+		expect(callback(2, 4)).to.be.equal(0);
+		expect(callback(4, 4)).to.be.equal(4);
+		expect(callback(4.5, 4)).to.be.equal(4);
+	});
 };

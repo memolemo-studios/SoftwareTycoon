@@ -1,97 +1,96 @@
 import { Bin } from "@rbxts/bin";
-import { Option } from "@rbxts/rust-classes";
 import Keyboard from "client/input/keyboard";
 import Mouse from "client/input/mouse";
-import BasePlacement from "shared/classes/placement";
-import Spring from "shared/classes/spring";
-import CFrameUtil from "shared/util/cframe";
+import ModelSpring from "shared/classes/modelSpring";
+import BasePlacement from "shared/placement/base";
+import MathUtil from "shared/util/math";
 import OptionUtil from "shared/util/option";
 
-/** BasePlacement but it is for the client */
-export default class BaseClientPlacement extends BasePlacement {
+const TAU = MathUtil.TAU;
+const HALF_PI = math.pi / 2;
+
+export default class ClientBasePlacement extends BasePlacement {
 	protected bin = new Bin();
-	protected cursor?: Model;
+	protected modelSpring: ModelSpring;
 
-	protected keyboard = new Keyboard();
-	protected mouse = new Mouse();
-
-	protected positionSpring = new Spring(new Vector3());
-	protected rotationSpring = new Spring(0);
+	protected keyboard: Keyboard;
+	protected mouse: Mouse;
 
 	protected rotation = 0;
+	protected canRotate = true;
 
-	public constructor(
-		canvas: BasePart,
-		protected raycastParams?: RaycastParams,
-		canvasSurface = Enum.NormalId.Top,
-		gridUnit = 0,
-	) {
-		super(canvas, canvasSurface, gridUnit);
-
-		this.positionSpring.Speed = 20;
-		this.rotationSpring.Speed = 20;
-
-		// cleanups
-		this.bin.add(this.keyboard);
-		this.bin.add(this.mouse);
+	public constructor(canvas: BasePart, public raycastParams?: RaycastParams) {
+		super(canvas);
+		this.keyboard = new Keyboard();
+		this.mouse = new Mouse();
+		this.modelSpring = new ModelSpring();
+		this.setCanInterpolate(true);
+		this.gridUnit = 4;
 	}
 
-	private validateCursor() {
-		return typeIs(this.cursor, "Instance") && this.cursor.IsA("Model") && this.cursor.PrimaryPart !== undefined;
+	private rotate() {
+		this.rotation += HALF_PI;
 	}
 
-	public getCursor(): Option<Model> {
-		// validating cursor
-		if (!this.validateCursor()) {
-			return Option.none();
+	/** Starts a ClientBasePlacement object */
+	public start() {
+		// only enable rotation if it can be
+		if (this.canRotate) {
+			this.bin.add(
+				this.keyboard.keyDown.Connect(() => {
+					if (this.keyboard.isKeyDown(Enum.KeyCode.R)) {
+						this.rotate();
+					}
+				}),
+			);
 		}
-		return Option.some(this.cursor!);
-	}
-
-	public setCursor(cursor: Model) {
-		this.cursor = cursor;
-	}
-
-	private render() {
-		this.getCursor().match(
-			cursor => {
-				const final_cframe = CFrameUtil.fromPositionAndRotation(
-					this.positionSpring.Position,
-					new Vector3(0, this.rotationSpring.Position, 0),
-				);
-				cursor.SetPrimaryPartCFrame(final_cframe);
-			},
-			() => {},
-		);
 	}
 
 	private updateRotation() {
-		if (this.rotation !== this.rotationSpring.Target) {
-			this.rotationSpring.Target = this.rotation;
+		if (this.rotation !== this.modelSpring.getRotation().Y) {
+			this.modelSpring.setRotation(new Vector3(0, this.rotation, 0));
 		}
 	}
 
 	private updatePosition() {
 		// prettier-ignore
 		OptionUtil
-			.combine(this.getCursor(), this.mouse.raycast(this.raycastParams))
-			.map(([cursor, result]) => {
-				const cframe = this.calculatePlacementCF(cursor, result.Position, this.rotation);
-				this.positionSpring.Target = cframe.Position;
+			.combine(
+				this.getCursor(),
+				this.mouse.raycast(this.raycastParams)
+			).map(([_, result]) => {
+				const cframe = this.calculatePlacementCF(result.Position, math.rad(this.rotation));
+				this.modelSpring.setPosition(cframe.Position);
 			});
 	}
 
 	/**
-	 * Executes and updates the entire system
-	 *
-	 * **NOTE**: This can only be used for task scheduler events
+	 * This method allows to toggle if it can be interpolated
+	 * @param bool Boolean to toggle to change interpolation to
 	 */
-	public onTick() {
-		// update position and rotation
+	public setCanInterpolate(bool: boolean) {
+		this.modelSpring.setInterpolated(bool);
+	}
+
+	/**
+	 * This method can only be used for task scheduling events
+	 * such as `RenderStepped` or `Heartbeat`
+	 *
+	 * It allows to update the placement regardless of configurations.
+	 * @param deltaTime Render delta time
+	 */
+	public update(deltaTime: number) {
+		// update stuff
 		this.updatePosition();
 		this.updateRotation();
 
-		// render
-		this.render();
+		// update the model spring
+		this.modelSpring.update(deltaTime);
+	}
+
+	// override
+	public setCursor(cursor: Model) {
+		this.modelSpring.model = cursor;
+		this.cursor = cursor;
 	}
 }

@@ -1,5 +1,5 @@
 import { Result } from "@rbxts/rust-classes";
-import Spring from "shared/classes/spring";
+import Spring from "@rbxts/spring";
 import { CameraDebugConfig } from "shared/constants/camera";
 import CFrameUtil from "shared/util/cframe";
 import VectorUtil from "shared/util/vector";
@@ -18,11 +18,11 @@ export default class SpringScriptableCamera extends BaseScriptableCamera {
 		const position_spring = new Spring(super.getPosition());
 		const rotation_spring = new Spring(super.getRotation());
 
-		position_spring.Damper = POSITION_DAMPER;
-		position_spring.Speed = POSITION_SPEED;
+		position_spring.dampingRatio = POSITION_DAMPER;
+		position_spring.angularFrequency = POSITION_SPEED;
 
-		rotation_spring.Damper = ROTATION_DAMPER;
-		rotation_spring.Speed = ROTATION_SPEED;
+		rotation_spring.dampingRatio = ROTATION_DAMPER;
+		rotation_spring.angularFrequency = ROTATION_SPEED;
 
 		this.positionSpring = position_spring;
 		this.rotationSpring = rotation_spring;
@@ -31,10 +31,10 @@ export default class SpringScriptableCamera extends BaseScriptableCamera {
 	protected updateDebugAttributes() {
 		return super.updateDebugAttributes().andWith<true>(() => {
 			this.getCamera().map(cam => {
-				cam.SetAttribute("POSITION_DAMPER", this.positionSpring.Damper);
-				cam.SetAttribute("POSITION_SPEED", this.positionSpring.Speed);
-				cam.SetAttribute("ROTATION_DAMPER", this.rotationSpring.Damper);
-				cam.SetAttribute("ROTATION_SPEED", this.rotationSpring.Speed);
+				cam.SetAttribute("POSITION_DAMPER", this.positionSpring.dampingRatio);
+				cam.SetAttribute("POSITION_SPEED", this.positionSpring.angularFrequency);
+				cam.SetAttribute("ROTATION_DAMPER", this.rotationSpring.dampingRatio);
+				cam.SetAttribute("ROTATION_SPEED", this.rotationSpring.angularFrequency);
 			});
 			return Result.ok(true);
 		});
@@ -44,16 +44,16 @@ export default class SpringScriptableCamera extends BaseScriptableCamera {
 		super.onAttributeChanged(cam, changed);
 		switch (changed) {
 			case "POSITION_DAMPER":
-				this.positionSpring.Damper = cam.GetAttribute("POSITION_DAMPER") as number;
+				this.positionSpring.dampingRatio = cam.GetAttribute("POSITION_DAMPER") as number;
 				break;
 			case "POSITION_SPEED":
-				this.positionSpring.Speed = cam.GetAttribute("POSITION_SPEED") as number;
+				this.positionSpring.angularFrequency = cam.GetAttribute("POSITION_SPEED") as number;
 				break;
 			case "ROTATION_DAMPER":
-				this.rotationSpring.Damper = cam.GetAttribute("ROTATION_DAMPER") as number;
+				this.rotationSpring.dampingRatio = cam.GetAttribute("ROTATION_DAMPER") as number;
 				break;
 			case "ROTATION_SPEED":
-				this.rotationSpring.Speed = cam.GetAttribute("ROTATION_SPEED") as number;
+				this.rotationSpring.angularFrequency = cam.GetAttribute("ROTATION_SPEED") as number;
 				break;
 			default:
 				break;
@@ -62,12 +62,12 @@ export default class SpringScriptableCamera extends BaseScriptableCamera {
 
 	protected _setPosition(position: Vector3) {
 		super._setPosition(position);
-		this.positionSpring.Target = position;
+		this.positionSpring.goal = position;
 	}
 
 	protected _setRotation(rotation: Vector3) {
 		super._setRotation(rotation);
-		this.rotationSpring.Target = rotation;
+		this.rotationSpring.goal = rotation;
 	}
 
 	/**
@@ -75,7 +75,7 @@ export default class SpringScriptableCamera extends BaseScriptableCamera {
 	 * @returns Current spring damper
 	 */
 	public getRotationSpringSpeed() {
-		return this.rotationSpring.Speed;
+		return this.rotationSpring.angularFrequency;
 	}
 
 	/**
@@ -83,7 +83,7 @@ export default class SpringScriptableCamera extends BaseScriptableCamera {
 	 * @param damper Damper to change to
 	 */
 	public setRotationSpringSpeed(damper: number) {
-		this.rotationSpring.Speed = damper;
+		this.rotationSpring.angularFrequency = damper;
 	}
 
 	/**
@@ -91,7 +91,7 @@ export default class SpringScriptableCamera extends BaseScriptableCamera {
 	 * @returns Current spring damper
 	 */
 	public getRotationSpringDamper() {
-		return this.rotationSpring.Damper;
+		return this.rotationSpring.dampingRatio;
 	}
 
 	/**
@@ -99,7 +99,7 @@ export default class SpringScriptableCamera extends BaseScriptableCamera {
 	 * @param damper Damper to change to
 	 */
 	public setRotationSpringDamper(damper: number) {
-		this.rotationSpring.Damper = damper;
+		this.rotationSpring.dampingRatio = damper;
 	}
 
 	/**
@@ -107,7 +107,7 @@ export default class SpringScriptableCamera extends BaseScriptableCamera {
 	 * @returns Current spring damper
 	 */
 	public getPositionSpringSpeed() {
-		return this.positionSpring.Speed;
+		return this.positionSpring.angularFrequency;
 	}
 
 	/**
@@ -115,7 +115,7 @@ export default class SpringScriptableCamera extends BaseScriptableCamera {
 	 * @param damper Damper to change to
 	 */
 	public setPositionSpringSpeed(damper: number) {
-		this.positionSpring.Speed = damper;
+		this.positionSpring.angularFrequency = damper;
 	}
 
 	/**
@@ -123,7 +123,7 @@ export default class SpringScriptableCamera extends BaseScriptableCamera {
 	 * @returns Current spring damper
 	 */
 	public getPositionSpringDamper() {
-		return this.positionSpring.Damper;
+		return this.positionSpring.dampingRatio;
 	}
 
 	/**
@@ -131,7 +131,7 @@ export default class SpringScriptableCamera extends BaseScriptableCamera {
 	 * @param damper Damper to change to
 	 */
 	public setPositionSpringDamper(damper: number) {
-		this.positionSpring.Damper = damper;
+		this.positionSpring.dampingRatio = damper;
 	}
 
 	/**
@@ -139,7 +139,7 @@ export default class SpringScriptableCamera extends BaseScriptableCamera {
 	 * @returns Spring current position
 	 */
 	public getPosition() {
-		return this.positionSpring.Position;
+		return this.positionSpring.position;
 	}
 
 	/**
@@ -156,7 +156,7 @@ export default class SpringScriptableCamera extends BaseScriptableCamera {
 	 * @returns Spring current rotation
 	 */
 	public getRotation() {
-		return this.rotationSpring.Position;
+		return this.rotationSpring.position;
 	}
 
 	/**
@@ -168,11 +168,16 @@ export default class SpringScriptableCamera extends BaseScriptableCamera {
 		return super.getRotation();
 	}
 
-	protected updateSpringCam() {
+	protected updateSpringCam(deltaTime: number) {
+		// update both springs
+		this.positionSpring.update(deltaTime);
+		this.rotationSpring.update(deltaTime);
+
+		// update the camera, goodie!
 		this.getCamera().map(cam => {
 			cam.CFrame = CFrameUtil.fromPositionAndRotation(
-				this.positionSpring.Position,
-				VectorUtil.toRadians(this.rotationSpring.Position),
+				this.positionSpring.position,
+				VectorUtil.toRadians(this.rotationSpring.position),
 			);
 		});
 	}
@@ -182,6 +187,6 @@ export default class SpringScriptableCamera extends BaseScriptableCamera {
 	 * @param deltaTime Render delta time
 	 */
 	public update(deltaTime: number) {
-		this.updateSpringCam();
+		this.updateSpringCam(deltaTime);
 	}
 }

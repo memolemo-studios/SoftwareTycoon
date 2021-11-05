@@ -1,15 +1,16 @@
 import { Dependency } from "@flamework/core";
+import { Option } from "@rbxts/rust-classes";
 import { RunService, Workspace } from "@rbxts/services";
 import type { CharacterController } from "client/controllers/CharacterController";
-import MathUtil from "shared/util/math";
 
-/**
- * Bare bones of placement class.
- *
- * **Source**: https://devforum.roblox.com/t/creating-a-furniture-placement-system/205509/2
- */
 export default class BasePlacement {
-	public constructor(public canvas: BasePart, public canvasSurface: Enum.NormalId, public gridUnit = 0) {}
+	protected cursor?: Model;
+
+	public constructor(public canvas: BasePart, public targetSurface = Enum.NormalId.Top, public gridUnit = 0) {}
+
+	private validateCursor() {
+		return typeIs(this.cursor, "Instance") && this.cursor.IsA("Model") && this.cursor.PrimaryPart !== undefined;
+	}
 
 	private constructOverlapParams() {
 		const params = new OverlapParams();
@@ -38,16 +39,18 @@ export default class BasePlacement {
 	 * @param params Optional, otherwise it will create its own generated `OverlapParams`
 	 * @returns Returns true, if it is colliding with the configured `OverlapParams`
 	 */
-	public checkForCollisions(model: Model, params = this.constructOverlapParams()) {
+	public checkForCollisions(params = this.constructOverlapParams()) {
 		// get parts within model's PrimaryPart and excluding with `CanCollide/CanTouch` parts
-		return !Workspace.GetPartsInPart(model.PrimaryPart!, params)
-			.filter(v => {
-				if (v.IsA("BasePart")) {
-					return v.CanCollide || v.CanTouch;
-				}
-				return false;
-			})
-			.isEmpty();
+		return this.getCursor().match(
+			// prettier-ignore
+			model => !Workspace.GetPartsInPart(model.PrimaryPart!, params).filter(v => {
+					if (v.IsA("BasePart")) {
+						return v.CanCollide || v.CanTouch;
+					}
+					return false;
+				}).isEmpty(),
+			() => false,
+		);
 	}
 
 	/**
@@ -59,7 +62,7 @@ export default class BasePlacement {
 		const canvas_size = this.canvas.Size;
 
 		const up = new Vector3(0, 1, 0);
-		const back = Vector3.FromNormalId(this.canvasSurface).mul(-1);
+		const back = Vector3.FromNormalId(this.targetSurface).mul(-1);
 
 		// if we are using the top or bottom, then we treat right as up
 		const dot = back.Dot(new Vector3(0, 1, 0));
@@ -87,8 +90,9 @@ export default class BasePlacement {
 	 * @param position Position to constraint with
 	 * @param rotation Rotation in radians
 	 */
-	public calculatePlacementCF(model: Model, position: Vector3, rotation: number) {
+	public calculatePlacementCF(position: Vector3, rotation: number) {
 		// get the info about the surface
+		const model = this.cursor!;
 		const [surface_cf, size] = this.calculateCanvas();
 
 		// rotate the size so that we can properly constrain to the surface
@@ -106,12 +110,30 @@ export default class BasePlacement {
 		let y = math.clamp(relative_pos.Y, -half_size.Y, half_size.Y);
 
 		// grid unit
-		if (this.gridUnit > 0) {
-			x = MathUtil.roundToMultiple(x, this.gridUnit);
-			y = MathUtil.roundToMultiple(y, this.gridUnit);
+		const grid_unit = this.gridUnit;
+		if (grid_unit > 0) {
+			x = math.sign(x) * (math.abs(x) - (math.abs(x) % grid_unit) + (half_size.X % grid_unit));
+			y = math.sign(y) * (math.abs(y) - (math.abs(y) % grid_unit) + (half_size.Y % grid_unit));
 		}
 
 		// return this long formula
 		return surface_cf.mul(new CFrame(x, y, -model_size.Y / 2)).mul(CFrame.Angles(-math.pi / 2, rotation, 0));
+	}
+
+	/**
+	 * Gets the current cursor
+	 * @returns Option with a cursor wrapped inside
+	 */
+	public getCursor(): Option<Model> {
+		if (!this.validateCursor()) return Option.none();
+		return Option.wrap(this.cursor);
+	}
+
+	/**
+	 * Sets the current cursor to a new one
+	 * @param cursor Valid model cursor otherwise it won't work
+	 */
+	public setCursor(cursor: Model) {
+		this.cursor = cursor;
 	}
 }
