@@ -1,0 +1,55 @@
+# Taken from roblox-ts under the MIT license https://github.com/roblox-ts/roblox-ts/blob/master/.github/workflows/ci.yml
+
+name: CI
+
+on:
+  pull_request:
+  push:
+    # This will get expensive if we decided to include this in staging branch
+    branches:
+      - master
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2.3.4
+
+      - name: Install NPM dependencies
+        uses: bahmutov/npm-install@v1.7.4
+
+      - name: Run ESLint
+        run: npm run lint
+
+  unit-tests:
+    name: Unit Tests
+    runs-on: windows-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2.3.4
+
+      - name: Install Roblox Studio
+        uses: OrbitalOwen/roblox-win-installer-action@1.1
+        with:
+          cookie: ${{ secrets.PUBLISHER_RBX_TOKEN || '_|WARNING:-DO-NOT-SHARE-THIS.--Sharing-this-will-allow-someone-to-log-in-as-you-and-to-steal-your-ROBUX-and-items.|_C20F8B02C7A2AB3DC67CB52A231AC47286191FBD85281C60AD6AC62C964C13530395A1C3B4673BED59898C3191D459595727147F5F5473366B6CFA3BD27C027302ED862BECF44A9034F973EFA5F83DAF0BC3C029CEA7AA4D3B2DFC74AEF3EB8D02A08C7CC12CBC7CE596752A7B1F36A85F5A3C49BAFB3C2D58CFEB2D02C80090E6094D38D2DC4E0EDF64689883C9C96B84F7E06E21766819D08F9C6F9DAD1D5731E059CB242FAD4A84565F6EA7DB00FCA7276D60416BCDE21928735240F7B0C486D67EA0ED8D4C2443614431C2FAFFC7027C536FE9B5FD460DAE59C6BE108398242B3AE11B326A97B33EC026D09547201D49EA8AC08AADA1880E01721C935338A20FE7131A6448F108736FBB7EE3961B235CD25A13F0F1EE683FD7EB5AAFD8FF73DB3C38074A69A03B649DB99B33DCA0839D22C75A2A2C294F0904865B975043693581A97E7995C7C3906FBB7F6D52C5DB694B9A' }}
+          token: ${{ secrets.HUB_TOKEN }}
+
+      - name: Install Foreman
+        uses: rojo-rbx/setup-foreman@v1.0.1
+        with:
+          token: ${{ secrets.HUB_TOKEN }}
+
+      - name: Install NPM dependencies
+        uses: bahmutov/npm-install@v1.7.4
+
+      - name: Prepare for compilation
+        run: make test-env
+
+      - name: Compile game
+        run: make game
+
+      - name: Perform unit tests
+        run: yarn test-run
