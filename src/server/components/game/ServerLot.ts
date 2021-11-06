@@ -5,14 +5,19 @@ import { Result } from "@rbxts/rust-classes";
 import { LotRequestError } from "shared/errors/lotRequest";
 import { LotRequestErrorKind } from "types/errors/lotRequest";
 import { HttpService } from "@rbxts/services";
+import WallServerPlacement from "server/classes/placement/wall";
 
 @Component({
 	tag: "Lot",
 })
 export class ServerLot extends SharedLot implements OnStart {
+	// TODO: remove 'wallPlacement' member and replace something organized
+	public wallPlacement!: WallServerPlacement;
+
 	/** @hidden */
 	public onStart() {
 		this.setAttribute("Id", HttpService.GenerateGUID(false));
+		this.wallPlacement = new WallServerPlacement(this);
 	}
 
 	/**

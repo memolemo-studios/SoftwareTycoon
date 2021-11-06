@@ -2,6 +2,7 @@ import { Controller, OnRender, OnStart } from "@flamework/core";
 import Log from "@rbxts/log";
 import { Option } from "@rbxts/rust-classes";
 import Keyboard from "client/input/keyboard";
+import { Functions } from "client/networking";
 import ClientBasePlacement from "client/placement/base";
 import WallPlacement from "client/placement/wall";
 import { CameraController } from "./CameraController";
@@ -41,7 +42,7 @@ export class PlacementController implements OnStart, OnRender {
 	 * does not exists in the collection
 	 * @param kind Any placement kind provided with types
 	 */
-	public startPlacement<T extends keyof PlacementOptions>(kind: T): Option<PlacementOptions[T]> {
+	public startPlacement<T extends keyof PlacementOptions>(kind: T): Option<InstanceType<PlacementOptions[T]>> {
 		this.logger.Info("Starting placement (kind: {Kind})", kind);
 
 		// make sure it is not in session yet
@@ -68,7 +69,7 @@ export class PlacementController implements OnStart, OnRender {
 			});
 
 			placement.start();
-			return placement as unknown as PlacementOptions[T];
+			return placement as unknown as InstanceType<PlacementOptions[T]>;
 		});
 	}
 
@@ -104,7 +105,14 @@ export class PlacementController implements OnStart, OnRender {
 		keyboard.keyUp.Connect(code => {
 			if (code !== Enum.KeyCode.P) return;
 			keyboard.destroy();
-			this.startPlacement("Wall");
+			this.startPlacement("Wall").match(
+				placement => {
+					placement.bindToDestroy((done, head, tail) => {
+						if (done) Functions.buildWall(head, tail);
+					});
+				},
+				() => {},
+			);
 		});
 	}
 }

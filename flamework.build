@@ -49,6 +49,7 @@
 		"softwaretycoon:out/shared/networking@GlobalFunctions": "shared/networking@GlobalFunctions",
 		"softwaretycoon:out/server/services/PlayerService@OnPlayerJoined": "server/services/PlayerService@OnPlayerJoined",
 		"softwaretycoon:out/client/controllers/CharacterController@OnCharacterSpawned": "client/controllers/CharacterController@OnCharacterSpawned",
-		"softwaretycoon:out/client/controllers/CharacterController@OnCharacterDied": "client/controllers/CharacterController@OnCharacterDied"
+		"softwaretycoon:out/client/controllers/CharacterController@OnCharacterDied": "client/controllers/CharacterController@OnCharacterDied",
+		"softwaretycoon:out/server/classes/placement/wall@WallServerPlacement": "server/classes/placement/wall@WallServerPlacement"
 	}
 }

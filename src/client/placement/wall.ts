@@ -2,7 +2,7 @@ import { $instance } from "rbxts-transformer-fs";
 import WallPlacement from "shared/placement/wall";
 import CFrameUtil from "shared/util/cframe";
 import OptionUtil from "shared/util/option";
-import ClientBasePlacement, { ClientPlacementState } from "./base";
+import ClientBasePlacement, { ClientPlacementState, DestroyCallback } from "./base";
 
 export enum WallPlacementState {
 	Head = "Head",
@@ -14,6 +14,7 @@ const WALL_ROD = $instance<Model>("assets/game/placement/WallRod.rbxmx");
 export default class ClientWallPlacement extends ClientBasePlacement {
 	protected wallState = WallPlacementState.Head;
 	protected wallTemp!: Part;
+	protected onDestroyConnections = new Array<DestroyCallback<[Vector3, Vector3]>>();
 	protected headPosition = new Vector3();
 
 	// override
@@ -61,7 +62,7 @@ export default class ClientWallPlacement extends ClientBasePlacement {
 
 		this.backToHead();
 		if (distance > 0) {
-			this.destroy();
+			this.done();
 		}
 	}
 
@@ -87,6 +88,11 @@ export default class ClientWallPlacement extends ClientBasePlacement {
 				this.wallTemp.Size = new Vector3(1, 12, line_size);
 			}
 		}
+	}
+
+	// override
+	public bindToDestroy(callback: DestroyCallback) {
+		this.onDestroyConnections.push(callback);
 	}
 
 	protected onClickLeftUp() {
@@ -119,6 +125,19 @@ export default class ClientWallPlacement extends ClientBasePlacement {
 				const cframe = this.placement.calculatePlacementCF(result.Position, this.rotation);
 				this.modelSpring.setPosition(cframe.Position);
 			});
+	}
+
+	// override
+	protected destroyBindConnections(done: boolean) {
+		// do not call if it is not successfully placed...
+		if (this.wallState !== WallPlacementState.Tail && this.state !== ClientPlacementState.Done) return;
+
+		// calling in each other
+		const head_position = this.headPosition;
+		const tail_position = this.modelSpring.getPosition();
+		for (const callback of this.onDestroyConnections) {
+			callback(done, head_position, tail_position);
+		}
 	}
 
 	// override

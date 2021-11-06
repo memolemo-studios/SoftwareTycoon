@@ -14,6 +14,9 @@ export enum ClientPlacementState {
 	Done,
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type DestroyCallback<A extends any[] = any[]> = (done: boolean, ...args: A) => void;
+
 // I tried to make a placement classes in composition type
 export default abstract class ClientBasePlacement {
 	/** Main bin (permanent objects use only) */
@@ -28,7 +31,9 @@ export default abstract class ClientBasePlacement {
 	protected modelSpring: ModelSpring;
 	protected rotation = 0;
 	protected state = ClientPlacementState.Idle;
-	protected onDestroyConnections = new Array<() => void>();
+
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	protected onDestroyConnections = new Array<DestroyCallback>();
 
 	public readonly placement!: BasePlacement;
 
@@ -196,12 +201,17 @@ export default abstract class ClientBasePlacement {
 		this.destroy();
 	}
 
+	protected destroyBindConnections(done: boolean) {
+		for (const callback of this.onDestroyConnections) {
+			callback(done);
+		}
+	}
+
 	/** Destroys BasePlacement class */
 	public destroy() {
 		this.bin.destroy();
-		this.onDestroyConnections.forEach(task.spawn);
+		this.destroyBindConnections(this.state === ClientPlacementState.Done);
 		this.onDestroyConnections.clear();
-		setmetatable(this, undefined as unknown as LuaMetatable<ClientBasePlacement>);
 	}
 
 	/**

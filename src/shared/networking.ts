@@ -37,6 +37,9 @@ interface ServerFunctions {
 	/** Request a lot to claim to. */
 	requestLot(): ResultSer.Serialized<string, LotRequestSerializedError>;
 
+	/** Request to build a wall */
+	buildWall(head: Vector3, tail: Vector3): void;
+
 	/**
 	 * Gets any player's latency in miliseconds
 	 * @param player Any player to get their latency (must be UserId)
