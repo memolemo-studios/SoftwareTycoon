@@ -20,8 +20,8 @@
     "watch": "rbxtsc --verbose -w"
   },
   "devDependencies": {
-    "@rbxts/compiler-types": "^1.2.3-types.1",
-    "@rbxts/types": "^1.0.545",
+    "@rbxts/compiler-types": "^1.2.7-types.0",
+    "@rbxts/types": "^1.0.548",
     "@typescript-eslint/eslint-plugin": "^5.1.0",
     "@typescript-eslint/parser": "^5.1.0",
     "concurrently": "^6.3.0",
@@ -44,7 +44,7 @@
     "@memolemo-studios/rbxts-attributes": "^1.2.2",
     "@memolemo-studios/rbxts-make": "^1.0.0",
     "@memolemo-studios/result-option-ser": "^1.0.0",
-    "@rbxts/bin": "^1.0.1",
+    "@rbxts/bin": "^1.2.0",
     "@rbxts/flipper": "^2.0.1",
     "@rbxts/goodsignal": "^0.2.0",
     "@rbxts/llama": "^1.1.0-ts2",
@@ -64,7 +64,7 @@
     "@rbxts/testez": "^0.3.1-ts.6",
     "@rbxts/validate-tree": "^2.0.1",
     "rbxts-transform-env": "^1.0.0-ts4.4",
-    "rbxts-transformer-fs": "^1.1.0-rc.5",
+    "rbxts-transformer-fs": "^1.1.1",
     "rbxts-transformer-t": "^1.1.4"
   }
 }
