@@ -46,7 +46,6 @@
     "@memolemo-studios/result-option-ser": "^1.0.0",
     "@rbxts/bin": "^1.2.0",
     "@rbxts/flipper": "^2.0.1",
-    "@rbxts/goodsignal": "^0.2.0",
     "@rbxts/llama": "^1.1.0-ts2",
     "@rbxts/log": "^0.5.0-beta.1",
     "@rbxts/net": "^2.1.4",

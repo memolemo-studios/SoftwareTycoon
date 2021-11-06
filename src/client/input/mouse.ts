@@ -1,7 +1,7 @@
 import { Bin } from "@rbxts/bin";
 import { Option } from "@rbxts/rust-classes";
-import { UserInputService, Workspace } from "@rbxts/services";
-import Signal from "@rbxts/goodsignal";
+import { RunService, UserInputService, Workspace } from "@rbxts/services";
+import Signal from "shared/classes/signal";
 
 export default class Mouse {
 	private bin = new Bin();
@@ -54,6 +54,21 @@ export default class Mouse {
 				}
 			}),
 		);
+	}
+
+	public observeHoldDown(
+		mouseBtnType: Enum.UserInputType.MouseButton1 | Enum.UserInputType.MouseButton2,
+		callback: (deltaTime: number) => void,
+	) {
+		let conn: RBXScriptConnection;
+		// eslint-disable-next-line prefer-const
+		conn = this.leftDown.Connect(() => {
+			do {
+				const dt = RunService.RenderStepped.Wait()[0];
+				callback(dt);
+			} while (UserInputService.IsMouseButtonPressed(mouseBtnType));
+		});
+		return conn;
 	}
 
 	public isLeftDown() {

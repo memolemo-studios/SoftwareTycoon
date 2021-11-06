@@ -1,4 +1,5 @@
 import { Controller, OnRender, OnStart } from "@flamework/core";
+import Log from "@rbxts/log";
 import { Option } from "@rbxts/rust-classes";
 import Keyboard from "client/input/keyboard";
 import ClientBasePlacement from "client/placement/base";
@@ -17,6 +18,7 @@ type PlacementOptions = typeof PlacementOptions;
 @Controller({})
 export class PlacementController implements OnStart, OnRender {
 	private placement?: ClientBasePlacement;
+	private logger = Log.ForContext(PlacementController);
 
 	public constructor(
 		private inputController: InputController,
@@ -26,7 +28,10 @@ export class PlacementController implements OnStart, OnRender {
 
 	/** @hidden */
 	public onRender(deltaTime: number) {
-		this.placement?.update(deltaTime);
+		if (this.placement) {
+			this.placement.update(deltaTime);
+			this.placement.render(deltaTime);
+		}
 	}
 
 	/**
@@ -37,6 +42,8 @@ export class PlacementController implements OnStart, OnRender {
 	 * @param kind Any placement kind provided with types
 	 */
 	public startPlacement<T extends keyof PlacementOptions>(kind: T): Option<PlacementOptions[T]> {
+		this.logger.Info("Starting placement (kind: {Kind})", kind);
+
 		// make sure it is not in session yet
 		if (this.placement) return Option.none();
 
@@ -53,6 +60,13 @@ export class PlacementController implements OnStart, OnRender {
 			this.initializePlacementClass(placement);
 
 			// start now!
+			placement.bindToDestroy(() => {
+				this.logger.Info("Placement finished, cleaning up!");
+				this.placement = undefined;
+				this.inputController.toggleCharacterMovement(true);
+				this.cameraController.terminateScriptableSession();
+			});
+
 			placement.start();
 			return placement as unknown as PlacementOptions[T];
 		});
@@ -63,6 +77,8 @@ export class PlacementController implements OnStart, OnRender {
 	 * @param placement Any placement class would work
 	 */
 	public initializePlacementClass(placement: ClientBasePlacement) {
+		this.logger.Info("Initializing placement class");
+
 		// create game provided raycastparams
 		const params = new RaycastParams();
 		params.FilterType = Enum.RaycastFilterType.Whitelist;
@@ -73,7 +89,9 @@ export class PlacementController implements OnStart, OnRender {
 			() => {},
 		);
 
-		placement.raycastParams = params;
+		// double placement property accesses
+		placement.placement.raycastParams = params;
+		placement.setCanInterpolated(true);
 
 		// configurations
 		this.inputController.toggleCharacterMovement(false);

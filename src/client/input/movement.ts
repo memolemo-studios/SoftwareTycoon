@@ -1,5 +1,5 @@
 import { Bin } from "@rbxts/bin";
-import Signal from "@rbxts/goodsignal";
+import Signal from "shared/classes/signal";
 import Keyboard from "./keyboard";
 
 // it is not considered as Controller in Flamework.

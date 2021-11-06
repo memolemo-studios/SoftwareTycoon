@@ -1,9 +1,14 @@
 import { Controller, Dependency } from "@flamework/core";
 import Log from "@rbxts/log";
+import { Players, StarterPlayer } from "@rbxts/services";
 import { BaseCharacterModel } from "types/roblox";
 import { CharacterController, OnCharacterSpawned } from "./CharacterController";
 
-let isCharMovementEnabled = true;
+const MAX_CAM_ZOOM = StarterPlayer.CameraMaxZoomDistance;
+const MIN_CAM_ZOOM = StarterPlayer.CameraMinZoomDistance;
+const local_player = Players.LocalPlayer;
+
+let is_movement_enabled = true;
 
 /**
  * InputController is a controller responsible for manging input things
@@ -17,8 +22,13 @@ export class InputController implements OnCharacterSpawned {
 
 	private updateCharacter(character: BaseCharacterModel) {
 		// base values
-		const walk_speed = isCharMovementEnabled ? 16 : 0;
-		const jump_power = isCharMovementEnabled ? 56 : 0;
+		const walk_speed = is_movement_enabled ? 16 : 0;
+		const jump_power = is_movement_enabled ? 56 : 0;
+
+		// disable ability to zoom, and i set it to 20 to avoid being
+		// the camera being in first person mode
+		local_player.CameraMaxZoomDistance = is_movement_enabled ? MAX_CAM_ZOOM : 20;
+		local_player.CameraMinZoomDistance = is_movement_enabled ? MIN_CAM_ZOOM : 20;
 
 		// setting properties
 		character.Humanoid.WalkSpeed = walk_speed;
@@ -30,7 +40,7 @@ export class InputController implements OnCharacterSpawned {
 	 * @param enabled Boolean to set to
 	 */
 	public toggleCharacterMovement(enabled: boolean) {
-		isCharMovementEnabled = enabled;
+		is_movement_enabled = enabled;
 		this.logger.Info(`${enabled ? "Enabling" : "Disabling"} character movement`);
 
 		// if the character already spawns, then it will update the character

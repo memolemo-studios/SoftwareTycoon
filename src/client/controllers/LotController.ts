@@ -4,7 +4,7 @@ import { ResultSer } from "@memolemo-studios/result-option-ser";
 import Log from "@rbxts/log";
 import { Option } from "@rbxts/rust-classes";
 import { Players } from "@rbxts/services";
-import Signal from "@rbxts/signal";
+import Signal from "shared/classes/signal";
 import { ClientLot } from "client/components/ClientLot";
 import { Functions } from "client/networking";
 import { LotRequestError } from "shared/errors/lotRequest";

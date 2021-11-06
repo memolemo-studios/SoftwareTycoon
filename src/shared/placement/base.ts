@@ -1,36 +1,45 @@
-import { Dependency } from "@flamework/core";
 import { Option } from "@rbxts/rust-classes";
-import { RunService, Workspace } from "@rbxts/services";
-import type { CharacterController } from "client/controllers/CharacterController";
+import { Workspace } from "@rbxts/services";
 
+/**
+ * Bare bones of placement class.
+ *
+ * **Source**: https://devforum.roblox.com/t/creating-a-furniture-placement-system/205509/2
+ */
 export default class BasePlacement {
-	protected cursor?: Model;
+	// optional properties
+	private cursor?: Model | BasePart;
+	public raycastParams?: RaycastParams;
 
-	public constructor(public canvas: BasePart, public targetSurface = Enum.NormalId.Top, public gridUnit = 0) {}
+	// props
+	public gridUnit = 0;
+	public targetSurface = Enum.NormalId.Top;
 
-	private validateCursor() {
-		return typeIs(this.cursor, "Instance") && this.cursor.IsA("Model") && this.cursor.PrimaryPart !== undefined;
-	}
+	public constructor(public readonly canvas: BasePart) {}
 
-	private constructOverlapParams() {
-		const params = new OverlapParams();
-		params.FilterType = Enum.RaycastFilterType.Blacklist;
-
-		// we don't know if that module is running from the client or server
-		const blacklisted = new Array<Instance>();
-		if (RunService.IsClient()) {
-			// does it impact on performance? idk
-			const char_controller = Dependency<CharacterController>();
-			const char_opt = char_controller.getCurrentCharacter();
-			if (char_opt.isSome()) {
-				blacklisted.push(char_opt.unwrap());
+	/** Checks if the cursor is valid or not */
+	public validateCursor() {
+		const cursor = this.cursor;
+		if (typeIs(cursor, "Instance")) {
+			if (classIs(cursor, "Model") && cursor.PrimaryPart !== undefined) {
+				return true;
+			} else if (classIs(cursor, "Part")) {
+				return true;
 			}
 		}
+		return false;
+	}
 
-		blacklisted.push(this.canvas);
-		params.FilterDescendantsInstances = blacklisted;
-
-		return params;
+	/** Gets the root part of the primary part of the model */
+	private getRootPart(): Option<BasePart> {
+		const that = this.cursor;
+		if (!typeIs(that, "Instance")) {
+			return Option.none();
+		}
+		if (classIs(that, "Model")) {
+			return Option.wrap(that.PrimaryPart);
+		}
+		return Option.some(that);
 	}
 
 	/**
@@ -39,11 +48,11 @@ export default class BasePlacement {
 	 * @param params Optional, otherwise it will create its own generated `OverlapParams`
 	 * @returns Returns true, if it is colliding with the configured `OverlapParams`
 	 */
-	public checkForCollisions(params = this.constructOverlapParams()) {
+	public checkForCollisions(params?: OverlapParams) {
 		// get parts within model's PrimaryPart and excluding with `CanCollide/CanTouch` parts
-		return this.getCursor().match(
+		return this.getRootPart().match(
 			// prettier-ignore
-			model => !Workspace.GetPartsInPart(model.PrimaryPart!, params).filter(v => {
+			part => !Workspace.GetPartsInPart(part, params).filter(v => {
 					if (v.IsA("BasePart")) {
 						return v.CanCollide || v.CanTouch;
 					}
@@ -83,6 +92,21 @@ export default class BasePlacement {
 	}
 
 	/**
+	 * Calculate x and y grid locked coordinates, useful for other placement methods
+	 * like wall, and furniture placing.
+	 *
+	 * @param x X position
+	 * @param y Y position
+	 * @returns [X, Y] coordinates
+	 */
+	protected calculateXYGrid(x: number, y: number, half_size: Vector2) {
+		const grid_unit = this.gridUnit;
+		const final_x = math.sign(x) * (math.abs(x) - (math.abs(x) % grid_unit) + (half_size.X % grid_unit));
+		const final_y = math.sign(y) * (math.abs(y) - (math.abs(y) % grid_unit) + (half_size.Y % grid_unit));
+		return [final_x, final_y] as const;
+	}
+
+	/**
 	 * Use to calculate the constrained CFrame of the mode
 	 * for placement based on the given canvas
 	 *
@@ -92,11 +116,11 @@ export default class BasePlacement {
 	 */
 	public calculatePlacementCF(position: Vector3, rotation = 0) {
 		// get the info about the surface
-		const model = this.cursor!;
+		const main_part = this.getRootPart().expect("Failed to get either 'PrimaryPart' or 'Part'");
 		const [surface_cf, size] = this.calculateCanvas();
 
 		// rotate the size so that we can properly constrain to the surface
-		let model_size = CFrame.fromEulerAnglesYXZ(0, rotation, 0).mul(model.PrimaryPart!.Size);
+		let model_size = CFrame.fromEulerAnglesYXZ(0, rotation, 0).mul(main_part.Size);
 		model_size = new Vector3(math.abs(model_size.X), math.abs(model_size.Y), math.abs(model_size.Z));
 
 		// get the position relative to the surface's CFrame
@@ -112,8 +136,7 @@ export default class BasePlacement {
 		// grid unit
 		const grid_unit = this.gridUnit;
 		if (grid_unit > 0) {
-			x = math.sign(x) * (math.abs(x) - (math.abs(x) % grid_unit) + (half_size.X % grid_unit));
-			y = math.sign(y) * (math.abs(y) - (math.abs(y) % grid_unit) + (half_size.Y % grid_unit));
+			[x, y] = this.calculateXYGrid(x, y, half_size);
 		}
 
 		// return this long formula
@@ -124,7 +147,7 @@ export default class BasePlacement {
 	 * Gets the current cursor
 	 * @returns Option with a cursor wrapped inside
 	 */
-	public getCursor(): Option<Model> {
+	public getCursor(): Option<Model | BasePart> {
 		if (!this.validateCursor()) return Option.none();
 		return Option.wrap(this.cursor);
 	}
@@ -133,7 +156,7 @@ export default class BasePlacement {
 	 * Sets the current cursor to a new one
 	 * @param cursor Valid model cursor otherwise it won't work
 	 */
-	public setCursor(cursor: Model) {
+	public setCursor(cursor: Model | BasePart) {
 		this.cursor = cursor;
 	}
 }
