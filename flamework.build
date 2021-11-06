@@ -40,16 +40,16 @@
 		"softwaretycoon:out/interface/frame/background/fade@FadeBackgroundFrame": "interface/frame/background/fade@FadeBackgroundFrame",
 		"softwaretycoon:out/interface/others/tooltip@Tooltip": "interface/others/tooltip@Tooltip",
 		"softwaretycoon:out/server/components/game/ServerLot@ServerLot": "server/components/game/ServerLot@ServerLot",
+		"softwaretycoon:out/server/classes/placement/wall@WallServerPlacement": "server/classes/placement/wall@WallServerPlacement",
+		"softwaretycoon:out/server/services/LotService@LotService": "server/services/LotService@LotService",
 		"softwaretycoon:out/server/services/BuilderService@BuilderService": "server/services/BuilderService@BuilderService",
 		"softwaretycoon:out/server/services/DataService@DataService": "server/services/DataService@DataService",
 		"softwaretycoon:out/server/services/LatencyService@LatencyService": "server/services/LatencyService@LatencyService",
-		"softwaretycoon:out/server/services/LotService@LotService": "server/services/LotService@LotService",
 		"softwaretycoon:out/server/services/PlayerService@PlayerService": "server/services/PlayerService@PlayerService",
 		"softwaretycoon:out/shared/networking@GlobalEvents": "shared/networking@GlobalEvents",
 		"softwaretycoon:out/shared/networking@GlobalFunctions": "shared/networking@GlobalFunctions",
 		"softwaretycoon:out/server/services/PlayerService@OnPlayerJoined": "server/services/PlayerService@OnPlayerJoined",
 		"softwaretycoon:out/client/controllers/CharacterController@OnCharacterSpawned": "client/controllers/CharacterController@OnCharacterSpawned",
-		"softwaretycoon:out/client/controllers/CharacterController@OnCharacterDied": "client/controllers/CharacterController@OnCharacterDied",
-		"softwaretycoon:out/server/classes/placement/wall@WallServerPlacement": "server/classes/placement/wall@WallServerPlacement"
+		"softwaretycoon:out/client/controllers/CharacterController@OnCharacterDied": "client/controllers/CharacterController@OnCharacterDied"
 	}
 }
