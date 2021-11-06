@@ -6,15 +6,16 @@
 		"softwaretycoon:out/client/input/keyboard@Keyboard": "client/input/keyboard@Keyboard",
 		"softwaretycoon:out/client/input/mouse@Mouse": "client/input/mouse@Mouse",
 		"softwaretycoon:out/shared/classes/modelSpring@ModelSpring": "shared/classes/modelSpring@ModelSpring",
-		"softwaretycoon:out/client/controllers/CharacterController@CharacterController": "client/controllers/CharacterController@CharacterController",
 		"softwaretycoon:out/shared/placement/base@BasePlacement": "shared/placement/base@BasePlacement",
 		"softwaretycoon:out/client/placement/base@ClientBasePlacement": "client/placement/base@ClientBasePlacement",
+		"softwaretycoon:out/shared/placement/wall@WallPlacement": "shared/placement/wall@WallPlacement",
+		"softwaretycoon:out/client/placement/wall@ClientWallPlacement": "client/placement/wall@ClientWallPlacement",
 		"softwaretycoon:out/client/cameras/base@BaseScriptableCamera": "client/cameras/base@BaseScriptableCamera",
 		"softwaretycoon:out/client/input/movement@MovementController": "client/input/movement@MovementController",
 		"softwaretycoon:out/client/cameras/spring@SpringScriptableCamera": "client/cameras/spring@SpringScriptableCamera",
 		"softwaretycoon:out/client/cameras/placement@PlacementScriptableCamera": "client/cameras/placement@PlacementScriptableCamera",
 		"softwaretycoon:out/client/controllers/CameraController@CameraController": "client/controllers/CameraController@CameraController",
-		"softwaretycoon:out/client/placement/wall@WallPlacement": "client/placement/wall@WallPlacement",
+		"softwaretycoon:out/client/controllers/CharacterController@CharacterController": "client/controllers/CharacterController@CharacterController",
 		"softwaretycoon:out/client/controllers/InputController@InputController": "client/controllers/InputController@InputController",
 		"softwaretycoon:out/shared/components/game/SharedLot@SharedLot": "shared/components/game/SharedLot@SharedLot",
 		"softwaretycoon:out/client/components/ClientLot@ClientLot": "client/components/ClientLot@ClientLot",
@@ -48,8 +49,6 @@
 		"softwaretycoon:out/shared/networking@GlobalFunctions": "shared/networking@GlobalFunctions",
 		"softwaretycoon:out/server/services/PlayerService@OnPlayerJoined": "server/services/PlayerService@OnPlayerJoined",
 		"softwaretycoon:out/client/controllers/CharacterController@OnCharacterSpawned": "client/controllers/CharacterController@OnCharacterSpawned",
-		"softwaretycoon:out/client/controllers/CharacterController@OnCharacterDied": "client/controllers/CharacterController@OnCharacterDied",
-		"softwaretycoon:out/client/placement/wall@ClientWallPlacement": "client/placement/wall@ClientWallPlacement",
-		"softwaretycoon:out/shared/placement/wall@WallPlacement": "shared/placement/wall@WallPlacement"
+		"softwaretycoon:out/client/controllers/CharacterController@OnCharacterDied": "client/controllers/CharacterController@OnCharacterDied"
 	}
 }
