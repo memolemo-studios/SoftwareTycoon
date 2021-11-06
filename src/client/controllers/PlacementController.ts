@@ -69,7 +69,7 @@ export class PlacementController implements OnStart, OnRender {
 
 		// only use owner's lot as of now
 		this.lotController.getOwnerLot().match(
-			lot => (params.FilterDescendantsInstances = [lot.instance.PrimaryPart!]),
+			lot => (params.FilterDescendantsInstances = [lot.instance.FilteredArea!]),
 			() => {},
 		);
 

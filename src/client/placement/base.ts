@@ -28,6 +28,9 @@ export default class ClientBasePlacement extends BasePlacement {
 		this.modelSpring = new ModelSpring();
 		this.setCanInterpolate(true);
 		this.gridUnit = 4;
+
+		this.bin.add(this.keyboard);
+		this.bin.add(this.mouse);
 	}
 
 	private rotate() {
@@ -51,13 +54,13 @@ export default class ClientBasePlacement extends BasePlacement {
 		}
 	}
 
-	private updateRotation() {
+	protected updateRotation() {
 		if (this.rotation !== this.modelSpring.getRotation().Y) {
 			this.modelSpring.setRotation(new Vector3(0, this.rotation, 0));
 		}
 	}
 
-	private updatePosition() {
+	protected updatePosition() {
 		// prettier-ignore
 		OptionUtil
 			.combine(

@@ -90,7 +90,7 @@ export default class BasePlacement {
 	 * @param position Position to constraint with
 	 * @param rotation Rotation in radians
 	 */
-	public calculatePlacementCF(position: Vector3, rotation: number) {
+	public calculatePlacementCF(position: Vector3, rotation = 0) {
 		// get the info about the surface
 		const model = this.cursor!;
 		const [surface_cf, size] = this.calculateCanvas();

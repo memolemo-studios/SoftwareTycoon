@@ -68,13 +68,13 @@ export default class PlacementScriptableCamera extends SpringScriptableCamera {
 	protected updateRotateChange() {
 		// TODO: find a way how to workaround with arrow keys
 		if (
-			this.keyboard.areAnyKeysDown(Enum.KeyCode.LeftBracket, Enum.KeyCode.RightBracket) &&
-			!this.keyboard.areKeysDown(Enum.KeyCode.LeftBracket, Enum.KeyCode.RightBracket)
+			this.keyboard.areAnyKeysDown(Enum.KeyCode.Q, Enum.KeyCode.E) &&
+			!this.keyboard.areKeysDown(Enum.KeyCode.Q, Enum.KeyCode.E)
 		) {
-			if (this.keyboard.isKeyDown(Enum.KeyCode.LeftBracket)) {
+			if (this.keyboard.isKeyDown(Enum.KeyCode.Q)) {
 				this.angleChangeSpeed = 1;
 			}
-			if (this.keyboard.isKeyDown(Enum.KeyCode.RightBracket)) {
+			if (this.keyboard.isKeyDown(Enum.KeyCode.E)) {
 				this.angleChangeSpeed = -1;
 			}
 		} else {
@@ -98,6 +98,7 @@ export default class PlacementScriptableCamera extends SpringScriptableCamera {
 		return this.sensitivity;
 	}
 
+	// override
 	public update(deltaTime: number) {
 		// movement controls
 		const change_x = this.walkChangeSpeedX * this.moveSpeed * deltaTime;

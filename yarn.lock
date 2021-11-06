@@ -1263,10 +1263,10 @@ rbxts-transformer-flamework@^1.0.0-beta.8:
     typescript "^4.4.4"
     uuid "^8.3.2"
 
-rbxts-transformer-fs@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/rbxts-transformer-fs/-/rbxts-transformer-fs-1.1.1.tgz#5148191c7aae7855ab268b078a0af6df079780c3"
-  integrity sha512-VGCty+OMAjZXlq2WMLqmfCqYleoHQj9exOxxTIWubR21NGZ86Mtc5d8JX+8QAn/2XZ22yv2QTmbLneQfMxQqng==
+rbxts-transformer-fs@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/rbxts-transformer-fs/-/rbxts-transformer-fs-1.1.2.tgz#dab263d3471b8e77c39139f227bd714fcafc53fc"
+  integrity sha512-Ux4qiAT7klqFvgs9wLem+yJFy9Qnixv3GRJmXN7M116d3ZszFECg2Uo7VoEtzVzlqbRcFkiGMeDIWcgL7kRSsQ==
   dependencies:
     "@rbxts/types" "^1.0.548"
     ajv "8.6.3"

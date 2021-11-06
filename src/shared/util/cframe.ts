@@ -10,6 +10,19 @@ namespace CFrameUtil {
 	}
 
 	/**
+	 * Creates a line CFrame with size provided depending on
+	 * head and tail positions based on the parameters required.
+	 * @param head Head for line construction
+	 * @param tail Tail for the line construction
+	 * @returns A line CFrame with size provided
+	 */
+	export function makeLine(head: Vector3, tail: Vector3) {
+		const distance = head.sub(tail).Magnitude;
+		const cframe = CFrame.lookAt(head, tail).mul(new CFrame(0, 0, -distance / 2));
+		return [cframe, distance] as const;
+	}
+
+	/**
 	 * Converts CFrame into Vector3
 	 * @param cframe CFrame to convert to
 	 */

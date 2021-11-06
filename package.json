@@ -64,7 +64,7 @@
     "@rbxts/testez": "^0.3.1-ts.6",
     "@rbxts/validate-tree": "^2.0.1",
     "rbxts-transform-env": "^1.0.0-ts4.4",
-    "rbxts-transformer-fs": "^1.1.1",
+    "rbxts-transformer-fs": "^1.1.2",
     "rbxts-transformer-t": "^1.1.4"
   }
 }
