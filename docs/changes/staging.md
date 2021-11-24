@@ -1,6 +1,6 @@
 # Changelog (master)
 
-## 0.0.1-alpha.5
+## 0.0.1-alpha.5 (partial refactor version)
 
 **Global**:
 - **Entire codebase has been refactored again**
@@ -8,18 +8,18 @@
 - Switched from `@rbxts/roact-hooks` to `@rbxts/roact-hooked`
 - Added `GameFlags` feature (inspired by ROBLOX's FFlag feature)
 - Revamped the entire Roact component modules
-- Added `LocalStorage` system for replicating player's own container
+- Added `LocalStorage` system for replicating player's own replicated container
 - Cmdr is in the game!
 - All remotes in this game are now using `@rbxts/net`
-- Upgraded to Flamework 1.0.0-beta.2
+- Updated to Flamework 1.0.0-beta.2
 
 **Code Environment**:
-- Fixed issues in EditorConfig
+- Fixed issues in `.editorconfig` file
 - Fixed linting issues in Prettier caused by styling from configured EditorConfig
 - `.env` will not be deleted in `make cleanup` command
 - Changed `services` to `luau` (to avoid confusion and make things simpler)
 - Fixed `yarn start` command typo
-- Upgraded to `rbxts-transformer-fs` v1.1.2
+- Updated to `rbxts-transformer-fs` v1.1.2
 
 ## 0.0.1-alpha.4
 
