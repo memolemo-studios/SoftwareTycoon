@@ -196,6 +196,11 @@
   resolved "https://registry.yarnpkg.com/@rbxts/t/-/t-2.1.5.tgz#583d1feee5ca26dfae85254ebac0514316ed7c3e"
   integrity sha512-eH2faj6wh4IJnZaqLi0jSmbOmnSFndSXJbXNwobrNAKwmdzxvM64sSsHZ5v1R02BQXuZP/zUjKeL7WS2416pxQ==
 
+"@rbxts/testez@^0.3.1-ts.7":
+  version "0.3.1-ts.7"
+  resolved "https://registry.yarnpkg.com/@rbxts/testez/-/testez-0.3.1-ts.7.tgz#a5bb2e0640123c007655329f264e9ee4fcafb565"
+  integrity sha512-DkIlRFdMODHjJPEYJT/cPYv2ZQzSqAufF4XAsqrx7zFg8OVAkSHY5aGChGoPNrZo0PM4zz9bw46ZIVqLfcM05Q==
+
 "@rbxts/types@^1.0.545":
   version "1.0.545"
   resolved "https://registry.yarnpkg.com/@rbxts/types/-/types-1.0.545.tgz#11abcf67b4f7b3a484581582b4450b08593a196b"
