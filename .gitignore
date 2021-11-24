@@ -1,7 +1,14 @@
-# roblox-ts built directories
-/node_modules
+# Build directory
 /out
+
+# rbxtsc generated directories
 /include
+
+# Node modules
+/node_modules
+
+# Archive stuff
+/archive
 
 # Environment secrets
 .env

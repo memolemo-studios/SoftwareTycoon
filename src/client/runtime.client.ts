@@ -1,21 +1,17 @@
 import { Flamework } from "@flamework/core";
-import Log, { Logger, LogLevel } from "@rbxts/log";
-import Roact from "@rbxts/roact";
-import { RunService } from "@rbxts/services";
+import Log from "@rbxts/log";
+import { setupLogger } from "shared/functions/setupLogger";
 
-// logger setup
-Log.SetLogger(
-	Logger.configure()
-		.EnrichWithProperty("VERSION", PKG_VERSION)
-		.SetMinLogLevel(RunService.IsStudio() ? LogLevel.Verbose : LogLevel.Information)
-		.WriteTo(Log.RobloxOutput())
-		.Create(),
+// setting up the logger
+setupLogger();
+Log.Warn("Software Tycoon client version: {VERSION}");
+
+// prettier-ignore
+Flamework.addPaths(
+	"src/client/apps",
+	"src/client/controllers",
+	"src/client/components",
+	"src/shared/components",
+	"src/shared/flamework"
 );
-
-Log.Info("Initializing Flamework");
-
-// initialize flamework
-Flamework.addPaths("src/client/controllers", "src/client/apps", "src/client/components", "src/shared/flamework");
 Flamework.ignite();
-
-Log.Info("Flamework is now initialized");
