@@ -1,6 +1,8 @@
 import { GameFlags } from "shared/flags";
 
-/** TODO: Document this function */
+/**
+ * Gets the invisible transparency based on `GameFlags` configured
+ */
 export function useInvisibleTransparency() {
   return GameFlags.GhostInvisibleUI ? GameFlags.GhostInvisibleUITransparency : 1;
 }
