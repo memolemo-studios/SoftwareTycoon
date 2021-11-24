@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 
 const repo_directory = path.join(__dirname, "..", "..");
-const excluded_folders = ["node_modules", "out", "include", ".github", ".vscode", "scripts"];
+const excluded_folders = ["node_modules", "out", "include", "archive", ".github", ".vscode", "scripts"];
 const target_exts = [".tsx", ".ts", ".lua"];
 
 let lines_of_code = 0;

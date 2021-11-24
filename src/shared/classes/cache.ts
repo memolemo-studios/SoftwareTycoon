@@ -1,73 +1,65 @@
-const EXPIRY_INTERVAL = 5;
+import Log, { Logger } from "@rbxts/log";
+import { GameFlags } from "shared/flags";
 
-export default class Cache<T extends object> {
-	private lastUpdateTick = os.clock();
-	private isBusy = false;
-	private value!: T;
+/**
+ * Cache is a class which it is responsible handling
+ * values and updates it manually or automatically if
+ * the value expires.
+ *
+ * It will update the value depending on the return
+ * type of the updater function found in constructor.
+ */
+export class Cache<T = undefined> {
+  private currentValue?: T;
+  private isUpdating = false;
+  private logger: Logger;
+  private valueExpires = 0;
 
-	public constructor(private updateCallback: () => T | Promise<T>) {
-		this.updateValue();
-	}
+  /**
+   * Creates a new Cache class
+   * @param update Updater function with Promise returned
+   */
+  public constructor(public name: string, private update: () => Promise<T>) {
+    this.logger = Log.ForContext(this);
+  }
 
-	/**
-	 * Returns a boolean, if it is the value is now expired
-	 * @returns If the cache value is now expired
-	 */
-	public canUpdate() {
-		return os.clock() >= this.lastUpdateTick + EXPIRY_INTERVAL && !this.isBusy;
-	}
+  /** A method returns if the value needs to be updated */
+  public needsUpdate() {
+    return (this.currentValue === undefined || os.clock() >= this.valueExpires) && !this.isUpdating;
+  }
 
-	/** Updates the cache value */
-	public async updateValue(): Promise<void> {
-		// busy task
-		this.isBusy = true;
-		const callback_value = this.updateCallback();
+  /** Forces to set the value instead of the updater function */
+  public forceSetValue(value: T) {
+    this.valueExpires = os.clock() + GameFlags.CacheExpiryThreshold;
+    this.currentValue = value;
+  }
 
-		// promise or regular value?
-		if (Promise.is(callback_value)) {
-			return callback_value
-				.then(value => {
-					this.value = value;
-				})
-				.catch(reason => warn(`[Cache class]: Failed to update value: ${reason}`))
-				.finally(() => {
-					this.isBusy = false;
-					this.lastUpdateTick = os.clock();
-				});
-		} else {
-			this.lastUpdateTick = os.clock();
-			this.value = callback_value;
-			this.isBusy = false;
-		}
-	}
+  /** __toString method for the Log class */
+  public toString() {
+    return `Cache<${this.name}>`;
+  }
 
-	/**
-	 * Change the value forcefully
-	 *
-	 * It ignores the busy activity and time caching
-	 */
-	public setValueForce(value: T) {
-		this.lastUpdateTick = os.clock();
-		this.value = value;
-	}
+  /** Updates the new value from the updater function */
+  public async updateValue() {
+    // do not update if it is not expired
+    if (!this.needsUpdate()) return this.currentValue as T;
+    this.logger.Verbose("Updating value to its newest value", this.toString());
+    this.isUpdating = true;
 
-	/**
-	 * Gets the value of the last saved cache value
-	 *
-	 * **Be careful**:
-	 * This will throw out an error if the update callback
-	 * fails to execute via Promise or callback
-	 *
-	 * To save this problem, you can set `.setValueForce` method.
-	 */
-	public getValue() {
-		// update value if possible
-		if (this.canUpdate()) {
-			this.updateValue();
-		}
-
-		// making sure that value is not nil
-		assert(this.value !== undefined, "That value is not loaded due to update callback is still fetching.");
-		return this.value;
-	}
+    // update the value and replace with the new value
+    return this.update()
+      .then(newValue => {
+        this.logger.Verbose("Done updating value", this.toString());
+        this.valueExpires = os.clock() + GameFlags.CacheExpiryThreshold;
+        return (this.currentValue = newValue);
+      })
+      .catch(reason => {
+        this.logger.Error("Failed to update to a new value. Reason: {Reason}", this.toString(), reason);
+        return this.currentValue as T;
+      })
+      .finally<T>(() => {
+        this.isUpdating = false;
+        return this.currentValue as T;
+      });
+  }
 }

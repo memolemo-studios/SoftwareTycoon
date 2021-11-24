@@ -36,5 +36,6 @@
       { "transform": "rbxts-transformer-t" },
       { "transform": "rbxts-transformer-fs" }
     ]
-	}
+	},
+  "exclude": ["archive/**/*"]
 }
