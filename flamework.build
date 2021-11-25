@@ -6,10 +6,6 @@
 		"softwaretycoon:out/client/apps/loading@LoadingApp": "client/apps/loading@LoadingApp",
 		"softwaretycoon:out/client/controllers/interface/AppController@App": "client/controllers/interface/AppController@App",
 		"softwaretycoon:out/client/controllers/interface/AppController@AppController": "client/controllers/interface/AppController@AppController",
-		"softwaretycoon:out/interface/components/gfx/ripples/static@StaticRipple": "interface/components/gfx/ripples/static@StaticRipple",
-		"softwaretycoon:out/interface/components/gfx/ripples/touch@TouchRipple": "interface/components/gfx/ripples/touch@TouchRipple",
-		"softwaretycoon:out/interface/components/typography/adjustableText@AdjustableText": "interface/components/typography/adjustableText@AdjustableText",
-		"softwaretycoon:out/interface/components/alert@Alert": "interface/components/alert@Alert",
 		"softwaretycoon:out/client/apps/alert@AlertApp": "client/apps/alert@AlertApp",
 		"softwaretycoon:out/client/controllers/replication/LocalStorageController@LocalStorageController": "client/controllers/replication/LocalStorageController@LocalStorageController",
 		"softwaretycoon:out/client/controllers/players/DataController@DataController": "client/controllers/players/DataController@DataController",
@@ -32,8 +28,10 @@
 		"softwaretycoon:out/server/services/players/PlayerService@OnPlayerJoined": "server/services/players/PlayerService@OnPlayerJoined",
 		"softwaretycoon:out/server/services/players/PlayerService@OnPlayerLeft": "server/services/players/PlayerService@OnPlayerLeft",
 		"softwaretycoon:out/server/services/game/LotService@OnLotOwned": "server/services/game/LotService@OnLotOwned",
-		"softwaretycoon:out/interface/components/alert/popup@PopupAlert": "interface/components/alert/popup@PopupAlert",
-		"softwaretycoon:out/interface/components/alert/center@CenteredAlert": "interface/components/alert/center@CenteredAlert",
-		"softwaretycoon:out/interface/components/alert/center@CenteredCard": "interface/components/alert/center@CenteredCard"
+		"softwaretycoon:out/interface/components/common/ripples/static@StaticRipple": "interface/components/common/ripples/static@StaticRipple",
+		"softwaretycoon:out/interface/components/common/ripples/touch@TouchRipple": "interface/components/common/ripples/touch@TouchRipple",
+		"softwaretycoon:out/interface/components/common/typography/adjustable@AdjustableText": "interface/components/common/typography/adjustable@AdjustableText",
+		"softwaretycoon:out/interface/components/common/typography/adjustable@AdjustableTypography": "interface/components/common/typography/adjustable@AdjustableTypography",
+		"softwaretycoon:out/interface/components/common/switch/toggle@ToggleSwitch": "interface/components/common/switch/toggle@ToggleSwitch"
 	}
 }
