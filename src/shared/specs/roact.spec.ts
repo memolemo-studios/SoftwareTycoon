@@ -6,7 +6,7 @@ import { RoactUtil } from "shared/utils/roact";
 export = () => {
   describe("RoactUtil.isBinding", () => {
     it("must returns true if it is a true Roact binding", () => {
-      const binding = Roact.createBinding(10);
+      const [binding] = Roact.createBinding(10);
       expect(RoactUtil.isBinding(binding)).be.equal(true);
     });
 
