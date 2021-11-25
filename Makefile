@@ -18,8 +18,8 @@ game:
 
 # Cleans up unnecessary files
 cleanup:
-	- rm -rd out
-	- rm .env
+	- rm -rf out
+	- rm -rf current_branch
 
 # Makes a unit test environment
 test-env:
