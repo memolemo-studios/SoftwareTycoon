@@ -117,6 +117,9 @@ export class StaticRipple extends Component<Props> {
         Event={{
           InputBegan: (_, input) => {
             if (!this.canUseInput()) return;
+            // do not perform ripple if it is disabled
+            const does_enabled = RoactUtil.getBindableValue(this.props.enabled ?? true);
+            if (!does_enabled) return;
             if (input.UserInputType !== Enum.UserInputType.MouseButton1) return;
             this.enableRipple();
 

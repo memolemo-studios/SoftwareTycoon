@@ -7,6 +7,7 @@ import { useFlipperMotor } from "interface/hooks/useFlipperMotor";
 import { mapBindableProp } from "interface/utils/mapBindableProp";
 import { GameFlags } from "shared/flags";
 import { MathUtil } from "shared/utils/math";
+import { RoactUtil } from "shared/utils/roact";
 import { ValueOrBinding } from "types/roact";
 import { GameCornerConstraint } from "../constraint/corner/default";
 import { RoundedOutline } from "../effect/outline/rounded";
@@ -38,7 +39,11 @@ export const TextButton = pure<Props>(props => {
         Event={{
           MouseEnter: () => hover_motor.setGoal(new Spring(0, GameFlags.InterfaceSpringProps)),
           MouseLeave: () => hover_motor.setGoal(new Spring(1, GameFlags.InterfaceSpringProps)),
-          MouseButton1Click: props.onClick,
+          MouseButton1Click: () => {
+            const does_enabled = RoactUtil.getBindableValue(props.enabled ?? true);
+            if (!does_enabled) return;
+            props.onClick?.();
+          },
         }}
         LayoutOrder={props.layoutOrder}
         Position={props.position}

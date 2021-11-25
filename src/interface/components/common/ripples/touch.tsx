@@ -66,6 +66,10 @@ export class TouchRipple extends Component<BaseRippleProps> {
           InputBegan: (object, input) => {
             if (input.UserInputType !== Enum.UserInputType.MouseButton1) return;
 
+            // do not perform ripple if it is disabled
+            const does_enabled = RoactUtil.getBindableValue(this.props.enabled ?? true);
+            if (!does_enabled) return;
+
             // reset the binding
             this.reset();
 
