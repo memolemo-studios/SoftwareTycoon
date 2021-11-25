@@ -31,6 +31,7 @@
 		"softwaretycoon:out/interface/components/common/ripples/static@StaticRipple": "interface/components/common/ripples/static@StaticRipple",
 		"softwaretycoon:out/interface/components/common/ripples/touch@TouchRipple": "interface/components/common/ripples/touch@TouchRipple",
 		"softwaretycoon:out/interface/components/common/typography/adjustable@AdjustableText": "interface/components/common/typography/adjustable@AdjustableText",
-		"softwaretycoon:out/interface/components/common/typography/adjustable@AdjustableTypography": "interface/components/common/typography/adjustable@AdjustableTypography"
+		"softwaretycoon:out/interface/components/common/typography/adjustable@AdjustableTypography": "interface/components/common/typography/adjustable@AdjustableTypography",
+		"softwaretycoon:out/interface/components/common/switch/toggle@ToggleSwitch": "interface/components/common/switch/toggle@ToggleSwitch"
 	}
 }

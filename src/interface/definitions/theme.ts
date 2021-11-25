@@ -1,4 +1,5 @@
 import Color from "@rbxts/color";
+import { RobloxUtil } from "shared/utils/roblox";
 
 /**
  * These are colors provided by Google (2014 Material Design color palettes)
@@ -144,7 +145,11 @@ namespace Theme {
   export const ColorCard = ColorWhite;
 
   // icon buttons
-  export const RadiusIconButtonAdded = 10;
+  export const TransparencyIconButtonOverlay = 0.9;
+  export const RadiusIconButtonExtendedOverlay = 20;
+
+  // ripple
+  export const TransparencyRippleOverlay = 0.7;
 
   // icons
   export type TypesIcon =
@@ -155,6 +160,7 @@ namespace Theme {
     | "Checkmark"
     | "ChevronLeft"
     | "ChevronRight"
+    | "Circle"
     | "Close"
     | "Error"
     | "ExpandLess"
@@ -173,6 +179,7 @@ namespace Theme {
     Checkmark: "rbxassetid://8079592235",
     ChevronLeft: "rbxassetid://8079591953",
     ChevronRight: "rbxassetid://8079591673",
+    Circle: RobloxUtil.assetUrlWithId(602504628),
     Close: "rbxassetid://8079829038",
     Error: "rbxassetid://8079591449",
     ExpandLess: "rbxassetid://8079591142",
@@ -181,6 +188,22 @@ namespace Theme {
     StarFilled: "rbxassetid://8079590367",
     Warning: "rbxassetid://8079590119",
   };
+
+  // toggle switch
+  export type TypesToggleSwitch = "Disabled" | "Secondary" | "Primary";
+  export const ColorsToggleSwitchBackground: { [key in TypesToggleSwitch]: Color3 } = {
+    Disabled: MaterialColors.Gray500,
+    Primary: MaterialColors.Blue400,
+    Secondary: MaterialColors.Gray500,
+  };
+  export const ColorsToggleSwitchInner: { [key in TypesToggleSwitch]: Color3 } = {
+    Disabled: MaterialColors.Gray300,
+    Primary: MaterialColors.Blue200,
+    Secondary: MaterialColors.Gray100,
+  };
+
+  export const SizeToggleSwitchInnerCircle = 25;
+  export const SizeToggleSwitchGap = 10;
 
   // button
   export type TypesButton = "Primary" | "Secondary" | "Outlined" | "Text";

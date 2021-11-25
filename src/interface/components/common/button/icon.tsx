@@ -18,7 +18,12 @@ interface Props extends BaseButtonProps {
 export const IconButton = hooked<Props>(props => {
   const overlay_motor = useMutable(new SingleMotor(0)).current;
   const overlay_binding = useFlipperMotor(overlay_motor);
-  const final_extended_size = new UDim2(1, Theme.RadiusIconButtonAdded, 1, Theme.RadiusIconButtonAdded);
+  const final_extended_size = new UDim2(
+    1,
+    Theme.RadiusIconButtonExtendedOverlay,
+    1,
+    Theme.RadiusIconButtonExtendedOverlay,
+  );
   return (
     <Icon
       anchorPoint={props.anchorPoint}
@@ -31,7 +36,7 @@ export const IconButton = hooked<Props>(props => {
         Key="ButtonOverlay"
         anchorPoint={new Vector2(0.5, 0.5)}
         color={props.color ?? new Color3(1, 1, 1)}
-        transparency={overlay_binding.map(alpha => MathUtil.lerp(1, 0.8, alpha))}
+        transparency={overlay_binding.map(alpha => MathUtil.lerp(1, Theme.TransparencyIconButtonOverlay, alpha))}
         position={UDim2.fromScale(0.5, 0.5)}
         size={final_extended_size}
       />
@@ -41,7 +46,7 @@ export const IconButton = hooked<Props>(props => {
         color={props.color}
         position={UDim2.fromScale(0.5, 0.5)}
         size={final_extended_size}
-        rippleRadius={(props.size ?? Theme.DefaultSizeIcon) + Theme.RadiusIconButtonAdded}
+        rippleRadius={(props.size ?? Theme.DefaultSizeIcon) + Theme.RadiusIconButtonExtendedOverlay}
         ripplePosition={UDim2.fromScale(0.5, 0.5)}
         zIndex={2}
       />

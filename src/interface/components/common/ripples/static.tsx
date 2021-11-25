@@ -2,6 +2,7 @@
 
 import { GroupMotor, Instant, Spring } from "@rbxts/flipper";
 import Roact, { Binding, Component } from "@rbxts/roact";
+import Theme from "interface/definitions/theme";
 import { mapBindableProp } from "interface/utils/mapBindableProp";
 import { useInvisibleTransparency } from "shared/utils/interface";
 import { MathUtil } from "shared/utils/math";
@@ -11,6 +12,8 @@ import { Circle } from "../shapes/circle";
 import { BaseRippleProps } from "./types";
 
 interface Props extends BaseRippleProps {
+  enabled?: boolean;
+  useInput?: boolean;
   rippleRadius?: ValueOrBinding<number>;
   ripplePosition: UDim2;
 }
@@ -48,6 +51,23 @@ export class StaticRipple extends Component<Props> {
     this.motor.step(0);
   }
 
+  public enableRipple() {
+    // reset the binding
+    this.reset();
+
+    // move ahead
+    this.motor.setGoal({
+      scale: new Spring(1, EXPAND_PROPS),
+      opacity: new Spring(1, EXPAND_PROPS),
+    } as unknown as never);
+  }
+
+  public disableRipple() {
+    this.motor.setGoal({
+      opacity: new Spring(0, { frequency: 5, dampingRatio: 1 }),
+    } as unknown as never);
+  }
+
   public calculateRadius(raw_position: UDim2) {
     const container = this.ref.getValue();
 
@@ -66,13 +86,29 @@ export class StaticRipple extends Component<Props> {
     return 0;
   }
 
+  public canUseInput() {
+    return this.props.useInput ?? true;
+  }
+
+  public doRippleFromBool(bool: boolean) {
+    if (bool) return this.enableRipple();
+    return this.disableRipple();
+  }
+
+  public didUpdate(last_props: Props) {
+    if (this.canUseInput()) return;
+    if (last_props.enabled === this.props.enabled) return;
+    this.doRippleFromBool(this.props.enabled ?? false);
+  }
+
   public render() {
     const scale = this.binding.map(info => info.scale);
     const transparency = this.binding
       .map(info => info.opacity)
       .map(v => {
-        return MathUtil.lerp(0.8, 1, 1 - v);
+        return MathUtil.lerp(Theme.TransparencyRippleOverlay, 1, 1 - v);
       });
+
     return (
       <frame
         AnchorPoint={this.props.anchorPoint}
@@ -80,25 +116,16 @@ export class StaticRipple extends Component<Props> {
         ClipsDescendants={true}
         Event={{
           InputBegan: (_, input) => {
+            if (!this.canUseInput()) return;
             if (input.UserInputType !== Enum.UserInputType.MouseButton1) return;
-
-            // reset the binding
-            this.reset();
-
-            // move ahead
-            this.motor.setGoal({
-              scale: new Spring(1, EXPAND_PROPS),
-              opacity: new Spring(1, EXPAND_PROPS),
-            } as unknown as never);
+            this.enableRipple();
 
             let conn: RBXScriptConnection;
             // eslint-disable-next-line prefer-const
             conn = input.GetPropertyChangedSignal("UserInputState").Connect(() => {
               const state = input.UserInputState;
               if (state === Enum.UserInputState.Cancel || state === Enum.UserInputState.End) {
-                this.motor.setGoal({
-                  opacity: new Spring(0, { frequency: 5, dampingRatio: 1 }),
-                } as unknown as never);
+                this.disableRipple();
                 conn.Disconnect();
               }
             });

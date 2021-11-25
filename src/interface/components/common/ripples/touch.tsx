@@ -1,5 +1,6 @@
 import { GroupMotor, Instant, Spring } from "@rbxts/flipper";
 import Roact, { Binding, BindingFunction, Component } from "@rbxts/roact";
+import Theme from "interface/definitions/theme";
 import { useInvisibleTransparency } from "shared/utils/interface";
 import { MathUtil } from "shared/utils/math";
 import { RoactUtil } from "shared/utils/roact";
@@ -54,7 +55,7 @@ export class TouchRipple extends Component<BaseRippleProps> {
     const transparency = this.binding
       .map(info => info.opacity)
       .map(v => {
-        return MathUtil.lerp(0.8, 1, 1 - v);
+        return MathUtil.lerp(Theme.TransparencyRippleOverlay, 1, 1 - v);
       });
     return (
       <frame
