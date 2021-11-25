@@ -77,6 +77,7 @@ export const TextButton = pure<Props>(props => {
           Key="Ripple"
           anchorPoint={new Vector2(0.5, 0.5)}
           color={bkg_hover_color}
+          enabled={props.enabled}
           position={UDim2.fromScale(0.5, 0.5)}
           size={UDim2.fromScale(1, 1)}
         />

@@ -44,6 +44,7 @@ export const IconButton = hooked<Props>(props => {
         Key="Ripple"
         anchorPoint={new Vector2(0.5, 0.5)}
         color={props.color}
+        enabled={props.enabled}
         position={UDim2.fromScale(0.5, 0.5)}
         size={final_extended_size}
         rippleRadius={(props.size ?? Theme.DefaultSizeIcon) + Theme.RadiusIconButtonExtendedOverlay}

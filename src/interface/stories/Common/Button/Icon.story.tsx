@@ -12,5 +12,6 @@ export = makeStory(() => (
     <VerticalListConstraint Key="ListConstraint" />
     <IconButton Key="StartButton" type="StarFilled" />
     <IconButton Key="CloseButton" type="Close" onClick={() => print("Closing!")} />
+    <IconButton Key="DisabledButton" enabled={false} type="Error" />
   </FullBackground>
 ));

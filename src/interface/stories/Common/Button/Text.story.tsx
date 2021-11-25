@@ -12,5 +12,6 @@ export = makeStory(() => (
     <TextButton Key="Button2" layoutOrder={1} text="Secondary" type="Secondary" />
     <TextButton Key="Button3" layoutOrder={2} text="Outlined" type="Outlined" />
     <TextButton Key="Button4" layoutOrder={3} text="Text" type="Text" />
+    <TextButton Key="Button4" layoutOrder={4} enabled={false} text="Disabled" type="Primary" />
   </FullBackground>
 ));
