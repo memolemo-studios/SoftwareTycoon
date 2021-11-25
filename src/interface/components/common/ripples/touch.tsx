@@ -98,6 +98,7 @@ export class TouchRipple extends Component<BaseRippleProps> {
         Size={this.props.size}
         ZIndex={this.props.zIndex}
       >
+        {this.props[Roact.Children]}
         <Circle
           Key="RippleOverlay"
           anchorPoint={new Vector2(0.5, 0.5)}
