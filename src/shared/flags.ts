@@ -49,7 +49,7 @@ export const GameFlags = new FlagManager<GameFlags>({
   DisableCoreGuiOnStart: true,
   DevMinLogLevel: LogLevel.Verbose,
   EnablePlayerLatency: false,
-  GhostInvisibleUI: true,
+  GhostInvisibleUI: false,
   GhostInvisibleUITransparency: 0.9,
   GroupRankMinIdPermittedThreshold: 254,
   InitialRoduxAppState: AppState.Loading,

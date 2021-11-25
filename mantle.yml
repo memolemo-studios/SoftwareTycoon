@@ -1,0 +1,38 @@
+owner:
+  # our own group organization
+  group: 7326265
+
+environments:
+  - name: staging
+    branches: [master]
+    overrides:
+      places:
+        start:
+          configuration:
+            name: Software Tycoon Testing
+            description: |
+              This is the testing branch of this game based on `master` branch on the open source
+              repository.
+
+              BEWARE: This game may experience bugs, glitches and it can be broken entirely.
+
+  - name: production
+    branches: [release]
+
+target:
+  experience:
+    configuration:
+      genre: all
+      playableDevices: [computer]
+      playability: private
+      privateServerPrice: 0
+      enableStudioAccessToApis: true
+      # TODO: Add some thumbnails and icons to the game
+
+    places:
+      start:
+        file: build.rbxlx
+        configuration:
+          name: Software Tycoon
+          maxPlayerCount: 4
+          serverFill: robloxOptimized

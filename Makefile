@@ -1,26 +1,26 @@
-## Cleans up the entire temp dirs and run `make game` ##
+# Cleans up the entire temp dirs and run `make game`
 recompile:
 	make cleanup
 	make game
 
-## Compiles the entire project ##
+# Compiles the entire project
 compile:
 	yarn compile
 
-## Builds .rbxlx file (ignores if it is compiled or not) ##
+# Builds .rbxlx file (ignores if it is compiled or not)
 file:
 	yarn build
 
-## Compiles and build .rbxlx file ##
+# Compiles and build .rbxlx file
 game:
 	make compile
 	make file
 
-## Cleans up unnecessary files ##
+# Cleans up unnecessary files
 cleanup:
 	- rm -rf out
 	- rm -rf current_branch
 
-## Makes a unit test environment ##
+# Makes a unit test environment
 test-env:
 	echo UNIT_TEST=true >> .env

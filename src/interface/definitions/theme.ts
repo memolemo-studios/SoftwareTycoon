@@ -1,4 +1,5 @@
 import Color from "@rbxts/color";
+import { RobloxUtil } from "shared/utils/roblox";
 
 /**
  * These are colors provided by Google (2014 Material Design color palettes)
@@ -120,28 +121,38 @@ namespace Theme {
     Normal: 20,
   };
 
-  export const TextPadding = 15;
-  export const ListPadding = 8;
+  // default constraints
+  export const RadiusDefaultCornerConstraint = 8;
+
+  // paddings
+  export const PaddingText = 15;
+  export const PaddingList = 8;
 
   // main
-  export const ShadowTransparency = 0.4;
-
-  // card
-  export const CardShadowSize = 6;
-  export const CardPadding = 15;
+  export const TransparencyShadow = 0.4;
 
   // alert
-  export const AlertWidth = 450;
+  export const WidthAlert = 450;
 
   // colors
   export const ColorBlack = new Color3(0, 0, 0);
   export const ColorWhite = new Color3(1, 1, 1);
 
+  // card
+  export const SizeCardShadow = 6;
+  export const RadiusCardShadow = 0.04;
+  export const PaddingCard = 15;
+  export const ColorCard = ColorWhite;
+
   // icon buttons
-  export const IconButtonExtendedRadius = 10;
+  export const TransparencyIconButtonOverlay = 0.9;
+  export const RadiusIconButtonExtendedOverlay = 20;
+
+  // ripple
+  export const TransparencyRippleOverlay = 0.7;
 
   // icons
-  export type IconTypes =
+  export type TypesIcon =
     | "ArrowBottom"
     | "ArrowLeft"
     | "ArrowRight"
@@ -149,6 +160,7 @@ namespace Theme {
     | "Checkmark"
     | "ChevronLeft"
     | "ChevronRight"
+    | "Circle"
     | "Close"
     | "Error"
     | "ExpandLess"
@@ -157,9 +169,9 @@ namespace Theme {
     | "StarFilled"
     | "Warning";
 
-  export const IconDefaultSize = 30;
+  export const DefaultSizeIcon = 30;
 
-  export const IconUrls: { [key in IconTypes]: string } = {
+  export const ImageIcons: { [key in TypesIcon]: string } = {
     ArrowBottom: "rbxassetid://8079592986",
     ArrowLeft: "rbxassetid://8079592827",
     ArrowRight: "rbxassetid://8079592692",
@@ -167,6 +179,7 @@ namespace Theme {
     Checkmark: "rbxassetid://8079592235",
     ChevronLeft: "rbxassetid://8079591953",
     ChevronRight: "rbxassetid://8079591673",
+    Circle: RobloxUtil.assetUrlWithId(602504628),
     Close: "rbxassetid://8079829038",
     Error: "rbxassetid://8079591449",
     ExpandLess: "rbxassetid://8079591142",
@@ -176,29 +189,45 @@ namespace Theme {
     Warning: "rbxassetid://8079590119",
   };
 
+  // toggle switch
+  export type TypesToggleSwitch = "Disabled" | "Secondary" | "Primary";
+  export const ColorsToggleSwitchBackground: { [key in TypesToggleSwitch]: Color3 } = {
+    Disabled: MaterialColors.Gray500,
+    Primary: MaterialColors.Blue400,
+    Secondary: MaterialColors.Gray500,
+  };
+  export const ColorsToggleSwitchInner: { [key in TypesToggleSwitch]: Color3 } = {
+    Disabled: MaterialColors.Gray300,
+    Primary: MaterialColors.Blue200,
+    Secondary: MaterialColors.Gray100,
+  };
+
+  export const SizeToggleSwitchInnerCircle = 25;
+  export const SizeToggleSwitchGap = 10;
+
   // button
-  export type ButtonColorTypes = "Primary" | "Secondary" | "Outlined" | "Text";
+  export type TypesButton = "Primary" | "Secondary" | "Outlined" | "Text";
 
-  export const ButtonFont = Enum.Font.SourceSans;
-  export const ButtonFontSize = 20;
+  export const FontButton = Enum.Font.SourceSans;
+  export const FontSizeButton = 20;
 
-  export const ButtonHoverVisibleAlpha = 0.85;
+  export const TransparencyButtonHover = 0.85;
 
-  export const BtnTypeHoverColors: { [key in ButtonColorTypes]: Color3 } = {
+  export const ColorsButtonTypeHover: { [key in TypesButton]: Color3 } = {
     Primary: ColorWhite,
     Secondary: ColorBlack,
     Outlined: ColorBlack,
     Text: ColorBlack,
   };
 
-  export const BtnTypeColors: { [key in ButtonColorTypes]: Color3 } = {
+  export const ColorsButtonType: { [key in TypesButton]: Color3 } = {
     Primary: MaterialColors.Blue200,
     Secondary: MaterialColors.Gray300,
     Outlined: MaterialColors.Gray300,
     Text: ColorWhite,
   };
 
-  export const BtnTypeTextColors: { [key in ButtonColorTypes]: Color3 } = {
+  export const TextColorsButtonType: { [key in TypesButton]: Color3 } = {
     Primary: ColorBlack,
     Secondary: ColorBlack,
     Outlined: ColorBlack,

@@ -1,11 +1,12 @@
-# Taken from roblox-ts under the MIT license https://github.com/roblox-ts/roblox-ts/blob/master/.github/workflows/publish.yml
+# Taken from roblox-ts under the MIT license https://github.com/roblox-ts/roblox-ts/blob/master/LICENSE
+
 name: Publish
 
 on:
-  pull_request:
   push:
     branches:
       - master
+      - release
 
 jobs:
   publish:
@@ -28,8 +29,17 @@ jobs:
         run: make game
 
       - name: Publish game
-        run: |
-          git rev-parse --abbrev-ref HEAD >> current_branch
-          yarn deploy 
+        run: yarn deploy
         env:
-          REMODEL_AUTH: ${{ secrets.PUBLISHER_RBX_TOKEN }}
+          ROBLOSECURITY: ${{ secrets.PUBLISHER_RBX_TOKEN }}
+
+      - name: Setup commitee user
+        run: |
+          git config user.name "Github Actions"
+          git config user.email "noreply@github.com"
+
+      - name: Commit changes with .mantle-state.yml file
+        run: |
+          git add .mantle-state.yml
+          git commit -m "Mantle generated state file"
+          git push -u origin HEAD
