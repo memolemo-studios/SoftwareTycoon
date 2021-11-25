@@ -14,8 +14,7 @@
 		"unused-local"
 	],
 	"robloxLsp.diagnostics.globals": [
-		"remodel",
-		"json"
+		"remodel"
 	],
 	"discord.enabled": false
 }
