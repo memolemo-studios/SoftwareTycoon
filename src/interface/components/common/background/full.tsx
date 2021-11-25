@@ -8,7 +8,7 @@ interface Props {
 /** Full background that fills up the entire parent's size */
 export function FullBackground(props: Roact.PropsWithChildren<Props>) {
   return (
-    <frame BackgroundColor3={props.color} Size={UDim2.fromScale(1, 1)}>
+    <frame BackgroundColor3={props.color} BorderSizePixel={0} Size={UDim2.fromScale(1, 1)}>
       {props[Roact.Children]}
     </frame>
   );
