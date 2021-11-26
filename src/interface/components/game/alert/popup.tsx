@@ -15,7 +15,6 @@ import Theme from "interface/definitions/theme";
 import { BindingBundle, BindingBundleMotor } from "shared/classes/roact/binding";
 import { GameFlags } from "shared/flags";
 import { ValueOrBinding } from "types/roact";
-import { $dbg } from "rbxts-transform-debug";
 
 interface ButtonInfo {
   text: ValueOrBinding<string>;
@@ -151,7 +150,6 @@ export class PopupAlert extends PureComponent<Props, State> {
         Size={this.adjustedHeight.map(height => {
           const alpha = this.sizeBundle.getValue();
           const change = height + (this.hasButtons() ? (WITH_BUTTON_Y_SIZE / 2) * alpha : 0);
-          $dbg(change);
           return UDim2.fromOffset(Theme.WidthAlert, change);
         })}
       >
