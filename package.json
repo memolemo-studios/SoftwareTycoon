@@ -6,8 +6,8 @@
   "scripts": {
     "build": "rojo build -o ./build.rbxlx",
     "compile": "rbxtsc --verbose",
-    "dev": "rbxtsc --verbose -w",
     "deploy": "mantle deploy",
+    "dev": "rbxtsc --verbose -w",
     "extract-assets": "remodel run ./scripts/extractAssets.lua",
     "linesofcode": "node ./scripts/node/linesOfCode.js",
     "lint-eslint": "eslint \"src/**/*.*\"",
