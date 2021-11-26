@@ -61,6 +61,7 @@
     "@rbxts/string-utils": "^1.0.3",
     "@rbxts/t": "^2.2.1",
     "@rbxts/testez": "^0.3.1-ts.7",
+    "@rbxts/validate-tree": "^2.0.1",
     "rbxts-transform-debug": "^1.0.0-ts4.4",
     "rbxts-transform-env": "^1.0.0-ts4.4",
     "rbxts-transformer-fs": "^1.1.2",

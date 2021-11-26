@@ -206,6 +206,11 @@
   resolved "https://registry.yarnpkg.com/@rbxts/testez/-/testez-0.3.1-ts.7.tgz#a5bb2e0640123c007655329f264e9ee4fcafb565"
   integrity sha512-DkIlRFdMODHjJPEYJT/cPYv2ZQzSqAufF4XAsqrx7zFg8OVAkSHY5aGChGoPNrZo0PM4zz9bw46ZIVqLfcM05Q==
 
+"@rbxts/types@^1.0.537":
+  version "1.0.553"
+  resolved "https://registry.yarnpkg.com/@rbxts/types/-/types-1.0.553.tgz#7966b41e84072d54fe3795ac7d8da928053b92a7"
+  integrity sha512-bZHsViIgEaTWadwILLcT8LVuXLf9peQ5luT3GzyPy+YI6xupHw4+95ww0asTRHjGJsXu+sA427mTNVcu55Z+dg==
+
 "@rbxts/types@^1.0.545":
   version "1.0.545"
   resolved "https://registry.yarnpkg.com/@rbxts/types/-/types-1.0.545.tgz#11abcf67b4f7b3a484581582b4450b08593a196b"
@@ -215,6 +220,14 @@
   version "1.0.551"
   resolved "https://registry.yarnpkg.com/@rbxts/types/-/types-1.0.551.tgz#e4641407721ea4de2452672dcf1ac8d1e2777ca8"
   integrity sha512-ooXjlz4Pm478STNPAHO+STzKul1p1O9v9dnL/2VQoKTxbYVcy5FrejD4PTWqbEHa4Zx5tKpQG10WGOoKpoe+iw==
+
+"@rbxts/validate-tree@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@rbxts/validate-tree/-/validate-tree-2.0.1.tgz#ed1e3471899933e3680d2dfbcff051813c498175"
+  integrity sha512-nruvCNPgQQAEjAhnS8ggDOefI3jddziZZVflZYx09zM4yylqwQLL/6cSbWD8ta/MpigudpS5Do2q7eBUvOoRIA==
+  dependencies:
+    "@rbxts/compiler-types" "^1.2.3-types.1"
+    "@rbxts/types" "^1.0.537"
 
 "@types/json-schema@^7.0.9":
   version "7.0.9"
