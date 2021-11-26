@@ -33,6 +33,7 @@
     "plugins": [
       { "transform": "rbxts-transformer-flamework" },
       { "transform": "rbxts-transform-env" },
+      { "transform": "rbxts-transform-debug" },
       { "transform": "rbxts-transformer-t" },
       { "transform": "rbxts-transformer-fs" }
     ]

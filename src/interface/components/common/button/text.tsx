@@ -30,6 +30,17 @@ export const TextButton = pure<Props>(props => {
   const bkg_hover_color = Theme.ColorsButtonTypeHover[props.type];
 
   return withTransparency(transparency => {
+    let hover_transparency: Roact.Binding<number>;
+    if (RoactUtil.isBinding(transparency)) {
+      hover_transparency = Roact.joinBindings({
+        context: transparency,
+        binding: hover_binding,
+      }).map(({ context, binding }) => MathUtil.blendValues(context, binding, Theme.TransparencyButtonHover));
+    } else {
+      hover_transparency = hover_binding.map(alpha =>
+        MathUtil.blendValues(alpha, transparency, Theme.TransparencyButtonHover),
+      );
+    }
     return (
       <textbutton
         AutoButtonColor={false}
@@ -84,9 +95,10 @@ export const TextButton = pure<Props>(props => {
         <textlabel
           Key="HoverOverlay"
           BackgroundColor3={bkg_hover_color}
-          BackgroundTransparency={hover_binding.map(alpha => {
-            return MathUtil.lerp(Theme.TransparencyButtonHover, 1, alpha);
-          })}
+          BackgroundTransparency={hover_transparency}
+          // BackgroundTransparency={hover_binding.map(alpha => {
+          //   return MathUtil.lerp(Theme.TransparencyButtonHover, 1, alpha);
+          // })}
           Size={UDim2.fromScale(1, 1)}
           Text=""
         >

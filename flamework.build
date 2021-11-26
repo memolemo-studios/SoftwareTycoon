@@ -32,6 +32,11 @@
 		"softwaretycoon:out/interface/components/common/ripples/touch@TouchRipple": "interface/components/common/ripples/touch@TouchRipple",
 		"softwaretycoon:out/interface/components/common/typography/adjustable@AdjustableText": "interface/components/common/typography/adjustable@AdjustableText",
 		"softwaretycoon:out/interface/components/common/typography/adjustable@AdjustableTypography": "interface/components/common/typography/adjustable@AdjustableTypography",
-		"softwaretycoon:out/interface/components/common/switch/toggle@ToggleSwitch": "interface/components/common/switch/toggle@ToggleSwitch"
+		"softwaretycoon:out/interface/components/common/switch/toggle@ToggleSwitch": "interface/components/common/switch/toggle@ToggleSwitch",
+		"softwaretycoon:out/interface/components/game/alert/default@Alert": "interface/components/game/alert/default@Alert",
+		"softwaretycoon:out/interface/components/game/alert/popup@Alert": "interface/components/game/alert/popup@Alert",
+		"softwaretycoon:out/interface/components/game/alert/popup@PopupAlert": "interface/components/game/alert/popup@PopupAlert",
+		"softwaretycoon:out/shared/classes/roact/binding@BindingBundle": "shared/classes/roact/binding@BindingBundle",
+		"softwaretycoon:out/shared/classes/roact/binding@BindingBundleMotor": "shared/classes/roact/binding@BindingBundleMotor"
 	}
 }
