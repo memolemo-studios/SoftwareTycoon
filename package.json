@@ -57,6 +57,7 @@
     "@rbxts/rust-classes": "^0.11.0-beta.1",
     "@rbxts/services": "^1.2.0",
     "@rbxts/signal": "^1.0.3",
+    "@rbxts/spring": "^1.0.2",
     "@rbxts/string-utils": "^1.0.3",
     "@rbxts/t": "^2.2.1",
     "@rbxts/testez": "^0.3.1-ts.7",

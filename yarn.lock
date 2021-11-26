@@ -181,6 +181,11 @@
   resolved "https://registry.yarnpkg.com/@rbxts/signal/-/signal-1.0.3.tgz#7663caf4f6350475488c3a1d5bb4cbc67fe6d0f4"
   integrity sha512-faFH5kVkQotZ2YzJhQ7Z12T9YkfV1O6y0V0V/I/RknBVAmefuIM8pSWj2AIEecOR6jSCtg0yZS8gNYKwfoopNA==
 
+"@rbxts/spring@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@rbxts/spring/-/spring-1.0.2.tgz#7292fe3800748b9dd7b8ce9baa350b8277951a0f"
+  integrity sha512-8LTt1Ss0D69Bk/Ur/szXQnHF/gd1RNDMUEyvCTvz1keTUuRCzwzfWxWVWTKcgzipI2wRCx5Il6xEmaXFur99lA==
+
 "@rbxts/string-utils@^1.0.3":
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@rbxts/string-utils/-/string-utils-1.0.3.tgz#109c5a18d059447005fdf6fae40aa13cf452d91b"

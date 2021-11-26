@@ -4,7 +4,7 @@ import { AppState } from "types/store/appState";
 import FlagManager from "./classes/flags";
 import { RobloxUtil } from "./utils/roblox";
 
-/** Types of GameFlags */
+/** Types for GameFlags */
 export interface GameFlags {
   CacheExpiryThreshold: number;
   CircleImage: string;
@@ -31,6 +31,19 @@ export interface GameFlags {
   ShadowImage: string;
   UseMockStore: boolean;
 }
+
+/** Types for PlacementFlags */
+export interface PlacementFlags {
+  GridSize: number;
+}
+
+/**
+ * Placement flags is the same thing basic stuff as GameFlags
+ * but it is for the placement system
+ */
+export const PlacementFlags = new FlagManager<PlacementFlags>({
+  GridSize: 4,
+});
 
 /**
  * Game flags is a game debugging configuration that

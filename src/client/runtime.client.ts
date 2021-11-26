@@ -11,6 +11,7 @@ Flamework.addPaths(
 	"src/client/apps",
 	"src/client/controllers",
 	"src/client/components",
+  "src/client/placement",
 	"src/shared/components",
 	"src/shared/flamework"
 );
