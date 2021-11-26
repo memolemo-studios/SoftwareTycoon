@@ -1,6 +1,5 @@
 owner:
-  # our own group organization
-  group: 7326265
+  group: 7326265 # our main group
 
 environments:
   - name: staging
@@ -33,6 +32,7 @@ target:
       start:
         file: build.rbxlx
         configuration:
+          # TODO: Add description to the game once it reaches alpha release (MVP)
           name: Software Tycoon
           maxPlayerCount: 4
           serverFill: robloxOptimized

@@ -16,6 +16,10 @@
 		"softwaretycoon:out/client/controllers/interface/CoreGuiController@CoreGuiController": "client/controllers/interface/CoreGuiController@CoreGuiController",
 		"softwaretycoon:out/shared/classes/cache@Cache": "shared/classes/cache@Cache",
 		"softwaretycoon:out/client/controllers/players/LatencyController@LatencyController": "client/controllers/players/LatencyController@LatencyController",
+		"softwaretycoon:out/interface/components/common/ripples/static@StaticRipple": "interface/components/common/ripples/static@StaticRipple",
+		"softwaretycoon:out/interface/components/common/ripples/touch@TouchRipple": "interface/components/common/ripples/touch@TouchRipple",
+		"softwaretycoon:out/interface/components/common/switch/toggle@ToggleSwitch": "interface/components/common/switch/toggle@ToggleSwitch",
+		"softwaretycoon:out/interface/components/common/typography/adjustable@AdjustableTypography": "interface/components/common/typography/adjustable@AdjustableTypography",
 		"softwaretycoon:out/server/classes/localStorage@LocalStorage": "server/classes/localStorage@LocalStorage",
 		"softwaretycoon:out/server/services/replication/LocalStorageService@LocalStorageService": "server/services/replication/LocalStorageService@LocalStorageService",
 		"softwaretycoon:out/server/services/players/PlayerKickService@PlayerKickService": "server/services/players/PlayerKickService@PlayerKickService",
@@ -27,16 +31,6 @@
 		"softwaretycoon:out/server/services/players/PlayerLatencyService@PlayerLatencyService": "server/services/players/PlayerLatencyService@PlayerLatencyService",
 		"softwaretycoon:out/server/services/players/PlayerService@OnPlayerJoined": "server/services/players/PlayerService@OnPlayerJoined",
 		"softwaretycoon:out/server/services/players/PlayerService@OnPlayerLeft": "server/services/players/PlayerService@OnPlayerLeft",
-		"softwaretycoon:out/server/services/game/LotService@OnLotOwned": "server/services/game/LotService@OnLotOwned",
-		"softwaretycoon:out/interface/components/common/ripples/static@StaticRipple": "interface/components/common/ripples/static@StaticRipple",
-		"softwaretycoon:out/interface/components/common/ripples/touch@TouchRipple": "interface/components/common/ripples/touch@TouchRipple",
-		"softwaretycoon:out/interface/components/common/typography/adjustable@AdjustableText": "interface/components/common/typography/adjustable@AdjustableText",
-		"softwaretycoon:out/interface/components/common/typography/adjustable@AdjustableTypography": "interface/components/common/typography/adjustable@AdjustableTypography",
-		"softwaretycoon:out/interface/components/common/switch/toggle@ToggleSwitch": "interface/components/common/switch/toggle@ToggleSwitch",
-		"softwaretycoon:out/interface/components/game/alert/default@Alert": "interface/components/game/alert/default@Alert",
-		"softwaretycoon:out/interface/components/game/alert/popup@Alert": "interface/components/game/alert/popup@Alert",
-		"softwaretycoon:out/interface/components/game/alert/popup@PopupAlert": "interface/components/game/alert/popup@PopupAlert",
-		"softwaretycoon:out/shared/classes/roact/binding@BindingBundle": "shared/classes/roact/binding@BindingBundle",
-		"softwaretycoon:out/shared/classes/roact/binding@BindingBundleMotor": "shared/classes/roact/binding@BindingBundleMotor"
+		"softwaretycoon:out/server/services/game/LotService@OnLotOwned": "server/services/game/LotService@OnLotOwned"
 	}
 }
