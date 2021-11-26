@@ -10,6 +10,8 @@ export interface GameFlags {
   CircleImage: string;
   CircleOutlineImage: string;
   DisableCoreGuiOnStart: boolean;
+  DefaultCharacterWalkSpeed: number;
+  DefaultCharacterJumpPower: number;
   DevMinLogLevel: LogLevel;
   EnablePlayerLatency: boolean;
   GhostInvisibleUI: boolean;
@@ -60,6 +62,8 @@ export const GameFlags = new FlagManager<GameFlags>({
   CircleImage: RobloxUtil.assetUrlWithId(602504628),
   CircleOutlineImage: RobloxUtil.assetUrlWithId(6772221049),
   DisableCoreGuiOnStart: true,
+  DefaultCharacterJumpPower: 56,
+  DefaultCharacterWalkSpeed: 16,
   DevMinLogLevel: LogLevel.Verbose,
   EnablePlayerLatency: false,
   GhostInvisibleUI: false,

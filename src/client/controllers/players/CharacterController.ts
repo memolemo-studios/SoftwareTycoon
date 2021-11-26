@@ -38,7 +38,7 @@ export class CharacterController implements OnInit {
   private connectedDied = new Map<string, OnCharacterDied>();
 
   /** Gets the current player's character */
-  public getCurrentCharacter() {
+  public getCurrentCharacter(): Option<BaseCharacterModel> {
     return this.isCharacterSpawned() ? Option.wrap(local_player.Character as BaseCharacterModel) : Option.none();
   }
 
