@@ -42,6 +42,12 @@ export class Lot extends BaseComponent<LotAttributes, LotModel> implements OnSta
     );
   }
 
+  /** Setups the player after the ownership */
+  public setupOwner(new_owner: Player) {
+    // assign player's spawn to the lot's spawn
+    new_owner.RespawnLocation = this.instance.Spawn;
+  }
+
   /** Attempts to assign `player` for the new owner of that lot */
   public assignOwner(player: Player): Result<true, LotErrors> {
     this.logger.Info("Attempting to assign {@Player} to a new lot", player, this.attributes.ComponentId!);
@@ -53,6 +59,7 @@ export class Lot extends BaseComponent<LotAttributes, LotModel> implements OnSta
           () => {
             this.attributes.Owner = player.UserId;
             this.lotService.fireOnLotOwned(this);
+            task.spawn(() => this.setupOwner(player));
             return Result.ok(true);
           },
         ),
