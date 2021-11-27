@@ -27,5 +27,14 @@ export = makeStory(() => (
         position={UDim2.fromScale(0.5, 0.5)}
       />
     </TouchRipple>
+    <TouchRipple Key="DisabledRipple" enabled={false} size={UDim2.fromOffset(200, 50)}>
+      <Typography
+        alignmentX={Enum.TextXAlignment.Center}
+        anchorPoint={new Vector2(0.5, 0.5)}
+        color={new Color3(1, 1, 1)}
+        text="This ripple is disabled"
+        position={UDim2.fromScale(0.5, 0.5)}
+      />
+    </TouchRipple>
   </FullBackground>
 ));

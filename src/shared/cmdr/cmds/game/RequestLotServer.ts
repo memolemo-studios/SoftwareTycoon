@@ -17,5 +17,7 @@ export = (context: CommandContext): string => {
     return `ERROR: ${lotErrorToString(result.unwrapErr())}`;
   }
 
+  // time to spawn the player!
+  context.Executor.LoadCharacter();
   return "Successfully claimed a lot!";
 };

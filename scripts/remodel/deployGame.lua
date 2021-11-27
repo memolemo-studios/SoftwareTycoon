@@ -1,3 +1,5 @@
+error("Please use mantle!")
+
 local STAGING_PLACE_ID = 6884566256 -- respect us pls
 local PRODUCTION_PLACE_ID = 0
 

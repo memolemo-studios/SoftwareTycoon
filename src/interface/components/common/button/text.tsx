@@ -7,6 +7,7 @@ import { useFlipperMotor } from "interface/hooks/useFlipperMotor";
 import { mapBindableProp } from "interface/utils/mapBindableProp";
 import { GameFlags } from "shared/flags";
 import { MathUtil } from "shared/utils/math";
+import { RoactUtil } from "shared/utils/roact";
 import { ValueOrBinding } from "types/roact";
 import { GameCornerConstraint } from "../constraint/corner/default";
 import { RoundedOutline } from "../effect/outline/rounded";
@@ -29,6 +30,17 @@ export const TextButton = pure<Props>(props => {
   const bkg_hover_color = Theme.ColorsButtonTypeHover[props.type];
 
   return withTransparency(transparency => {
+    let hover_transparency: Roact.Binding<number>;
+    if (RoactUtil.isBinding(transparency)) {
+      hover_transparency = Roact.joinBindings({
+        context: transparency,
+        binding: hover_binding,
+      }).map(({ context, binding }) => MathUtil.blendValues(context, binding, Theme.TransparencyButtonHover));
+    } else {
+      hover_transparency = hover_binding.map(alpha =>
+        MathUtil.blendValues(alpha, transparency, Theme.TransparencyButtonHover),
+      );
+    }
     return (
       <textbutton
         AutoButtonColor={false}
@@ -38,7 +50,11 @@ export const TextButton = pure<Props>(props => {
         Event={{
           MouseEnter: () => hover_motor.setGoal(new Spring(0, GameFlags.InterfaceSpringProps)),
           MouseLeave: () => hover_motor.setGoal(new Spring(1, GameFlags.InterfaceSpringProps)),
-          MouseButton1Click: props.onClick,
+          MouseButton1Click: () => {
+            const does_enabled = RoactUtil.getBindableValue(props.enabled ?? true);
+            if (does_enabled !== true) return;
+            props.onClick?.();
+          },
         }}
         LayoutOrder={props.layoutOrder}
         Position={props.position}
@@ -72,15 +88,14 @@ export const TextButton = pure<Props>(props => {
           Key="Ripple"
           anchorPoint={new Vector2(0.5, 0.5)}
           color={bkg_hover_color}
+          enabled={props.enabled}
           position={UDim2.fromScale(0.5, 0.5)}
           size={UDim2.fromScale(1, 1)}
         />
         <textlabel
           Key="HoverOverlay"
           BackgroundColor3={bkg_hover_color}
-          BackgroundTransparency={hover_binding.map(alpha => {
-            return MathUtil.lerp(Theme.TransparencyButtonHover, 1, alpha);
-          })}
+          BackgroundTransparency={hover_transparency}
           Size={UDim2.fromScale(1, 1)}
           Text=""
         >

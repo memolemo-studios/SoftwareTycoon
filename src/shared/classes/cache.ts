@@ -28,6 +28,11 @@ export class Cache<T = undefined> {
     return (this.currentValue === undefined || os.clock() >= this.valueExpires) && !this.isUpdating;
   }
 
+  /** Tries to get the latest value available in this class */
+  public getValue() {
+    return this.currentValue;
+  }
+
   /** Forces to set the value instead of the updater function */
   public forceSetValue(value: T) {
     this.valueExpires = os.clock() + GameFlags.CacheExpiryThreshold;

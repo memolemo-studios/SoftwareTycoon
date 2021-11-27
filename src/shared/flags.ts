@@ -4,12 +4,15 @@ import { AppState } from "types/store/appState";
 import FlagManager from "./classes/flags";
 import { RobloxUtil } from "./utils/roblox";
 
-/** Types of GameFlags */
+/** Types for GameFlags */
 export interface GameFlags {
   CacheExpiryThreshold: number;
+  CameraDebugMode: boolean;
   CircleImage: string;
   CircleOutlineImage: string;
   DisableCoreGuiOnStart: boolean;
+  DefaultCharacterWalkSpeed: number;
+  DefaultCharacterJumpPower: number;
   DevMinLogLevel: LogLevel;
   EnablePlayerLatency: boolean;
   GhostInvisibleUI: boolean;
@@ -32,6 +35,19 @@ export interface GameFlags {
   UseMockStore: boolean;
 }
 
+/** Types for PlacementFlags */
+export interface PlacementFlags {
+  GridSize: number;
+}
+
+/**
+ * Placement flags is the same thing basic stuff as GameFlags
+ * but it is for the placement system
+ */
+export const PlacementFlags = new FlagManager<PlacementFlags>({
+  GridSize: 4,
+});
+
 /**
  * Game flags is a game debugging configuration that
  * it allows to mainpulate values to change the behavior
@@ -44,9 +60,12 @@ export interface GameFlags {
  */
 export const GameFlags = new FlagManager<GameFlags>({
   CacheExpiryThreshold: 5,
+  CameraDebugMode: true,
   CircleImage: RobloxUtil.assetUrlWithId(602504628),
   CircleOutlineImage: RobloxUtil.assetUrlWithId(6772221049),
   DisableCoreGuiOnStart: true,
+  DefaultCharacterJumpPower: 56,
+  DefaultCharacterWalkSpeed: 16,
   DevMinLogLevel: LogLevel.Verbose,
   EnablePlayerLatency: false,
   GhostInvisibleUI: false,

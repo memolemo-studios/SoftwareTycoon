@@ -3,6 +3,7 @@ import Log from "@rbxts/log";
 import { Option } from "@rbxts/rust-classes";
 import { Players } from "@rbxts/services";
 import { LocalStorage } from "server/classes/localStorage";
+import Remotes from "shared/remotes/game";
 import { FlameworkUtil } from "shared/utils/flamework";
 import { PlayerData } from "types/game/data";
 import { LocalStorageService } from "../replication/LocalStorageService";
@@ -31,6 +32,7 @@ export interface OnPlayerLeft {
 export class PlayerService implements OnInit, OnStart {
   private logger = Log.ForContext(PlayerService);
   private playerProfiles = new Map<Player, PlayerDataProfile>();
+  private requestSpawnRemote = Remotes.Server.Create("RespawnPlayer");
 
   private playerJoinObjs!: Map<string, OnPlayerJoined>;
   private playerLeftObjs!: Map<string, OnPlayerLeft>;
@@ -99,6 +101,16 @@ export class PlayerService implements OnInit, OnStart {
     // players service stuff
     Players.PlayerAdded.Connect(p => this.onPlayerAdded(p));
     Players.PlayerRemoving.Connect(p => this.onPlayerRemoving(p));
+
+    // remotes
+    this.requestSpawnRemote.SetCallback(player => {
+      // do not accept if the player is already spawned
+      if (player.Character) {
+        return { success: false, reason: "" };
+      }
+      player.LoadCharacter();
+      return { success: true, value: "" };
+    });
   }
 
   /** @hidden */

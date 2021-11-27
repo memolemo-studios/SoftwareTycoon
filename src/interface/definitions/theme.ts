@@ -151,6 +151,13 @@ namespace Theme {
   // ripple
   export const TransparencyRippleOverlay = 0.7;
 
+  // input textbox
+  export const ColorBackgroundTextbox = MaterialColors.Gray300;
+  export const ColorBackgroundTextboxDisabled = MaterialColors.Gray500;
+  export const ColorForegroundTextbox = ColorBlack;
+
+  export const ColorForegroundPlaceholderText = MaterialColors.Gray600;
+
   // icons
   export type TypesIcon =
     | "ArrowBottom"

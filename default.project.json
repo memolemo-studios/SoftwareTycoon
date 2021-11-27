@@ -6,6 +6,12 @@
 	],
 	"tree": {
 		"$className": "DataModel",
+    "Players": {
+      "$className": "Players",
+      "$properties": {
+        "CharacterAutoLoads": false
+      }
+    },
     "Lighting": {
       "$className": "Lighting",
       "$path": "assets/game/Lighting",
