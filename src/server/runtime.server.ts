@@ -1,16 +1,16 @@
 import { Flamework } from "@flamework/core";
-import Log, { Logger, LogLevel } from "@rbxts/log";
-import { RunService } from "@rbxts/services";
+import Log from "@rbxts/log";
+import { setupLogger } from "shared/functions/setupLogger";
 
-// logger setup
-Log.SetLogger(
-	Logger.configure()
-		.EnrichWithProperty("VERSION", PKG_VERSION)
-		.SetMinLogLevel(RunService.IsStudio() ? LogLevel.Verbose : LogLevel.Information)
-		.WriteTo(Log.RobloxOutput())
-		.Create(),
+// setting up the logger
+setupLogger();
+Log.Warn("Software Tycoon server version: {VERSION}");
+
+// prettier-ignore
+Flamework.addPaths(
+	"src/server/services",
+	"src/server/components",
+	"src/shared/components",
+	"src/shared/flamework"
 );
-
-// initialize flamework
-Flamework.addPaths("src/server/services", "src/server/components", "src/shared/flamework");
 Flamework.ignite();

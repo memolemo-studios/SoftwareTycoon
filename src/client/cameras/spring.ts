@@ -1,119 +1,88 @@
-import { Result } from "@rbxts/rust-classes";
-import Spring from "shared/classes/spring";
-import { CameraDebugConfig } from "shared/constants/camera";
-import CFrameUtil from "shared/util/cframe";
-import VectorUtil from "shared/util/vector";
-import BaseScriptableCamera from "./base";
+import Spring from "@rbxts/spring";
+import {
+  CameraWorker,
+  OnCameraWorkerAttributeChanged,
+  OnCameraWorkerRender,
+} from "client/controllers/io/CameraWorkerController/decorator";
+import { CFrameUtil } from "shared/utils/cframe";
+import { VectorUtil } from "shared/utils/vector";
+import { BaseCameraWorker, BaseCameraWorkerAttributes } from "./base";
 
-const { POSITION_DAMPER, POSITION_SPEED, ROTATION_DAMPER, ROTATION_SPEED } = CameraDebugConfig;
+export interface SpringWorkerAttributes extends BaseCameraWorkerAttributes {
+  position_damper: number;
+  rotation_damper: number;
+  position_frequency: number;
+  rotation_frequency: number;
+}
 
-/** BaseScriptableCamera with smooth spring animations */
-export default class SpringScriptableCamera extends BaseScriptableCamera {
-	protected positionSpring: Spring<Vector3>;
-	protected rotationSpring: Spring<Vector3>;
+@CameraWorker({
+  name: "SpringCameraWorker",
+  defaultAttributes: {
+    position_damper: 1,
+    position_frequency: 20,
+    rotation_damper: 1,
+    rotation_frequency: 20,
+  },
+})
+export class SpringCameraWorker<T extends SpringWorkerAttributes = SpringWorkerAttributes>
+  extends BaseCameraWorker<T>
+  implements OnCameraWorkerAttributeChanged, OnCameraWorkerRender
+{
+  protected positionSpring = new Spring(this.position);
+  protected rotationSpring = new Spring(this.rotation);
 
-	public constructor(debugMode?: boolean) {
-		super(debugMode);
+  // @override
+  protected _setPosition(position: Vector3) {
+    this.position = position;
+    this.positionSpring.goal = position;
+  }
 
-		const position_spring = new Spring(super.getPosition());
-		const rotation_spring = new Spring(super.getRotation());
+  // @override
+  protected _setRotation(rotation: Vector3) {
+    this.rotation = rotation;
+    this.rotationSpring.goal = rotation;
+  }
 
-		position_spring.Damper = POSITION_DAMPER;
-		position_spring.Speed = POSITION_SPEED;
+  /** @hidden */
+  public onWorkerRender(delta_time: number) {
+    // update all of the springs
+    this.positionSpring.update(delta_time);
+    this.rotationSpring.update(delta_time);
 
-		rotation_spring.Damper = ROTATION_DAMPER;
-		rotation_spring.Speed = ROTATION_SPEED;
+    // adjust the camera
+    const camera = this.camera;
+    if (camera === undefined) return;
+    camera.CFrame = CFrameUtil.fromPositionAndRotation(
+      this.positionSpring.position,
+      VectorUtil.toRadians(this.rotationSpring.position),
+    );
+  }
 
-		this.positionSpring = position_spring;
-		this.rotationSpring = rotation_spring;
-	}
-
-	protected updateDebugAttributes() {
-		return super.updateDebugAttributes().andWith<true>(() => {
-			this.getCamera().map(cam => {
-				cam.SetAttribute("POSITION_DAMPER", this.positionSpring.Damper);
-				cam.SetAttribute("POSITION_SPEED", this.positionSpring.Speed);
-				cam.SetAttribute("ROTATION_DAMPER", this.rotationSpring.Damper);
-				cam.SetAttribute("ROTATION_SPEED", this.rotationSpring.Speed);
-			});
-			return Result.ok(true);
-		});
-	}
-
-	protected onAttributeChanged(cam: Camera, changed: string) {
-		super.onAttributeChanged(cam, changed);
-		switch (changed) {
-			case "POSITION_DAMPER":
-				this.positionSpring.Damper = cam.GetAttribute("POSITION_DAMPER") as number;
-				break;
-			case "POSITION_SPEED":
-				this.positionSpring.Speed = cam.GetAttribute("POSITION_SPEED") as number;
-				break;
-			case "ROTATION_DAMPER":
-				this.rotationSpring.Damper = cam.GetAttribute("ROTATION_DAMPER") as number;
-				break;
-			case "ROTATION_SPEED":
-				this.rotationSpring.Speed = cam.GetAttribute("ROTATION_SPEED") as number;
-				break;
-			default:
-				break;
-		}
-	}
-
-	protected _setPosition(position: Vector3) {
-		super._setPosition(position);
-		this.positionSpring.Target = position;
-	}
-
-	protected _setRotation(rotation: Vector3) {
-		super._setRotation(rotation);
-		this.rotationSpring.Target = rotation;
-	}
-
-	/**
-	 * Gets the current spring position
-	 * @returns Spring current position
-	 */
-	public getPosition() {
-		return this.positionSpring.Position;
-	}
-
-	/**
-	 * Gets the raw target position rather than `getPosition` method
-	 * which it returns the current spring position
-	 * @returns Raw target position
-	 */
-	public getRawPosition() {
-		return super.getPosition();
-	}
-
-	/**
-	 * Gets the current spring rotation
-	 * @returns Spring current rotation
-	 */
-	public getRotation() {
-		return this.rotationSpring.Position;
-	}
-
-	/**
-	 * Gets the raw target rotation rather than `getRotation` method
-	 * which it returns the current spring rotation
-	 * @returns Raw target rotation
-	 */
-	public getRawRotation() {
-		return super.getRotation();
-	}
-
-	/**
-	 * Updates the camera with the render delta time
-	 * @param deltaTime Render delta time
-	 */
-	public update(deltaTime: number) {
-		this.getCamera().map(cam => {
-			cam.CFrame = CFrameUtil.fromPositionAndRotation(
-				this.positionSpring.Position,
-				VectorUtil.toRadians(this.rotationSpring.Position),
-			);
-		});
-	}
+  /** @hidden */
+  public onAttributeChanged(changed?: keyof SpringWorkerAttributes) {
+    // if there's any change set it!
+    if (changed !== undefined) {
+      switch (changed) {
+        case "position_damper":
+          this.positionSpring.dampingRatio = this.attributes.get("position_damper") as unknown as number;
+          break;
+        case "position_frequency":
+          this.positionSpring.angularFrequency = this.attributes.get("position_frequency") as unknown as number;
+          break;
+        case "rotation_damper":
+          this.rotationSpring.dampingRatio = this.attributes.get("rotation_damper") as unknown as number;
+          break;
+        case "rotation_frequency":
+          this.rotationSpring.angularFrequency = this.attributes.get("rotation_frequency") as unknown as number;
+          break;
+        default:
+          break;
+      }
+    } else {
+      this.attributes.set("position_damper", this.positionSpring.dampingRatio);
+      this.attributes.set("position_frequency", this.positionSpring.angularFrequency);
+      this.attributes.set("rotation_damper", this.rotationSpring.dampingRatio);
+      this.attributes.set("rotation_frequency", this.rotationSpring.angularFrequency);
+    }
+  }
 }

@@ -23,7 +23,7 @@
     },
     "ReplicatedFirst": {
       "$className": "ReplicatedFirst",
-      "$path": "out/services/replicatedfirst"
+      "$path": "out/luau/replicatedfirst"
     },
 		"ServerScriptService": {
 			"$className": "ServerScriptService",
@@ -39,9 +39,6 @@
 					"$path": "node_modules/@rbxts",
           "@flamework": {
             "$path": "node_modules/@flamework"
-          },
-          "@memolemo-studios": {
-            "$path": "node_modules/@memolemo-studios"
           }
 				}
 			},

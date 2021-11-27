@@ -1,0 +1,116 @@
+---
+version: "3"
+environments:
+  staging:
+    - id: experience_singleton
+      inputs:
+        experience:
+          groupId: 7326265
+      outputs:
+        experience:
+          assetId: 3117135091
+          startPlaceId: 8097581425
+      dependencies: []
+    - id: place_start
+      inputs:
+        place:
+          isStart: true
+      outputs:
+        place:
+          assetId: 8097581425
+      dependencies:
+        - experience_singleton
+    - id: placeFile_start
+      inputs:
+        placeFile:
+          filePath: build.rbxlx
+          fileHash: 539b37dcf6cc06170dd59803772af06d9a2a135e1cfcc51ab9bf488809c4e49c
+      outputs:
+        placeFile:
+          version: 2
+      dependencies:
+        - place_start
+    - id: placeConfiguration_start
+      inputs:
+        placeConfiguration:
+          name: Software Tycoon Testing
+          description: "This is the testing branch of this game based on `master` branch on the open source\nrepository.\n\nBEWARE: This game may experience bugs, glitches and it can be broken entirely."
+          maxPlayerCount: 4
+          allowCopying: false
+          socialSlotType: Automatic
+          customSocialSlotCount: ~
+      outputs: placeConfiguration
+      dependencies:
+        - place_start
+    - id: experienceConfiguration_singleton
+      inputs:
+        experienceConfiguration:
+          genre: All
+          playableDevices:
+            - Computer
+          isFriendsOnly: ~
+          allowPrivateServers: true
+          privateServerPrice: 0
+          isForSale: false
+          price: ~
+          studioAccessToApisAllowed: true
+          permissions:
+            IsThirdPartyPurchaseAllowed: false
+            IsThirdPartyTeleportAllowed: false
+          universeAvatarType: MorphToR15
+          universeAnimationType: PlayerChoice
+          universeCollisionType: OuterBox
+          universeAvatarMinScales:
+            height: "0.9"
+            width: "0.7"
+            head: "0.95"
+            bodyType: "0"
+            proportion: "0"
+          universeAvatarMaxScales:
+            height: "1.05"
+            width: "1"
+            head: "1"
+            bodyType: "1"
+            proportion: "1"
+          universeAvatarAssetOverrides:
+            - assetTypeID: 18
+              isPlayerChoice: true
+              assetID: ~
+            - assetTypeID: 17
+              isPlayerChoice: true
+              assetID: ~
+            - assetTypeID: 27
+              isPlayerChoice: true
+              assetID: ~
+            - assetTypeID: 29
+              isPlayerChoice: true
+              assetID: ~
+            - assetTypeID: 28
+              isPlayerChoice: true
+              assetID: ~
+            - assetTypeID: 30
+              isPlayerChoice: true
+              assetID: ~
+            - assetTypeID: 31
+              isPlayerChoice: true
+              assetID: ~
+            - assetTypeID: 2
+              isPlayerChoice: true
+              assetID: ~
+            - assetTypeID: 11
+              isPlayerChoice: true
+              assetID: ~
+            - assetTypeID: 12
+              isPlayerChoice: true
+              assetID: ~
+          isArchived: false
+      outputs: experienceConfiguration
+      dependencies:
+        - experience_singleton
+    - id: experienceActivation_singleton
+      inputs:
+        experienceActivation:
+          isActive: false
+      outputs: experienceActivation
+      dependencies:
+        - experience_singleton

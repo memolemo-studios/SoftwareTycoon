@@ -1,17 +1,30 @@
-/** Alternative to ChangedSignal provided in roblox-ts documentation */
-export type ChangedSignal<T extends Instance> = T & {
-	Changed: RBXScriptSignal<(changedPropertyName: InstancePropertyNames<T>) => void>;
-};
+/** ROBLOX's Base character model */
+export interface BaseCharacterModel extends Model {
+  Head: BasePart & {
+    face: Decal;
+  };
+  HumanoidRootPart: BasePart;
+  Humanoid: Humanoid;
+  "Body Colors": BodyColors;
+}
 
 /**
- * Base character model for every player.
- * It supports both R6 and R15.
+ * Supported types/values in attributes
+ *
+ * Source: https://developer.roblox.com/en-us/articles/instance-attributes
  */
-export interface BaseCharacterModel extends Model {
-	Head: BasePart & {
-		face: Decal;
-	};
-	HumanoidRootPart: BasePart;
-	Humanoid: Humanoid;
-	"Body Colors": BodyColors;
-}
+export type SupportedAttributeTypes =
+  | string
+  | boolean
+  | number
+  | UDim
+  | UDim2
+  | BrickColor
+  | Color3
+  | Vector2
+  | Vector3
+  | NumberSequence
+  | ColorSequence
+  | NumberRange
+  | Ray
+  | undefined;
