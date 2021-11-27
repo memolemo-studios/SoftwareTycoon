@@ -181,11 +181,6 @@
   resolved "https://registry.yarnpkg.com/@rbxts/signal/-/signal-1.0.3.tgz#7663caf4f6350475488c3a1d5bb4cbc67fe6d0f4"
   integrity sha512-faFH5kVkQotZ2YzJhQ7Z12T9YkfV1O6y0V0V/I/RknBVAmefuIM8pSWj2AIEecOR6jSCtg0yZS8gNYKwfoopNA==
 
-"@rbxts/spring@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@rbxts/spring/-/spring-1.0.2.tgz#7292fe3800748b9dd7b8ce9baa350b8277951a0f"
-  integrity sha512-8LTt1Ss0D69Bk/Ur/szXQnHF/gd1RNDMUEyvCTvz1keTUuRCzwzfWxWVWTKcgzipI2wRCx5Il6xEmaXFur99lA==
-
 "@rbxts/string-utils@^1.0.3":
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@rbxts/string-utils/-/string-utils-1.0.3.tgz#109c5a18d059447005fdf6fae40aa13cf452d91b"
@@ -200,6 +195,7 @@
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/@rbxts/t/-/t-2.1.5.tgz#583d1feee5ca26dfae85254ebac0514316ed7c3e"
   integrity sha512-eH2faj6wh4IJnZaqLi0jSmbOmnSFndSXJbXNwobrNAKwmdzxvM64sSsHZ5v1R02BQXuZP/zUjKeL7WS2416pxQ==
+<<<<<<< HEAD
 
 "@rbxts/testez@^0.3.1-ts.7":
   version "0.3.1-ts.7"
@@ -210,6 +206,13 @@
   version "1.0.553"
   resolved "https://registry.yarnpkg.com/@rbxts/types/-/types-1.0.553.tgz#7966b41e84072d54fe3795ac7d8da928053b92a7"
   integrity sha512-bZHsViIgEaTWadwILLcT8LVuXLf9peQ5luT3GzyPy+YI6xupHw4+95ww0asTRHjGJsXu+sA427mTNVcu55Z+dg==
+=======
+
+"@rbxts/testez@^0.3.1-ts.7":
+  version "0.3.1-ts.7"
+  resolved "https://registry.yarnpkg.com/@rbxts/testez/-/testez-0.3.1-ts.7.tgz#a5bb2e0640123c007655329f264e9ee4fcafb565"
+  integrity sha512-DkIlRFdMODHjJPEYJT/cPYv2ZQzSqAufF4XAsqrx7zFg8OVAkSHY5aGChGoPNrZo0PM4zz9bw46ZIVqLfcM05Q==
+>>>>>>> pr/improve-specs
 
 "@rbxts/types@^1.0.545":
   version "1.0.545"
@@ -221,6 +224,7 @@
   resolved "https://registry.yarnpkg.com/@rbxts/types/-/types-1.0.551.tgz#e4641407721ea4de2452672dcf1ac8d1e2777ca8"
   integrity sha512-ooXjlz4Pm478STNPAHO+STzKul1p1O9v9dnL/2VQoKTxbYVcy5FrejD4PTWqbEHa4Zx5tKpQG10WGOoKpoe+iw==
 
+<<<<<<< HEAD
 "@rbxts/validate-tree@^2.0.1":
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@rbxts/validate-tree/-/validate-tree-2.0.1.tgz#ed1e3471899933e3680d2dfbcff051813c498175"
@@ -229,6 +233,8 @@
     "@rbxts/compiler-types" "^1.2.3-types.1"
     "@rbxts/types" "^1.0.537"
 
+=======
+>>>>>>> pr/improve-specs
 "@types/json-schema@^7.0.9":
   version "7.0.9"
   resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.9.tgz#97edc9037ea0c38585320b28964dde3b39e4660d"
@@ -921,11 +927,14 @@ hosted-git-info@^4.0.1:
   dependencies:
     lru-cache "^6.0.0"
 
+<<<<<<< HEAD
 human-signals@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/human-signals/-/human-signals-2.1.0.tgz#dc91fcba42e4d06e4abaed33b3e7a3c02f514ea0"
   integrity sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw==
 
+=======
+>>>>>>> pr/improve-specs
 ignore@^4.0.6:
   version "4.0.6"
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-4.0.6.tgz#750e3db5862087b4737ebac8207ffd1ef27b25fc"
@@ -1097,11 +1106,14 @@ lru-cache@^6.0.0:
   dependencies:
     yallist "^4.0.0"
 
+<<<<<<< HEAD
 merge-stream@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/merge-stream/-/merge-stream-2.0.0.tgz#52823629a14dd00c9770fb6ad47dc6310f2c1f60"
   integrity sha512-abv/qOcuPfk3URPfDzmZU1LKmuw8kT+0nIHvKrKgFrwifol/doWcdA4ZqsWQ8ENrFKkd67Mfpo/LovbIUsbt3w==
 
+=======
+>>>>>>> pr/improve-specs
 merge2@^1.3.0:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/merge2/-/merge2-1.4.1.tgz#4368892f885e907455a6fd7dc55c0c9d404990ae"

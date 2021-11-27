@@ -96,9 +96,6 @@ export const TextButton = pure<Props>(props => {
           Key="HoverOverlay"
           BackgroundColor3={bkg_hover_color}
           BackgroundTransparency={hover_transparency}
-          // BackgroundTransparency={hover_binding.map(alpha => {
-          //   return MathUtil.lerp(Theme.TransparencyButtonHover, 1, alpha);
-          // })}
           Size={UDim2.fromScale(1, 1)}
           Text=""
         >
