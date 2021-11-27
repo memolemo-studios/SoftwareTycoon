@@ -9,6 +9,7 @@ Log.Warn("Software Tycoon client version: {VERSION}");
 // prettier-ignore
 Flamework.addPaths(
 	"src/client/apps",
+  "src/client/cameras",
 	"src/client/controllers",
 	"src/client/components",
   "src/client/placement",

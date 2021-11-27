@@ -7,6 +7,7 @@ import { RobloxUtil } from "./utils/roblox";
 /** Types for GameFlags */
 export interface GameFlags {
   CacheExpiryThreshold: number;
+  CameraDebugMode: boolean;
   CircleImage: string;
   CircleOutlineImage: string;
   DisableCoreGuiOnStart: boolean;
@@ -59,6 +60,7 @@ export const PlacementFlags = new FlagManager<PlacementFlags>({
  */
 export const GameFlags = new FlagManager<GameFlags>({
   CacheExpiryThreshold: 5,
+  CameraDebugMode: true,
   CircleImage: RobloxUtil.assetUrlWithId(602504628),
   CircleOutlineImage: RobloxUtil.assetUrlWithId(6772221049),
   DisableCoreGuiOnStart: true,
