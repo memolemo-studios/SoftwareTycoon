@@ -24,17 +24,17 @@ environments:
       inputs:
         placeFile:
           filePath: build.rbxlx
-          fileHash: 539b37dcf6cc06170dd59803772af06d9a2a135e1cfcc51ab9bf488809c4e49c
+          fileHash: 3b742f46bc8668b4b035a68711403bf33f5e048e566a05720f8e8b75d3576670
       outputs:
         placeFile:
-          version: 2
+          version: 3
       dependencies:
         - place_start
     - id: placeConfiguration_start
       inputs:
         placeConfiguration:
           name: Software Tycoon Testing
-          description: "This is the testing branch of this game based on `master` branch on the open source\nrepository.\n\nBEWARE: This game may experience bugs, glitches and it can be broken entirely."
+          description: "This is the testing branch of this game based on `master` branch on the open source\nrepository.\n\nBEWARE: This game may experience bugs, glitches and it can be broken entirely.\n"
           maxPlayerCount: 4
           allowCopying: false
           socialSlotType: Automatic
