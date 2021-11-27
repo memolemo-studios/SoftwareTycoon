@@ -9,7 +9,7 @@ import { SupportedAttributeTypes } from "types/roblox";
  * I was supposed to use my own attributes package, but it wasn't suited
  * for my needs.
  */
-export class Attributes<T extends Record<string, SupportedAttributeTypes | {}>> {
+export class Attributes<T extends Record<string, SupportedAttributeTypes> | {}> {
   private attributes = new Map<keyof T, T[keyof T]>();
   private bin = new Bin();
   private connection?: RBXScriptConnection;
@@ -83,7 +83,7 @@ export class Attributes<T extends Record<string, SupportedAttributeTypes | {}>> 
     // override the attributes table
     this.isBusy = true;
     for (const [key, value] of copied) {
-      this.set(key, value as NonNullable<T[keyof T]>);
+      this.set(key, value);
     }
     this.isBusy = false;
   }
@@ -94,18 +94,18 @@ export class Attributes<T extends Record<string, SupportedAttributeTypes | {}>> 
 
     // get the entire attributes from instance member
     const attributes = this.instance.GetAttributes() as Map<keyof T, T[keyof T]>;
-
-    // checking for any changes
-    for (const [key, value] of attributes) {
-      const old_value = this.get(key);
-      if (old_value !== value) {
-        this.changed.Fire(key, value);
-      }
-    }
+    const last_attributes = deepCopy(this.attributes);
 
     // replacing the entire attributes table
-    this.attributes.clear();
     this.attributes = attributes;
+
+    // checking for any changes
+    for (const [key, old_value] of last_attributes) {
+      const new_value = attributes.get(key);
+      if (new_value !== old_value) {
+        this.changed.Fire(key, new_value);
+      }
+    }
   }
 
   /**
@@ -135,14 +135,13 @@ export class Attributes<T extends Record<string, SupportedAttributeTypes | {}>> 
   }
 
   /**
-   * Sets the attribute to a desired value.
-   *
-   * **NOTE**: In the value parameter, it must be defined.
+   * Sets the attribute to a desired value
    * @param key Attribute to set with the value
-   * @param value Non-nullable value to replace with.
+   * @param value Value to replace with.
    */
-  public set<K extends keyof T>(key: K, value: NonNullable<T[K]>) {
-    assert(value !== undefined, "Invalid argument #2 (it must be defined)");
+  public set<K extends keyof T>(key: K, value: T[K]) {
+    // avoid sudden same value overrides
+    if (this.attributes.get(key) === value) return;
     this.instance.SetAttribute(key as string, value);
   }
 
