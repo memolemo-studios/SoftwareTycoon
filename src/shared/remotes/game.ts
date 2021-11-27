@@ -19,6 +19,9 @@ const Remotes = Def.Create({
   /** Attempts to request a lot to the server */
   RequestLot: Def.ServerAsyncFunction<() => LotRequestResponse<string>>(),
 
+  /** Attempts to respawn the player back */
+  RespawnPlayer: Def.ServerAsyncFunction<() => RemoteResponse<"", "">>(),
+
   /**
    * Gets the player's ping depending on the player
    * used from the parameter.

@@ -2,6 +2,7 @@ import { Controller, Flamework, OnInit } from "@flamework/core";
 import Log from "@rbxts/log";
 import { Option } from "@rbxts/rust-classes";
 import { Players, Workspace } from "@rbxts/services";
+import Remotes from "shared/remotes/game";
 import { promiseForCharacter } from "shared/utils/character";
 import { FlameworkUtil } from "shared/utils/flamework";
 import { BaseCharacterModel } from "types/roblox";
@@ -37,6 +38,8 @@ export class CharacterController implements OnInit {
   private connectedSpawns = new Map<string, OnCharacterSpawned>();
   private connectedDied = new Map<string, OnCharacterDied>();
 
+  private respawnCharacterRemote = Remotes.Client.Get("RespawnPlayer");
+
   /** Gets the current player's character */
   public getCurrentCharacter(): Option<BaseCharacterModel> {
     return this.isCharacterSpawned() ? Option.wrap(local_player.Character as BaseCharacterModel) : Option.none();
@@ -58,6 +61,7 @@ export class CharacterController implements OnInit {
 
     const on_character_died = () => {
       this.logger.Info("Character died");
+      this.respawnCharacterRemote.CallServerAsync();
       connection!.Disconnect();
 
       for (const [, singleton] of this.connectedDied) {

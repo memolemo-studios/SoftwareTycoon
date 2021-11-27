@@ -32,8 +32,6 @@
 		"softwaretycoon:out/client/controllers/placement/PlacementController@PlacementController": "client/controllers/placement/PlacementController@PlacementController",
 		"softwaretycoon:out/shared/classes/cache@Cache": "shared/classes/cache@Cache",
 		"softwaretycoon:out/client/controllers/player/LatencyController@LatencyController": "client/controllers/player/LatencyController@LatencyController",
-		"softwaretycoon:out/client/controllers/players/DataController@DataController": "client/controllers/players/DataController@DataController",
-		"softwaretycoon:out/client/controllers/players/LatencyController@LatencyController": "client/controllers/players/LatencyController@LatencyController",
 		"softwaretycoon:out/shared/classes/placement/wall@WallPlacement": "shared/classes/placement/wall@WallPlacement",
 		"softwaretycoon:out/client/placement/wall@ClientWallPlacement": "client/placement/wall@ClientWallPlacement",
 		"softwaretycoon:out/client/controllers/placement/PlacementController@Placement": "client/controllers/placement/PlacementController@Placement",

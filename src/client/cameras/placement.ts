@@ -109,6 +109,7 @@ export class PlacementCameraWorker
   /** @hidden */
   public onWorkerStart() {
     this.setRotation(new Vector3(-45, 0, 0));
+    this.setPosition(new Vector3(0, 20, 0));
     this.positionSpring.angularFrequency = 20;
     this.rotationSpring.angularFrequency = 20;
 

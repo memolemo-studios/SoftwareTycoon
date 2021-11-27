@@ -7,7 +7,9 @@ import { ClientBasePlacement } from "client/placement/base";
 import { FlameworkUtil } from "shared/utils/flamework";
 import { DecoratorMetadata } from "types/flamework";
 import { LotController } from "../game/LotController";
+import { CoreGuiController } from "../interface/CoreGuiController";
 import { CameraWorkerController } from "../io/CameraWorkerController";
+import { InputController } from "../io/InputController";
 
 /** Hook into the OnPlacementInstantiate event */
 export interface OnPlacementInstantiate {
@@ -79,7 +81,12 @@ export class PlacementController implements OnInit, OnStart, OnRender {
   private registeredPlacements = new Map<string, PlacementInfo>();
   private placement?: ClientBasePlacement;
 
-  public constructor(private lotController: LotController, private cameraWorkerController: CameraWorkerController) {}
+  public constructor(
+    private lotController: LotController,
+    private cameraWorkerController: CameraWorkerController,
+    private inputController: InputController,
+    private coreGuiController: CoreGuiController,
+  ) {}
 
   /** @hidden */
   public onRender(delta_time: number) {
@@ -197,6 +204,9 @@ export class PlacementController implements OnInit, OnStart, OnRender {
     keyboard.keyUp.Connect(code => {
       if (code !== Enum.KeyCode.P) return;
       keyboard.destroy();
+
+      this.coreGuiController.enableEntireCoreGui();
+      this.inputController.toggleCharacterMovement(false);
       this.cameraWorkerController.startWorker("PlacementCameraWorker");
       // const placement = this.startPlacement("WallPlacement").expect("failed to create one!");
       // placement.bindToDone(() => {

@@ -1,6 +1,9 @@
 import { RemoteResponse } from "types/response";
 
-export interface LotModel extends Model {}
+export interface LotModel extends Model {
+  Primary: BasePart;
+  Spawn: SpawnLocation;
+}
 
 export interface LotAttributes {
   ComponentId?: string;
