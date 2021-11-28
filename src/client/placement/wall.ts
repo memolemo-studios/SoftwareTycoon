@@ -12,6 +12,8 @@ enum WallPlacementState {
   Tail,
 }
 
+// i put this comment here to notice github that i actually modified something ^_^
+
 @Placement({
   name: "WallPlacement",
   gridSize: PlacementFlags.GridSize,
