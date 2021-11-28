@@ -4,7 +4,7 @@ owner:
 
 environments:
   - name: staging
-    branches: [master]
+    branches: [dev]
     overrides:
       places:
         start:
@@ -17,7 +17,7 @@ environments:
               BEWARE: This game may experience bugs, glitches and it can be broken entirely.
 
   - name: production
-    branches: [release]
+    branches: [master]
 
 target:
   experience:
