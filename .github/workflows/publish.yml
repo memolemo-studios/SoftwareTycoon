@@ -1,16 +1,17 @@
-# Taken from roblox-ts under the MIT license https://github.com/roblox-ts/roblox-ts/blob/master/LICENSE
+# Taken from roblox-ts under the MIT license https://github.com/roblox-ts/roblox-ts/blob/master/.github/workflows/ci.yml
+# Modified to deploy the game either the dev or the master branch
 
 name: Publish
 
 on:
   push:
     branches:
+      - dev
       - master
-      - release
 
 jobs:
   publish:
-    if: github.repository == 'memolemo-studios/SoftwareTycoon' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/release')
+    if: github.repository == 'memolemo-studios/SoftwareTycoon' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/dev')
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:

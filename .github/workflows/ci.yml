@@ -1,4 +1,4 @@
-# Taken from roblox-ts under the MIT license https://github.com/roblox-ts/roblox-ts/blob/master/LICENSE
+# Taken from roblox-ts under the MIT license https://github.com/roblox-ts/roblox-ts/blob/master/.github/workflows/ci.yml
 
 name: CI
 
@@ -6,8 +6,8 @@ on:
   push:
     # This will get expensive if we decided to include this in staging branch
     branches:
+      - dev
       - master
-      - release
 
 jobs:
   lint:
