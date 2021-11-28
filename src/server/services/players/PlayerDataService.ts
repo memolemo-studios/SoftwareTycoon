@@ -3,7 +3,7 @@ import Log from "@rbxts/log";
 import { GetProfileStore } from "@rbxts/profileservice";
 import { Profile } from "@rbxts/profileservice/globals";
 import { Players } from "@rbxts/services";
-import { migratePlayerData } from "server/modules/data/migration";
+import { migratePlayerData } from "shared/functions/migratePlayerData";
 import { DEFAULT_PLAYER_DATA, PlayerDataCheck } from "shared/definitions/game";
 import { GameFlags } from "shared/flags";
 import { PlayerData } from "types/game/data";

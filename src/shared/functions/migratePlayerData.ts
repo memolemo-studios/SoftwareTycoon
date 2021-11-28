@@ -40,9 +40,11 @@ const migration_callbacks = new Map<number, (data: RootPlayerData) => RootPlayer
  * **NOTE**: This function cannot verify if it totally works everytime.
  * Make sure to use typechecking to verify the migration.
  */
-export function migratePlayerData(data: RootPlayerData): [boolean, PlayerData] {
+export function migratePlayerData(data: RootPlayerData, target_version?: number): [boolean, PlayerData] {
+  target_version = target_version ?? GameFlags.PlayerDataVersion;
+
   // check the current version of player's data
-  if (data.Version < GameFlags.PlayerDataVersion) {
+  if (data.Version < target_version) {
     // deep copy player's profile data
     data = deepCopy(data);
 
@@ -51,7 +53,7 @@ export function migratePlayerData(data: RootPlayerData): [boolean, PlayerData] {
     let i = data.Version;
     do {
       data = migration_callbacks.get(i)!(data);
-    } while (i++ < GameFlags.PlayerDataVersion - 1);
+    } while (i++ < target_version - 1);
 
     // set the new game data version
     data.Version = GameFlags.PlayerDataVersion;
