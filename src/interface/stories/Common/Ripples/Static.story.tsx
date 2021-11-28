@@ -27,5 +27,19 @@ export = makeStory(() => (
         position={UDim2.fromScale(0.5, 0.5)}
       />
     </StaticRipple>
+    <StaticRipple
+      Key="DisabledRipple"
+      enabled={false}
+      ripplePosition={UDim2.fromScale(0.5, 0.5)}
+      size={UDim2.fromOffset(200, 50)}
+    >
+      <Typography
+        alignmentX={Enum.TextXAlignment.Center}
+        anchorPoint={new Vector2(0.5, 0.5)}
+        color={new Color3(1, 1, 1)}
+        text="This ripple is disabled"
+        position={UDim2.fromScale(0.5, 0.5)}
+      />
+    </StaticRipple>
   </FullBackground>
 ));

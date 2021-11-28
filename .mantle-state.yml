@@ -1,119 +1,6 @@
 ---
 version: "3"
 environments:
-  canary:
-    - id: experience_singleton
-      inputs:
-        experience:
-          groupId: 7326265
-      outputs:
-        experience:
-          assetId: 3117103594
-          startPlaceId: 8097470289
-      dependencies: []
-    - id: place_start
-      inputs:
-        place:
-          isStart: true
-      outputs:
-        place:
-          assetId: 8097470289
-      dependencies:
-        - experience_singleton
-    - id: placeFile_start
-      inputs:
-        placeFile:
-          filePath: build.rbxlx
-          fileHash: 539b37dcf6cc06170dd59803772af06d9a2a135e1cfcc51ab9bf488809c4e49c
-      outputs:
-        placeFile:
-          version: 2
-      dependencies:
-        - place_start
-    - id: placeConfiguration_start
-      inputs:
-        placeConfiguration:
-          name: SFT Canary
-          description: A random game where you can do stuff
-          maxPlayerCount: 4
-          allowCopying: false
-          socialSlotType: Automatic
-          customSocialSlotCount: ~
-      outputs: placeConfiguration
-      dependencies:
-        - place_start
-    - id: experienceConfiguration_singleton
-      inputs:
-        experienceConfiguration:
-          genre: All
-          playableDevices:
-            - Computer
-          isFriendsOnly: false
-          allowPrivateServers: true
-          privateServerPrice: 0
-          isForSale: false
-          price: ~
-          studioAccessToApisAllowed: true
-          permissions:
-            IsThirdPartyPurchaseAllowed: false
-            IsThirdPartyTeleportAllowed: false
-          universeAvatarType: MorphToR15
-          universeAnimationType: PlayerChoice
-          universeCollisionType: OuterBox
-          universeAvatarMinScales:
-            height: "0.9"
-            width: "0.7"
-            head: "0.95"
-            bodyType: "0"
-            proportion: "0"
-          universeAvatarMaxScales:
-            height: "1.05"
-            width: "1"
-            head: "1"
-            bodyType: "1"
-            proportion: "1"
-          universeAvatarAssetOverrides:
-            - assetTypeID: 18
-              isPlayerChoice: true
-              assetID: ~
-            - assetTypeID: 17
-              isPlayerChoice: true
-              assetID: ~
-            - assetTypeID: 27
-              isPlayerChoice: true
-              assetID: ~
-            - assetTypeID: 29
-              isPlayerChoice: true
-              assetID: ~
-            - assetTypeID: 28
-              isPlayerChoice: true
-              assetID: ~
-            - assetTypeID: 30
-              isPlayerChoice: true
-              assetID: ~
-            - assetTypeID: 31
-              isPlayerChoice: true
-              assetID: ~
-            - assetTypeID: 2
-              isPlayerChoice: true
-              assetID: ~
-            - assetTypeID: 11
-              isPlayerChoice: true
-              assetID: ~
-            - assetTypeID: 12
-              isPlayerChoice: true
-              assetID: ~
-          isArchived: false
-      outputs: experienceConfiguration
-      dependencies:
-        - experience_singleton
-    - id: experienceActivation_singleton
-      inputs:
-        experienceActivation:
-          isActive: true
-      outputs: experienceActivation
-      dependencies:
-        - experience_singleton
   staging:
     - id: experience_singleton
       inputs:
@@ -121,8 +8,8 @@ environments:
           groupId: 7326265
       outputs:
         experience:
-          assetId: 3117192947
-          startPlaceId: 8097781135
+          assetId: 3117135091
+          startPlaceId: 8097581425
       dependencies: []
     - id: place_start
       inputs:
@@ -130,14 +17,14 @@ environments:
           isStart: true
       outputs:
         place:
-          assetId: 8097781135
+          assetId: 8097581425
       dependencies:
         - experience_singleton
     - id: placeFile_start
       inputs:
         placeFile:
           filePath: build.rbxlx
-          fileHash: b2fbe1e9e16a7b77ce72a56064a093bf9b3109b46b4cd7a3e8f1ee90a93e8143
+          fileHash: 3b742f46bc8668b4b035a68711403bf33f5e048e566a05720f8e8b75d3576670
       outputs:
         placeFile:
           version: 3

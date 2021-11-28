@@ -12,7 +12,7 @@ import { Circle } from "../shapes/circle";
 import { BaseRippleProps } from "./types";
 
 interface Props extends BaseRippleProps {
-  enabled?: boolean;
+  enabled?: ValueOrBinding<boolean>;
   useInput?: boolean;
   rippleRadius?: ValueOrBinding<number>;
   ripplePosition: UDim2;
@@ -98,7 +98,11 @@ export class StaticRipple extends Component<Props> {
   public didUpdate(last_props: Props) {
     if (this.canUseInput()) return;
     if (last_props.enabled === this.props.enabled) return;
-    this.doRippleFromBool(this.props.enabled ?? false);
+    if (RoactUtil.isBinding(this.props.enabled)) {
+      this.props.enabled.map(bool => this.doRippleFromBool(bool));
+    } else {
+      this.doRippleFromBool(this.props.enabled ?? false);
+    }
   }
 
   public render() {
@@ -117,6 +121,10 @@ export class StaticRipple extends Component<Props> {
         Event={{
           InputBegan: (_, input) => {
             if (!this.canUseInput()) return;
+
+            // do not perform ripple if it is disabled
+            const does_enabled = RoactUtil.getBindableValue(this.props.enabled ?? true);
+            if (!does_enabled) return;
             if (input.UserInputType !== Enum.UserInputType.MouseButton1) return;
             this.enableRipple();
 

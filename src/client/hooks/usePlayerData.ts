@@ -1,7 +1,7 @@
 import { Dependency } from "@flamework/core";
 import { useEffect, useState } from "@rbxts/roact-hooked";
 import { RunService } from "@rbxts/services";
-import { DataController } from "client/controllers/players/DataController";
+import { DataController } from "client/controllers/player/DataController";
 import { DEFAULT_PLAYER_DATA } from "shared/definitions/game";
 
 let data_controller: DataController;

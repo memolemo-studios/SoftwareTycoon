@@ -6,8 +6,8 @@ import StringUtils from "@rbxts/string-utils";
 export namespace RoactUtil {
   /** Makes a Roact binding from Flipper's SingleMotor class */
   export function makeBindingFromMotor<T = number>(motor: BaseMotor<T>) {
-    const [binding, setBinding] = createBinding((motor as BaseMotor<T> & { getValue(): T }).getValue());
-    motor.onStep(setBinding);
+    const [binding, set_binding] = createBinding((motor as BaseMotor<T> & { getValue(): T }).getValue());
+    motor.onStep(set_binding);
     return binding;
   }
 
