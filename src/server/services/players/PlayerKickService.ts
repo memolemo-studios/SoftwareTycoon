@@ -5,6 +5,7 @@ export const enum PlayerKickReasons {
   Exploit = 1,
   DataNotLoaded = 2,
   ProfileReleased = 3,
+  DataMigrationFailed = 4,
 }
 
 @Service({})
@@ -27,6 +28,8 @@ export class PlayerKickService {
             return "Unable to load saved data. Please rejoin.";
           case PlayerKickReasons.ProfileReleased:
             return "Your data has been loaded remotely. Please rejoin.";
+          case PlayerKickReasons.DataMigrationFailed:
+            return "The game tried to convert your old data to new data but it fails. Please contact the developer immediately!";
           default:
             return "Unexpected error (UNKNOWN ERROR TYPE)";
         }
@@ -38,6 +41,8 @@ export class PlayerKickService {
             return "{@Player} unable to load their data.";
           case PlayerKickReasons.ProfileReleased:
             return "{@Player} loaded their data from the other server";
+          case PlayerKickReasons.DataMigrationFailed:
+            return "{@Player}'s data have gone wrong when migrating to a new version.";
           default:
             error(`Invalid reason: ${reason}`);
         }
