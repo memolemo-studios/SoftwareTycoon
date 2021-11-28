@@ -49,7 +49,7 @@ export class LocalStorageController implements OnInit {
         .CallServerAsync(container)
         .then(res => {
           if (res.success) {
-            resolve(container);
+            resolve(res.value);
           } else {
             // prettier-ignore
             const msg = this.logger.Write(
