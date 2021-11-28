@@ -27,6 +27,7 @@ export interface GameFlags {
   PlayerProfileStoreName: string;
   PlayerDataKeyPrefix: string;
   PlayerDataKeySuffix: string;
+  PlayerDataVersion: number;
   ProdMinLogLevel: LogLevel;
   ProjectName: string;
   GroupRankMinIdPermittedThreshold: number;
@@ -81,6 +82,7 @@ export const GameFlags = new FlagManager<GameFlags>({
   PlayerProfileStoreName: "PlayerData",
   PlayerDataKeyPrefix: "player-",
   PlayerDataKeySuffix: "",
+  PlayerDataVersion: 1,
   ProdMinLogLevel: LogLevel.Information,
   ProjectName: "Software Tycoon",
   RequestLotOnStart: false,
