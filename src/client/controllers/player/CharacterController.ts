@@ -83,7 +83,7 @@ export class CharacterController implements OnInit {
     return (
       local_player.Character !== undefined &&
       local_player.Parent !== undefined &&
-      local_player.IsDescendantOf(Workspace)
+      local_player.Character.IsDescendantOf(Workspace)
     );
   }
 

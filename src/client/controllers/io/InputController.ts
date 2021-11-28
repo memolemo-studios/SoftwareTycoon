@@ -27,8 +27,11 @@ export class InputController implements OnCharacterSpawned {
     local_player.CameraMinZoomDistance = this.areInputsEnabled ? MIN_CAM_ZOOM : 20;
 
     // setting properties
-    character.Humanoid.WalkSpeed = walk_speed;
-    character.Humanoid.JumpPower = jump_power;
+    const humanoid = character.WaitForChild("Humanoid");
+    if (humanoid !== undefined && humanoid.IsA("Humanoid")) {
+      humanoid.WalkSpeed = walk_speed;
+      humanoid.JumpPower = jump_power;
+    }
   }
 
   /**
