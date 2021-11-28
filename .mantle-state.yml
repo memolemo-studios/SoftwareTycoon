@@ -24,10 +24,10 @@ environments:
       inputs:
         placeFile:
           filePath: build.rbxlx
-          fileHash: 3b742f46bc8668b4b035a68711403bf33f5e048e566a05720f8e8b75d3576670
+          fileHash: 6d7d39d85411082c478c8c5fbbe742a91215c0f2683805bc5134c5430a3c6deb
       outputs:
         placeFile:
-          version: 3
+          version: 6
       dependencies:
         - place_start
     - id: placeConfiguration_start
