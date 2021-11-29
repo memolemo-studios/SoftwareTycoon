@@ -4,14 +4,16 @@
 name: Publish
 
 on:
-  push:
-    branches:
-      - dev
-      - master
+  workflow_run:
+    workflows: ["CI"]
+    branches: [dev, master]
+    types: [completed]
 
 jobs:
   publish:
     if: github.repository == 'memolemo-studios/SoftwareTycoon' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/dev')
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -36,7 +38,7 @@ jobs:
 
       - name: Setup commitee user
         run: |
-          git config user.name "Github Actions"
+          git config user.name "GitHub Actions"
           git config user.email "noreply@github.com"
 
       - name: Commit changes with .mantle-state.yml file

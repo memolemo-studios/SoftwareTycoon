@@ -3,8 +3,10 @@
 name: CI
 
 on:
+  pull_request_target:
+    types: [ready_for_review]
+
   push:
-    # This will get expensive if we decided to include this in staging branch
     branches:
       - dev
       - master
@@ -23,8 +25,22 @@ jobs:
       - name: Run ESLint
         run: npm run lint
 
+  compile:
+    name: Compile
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2.3.4
+
+      - name: Install NPM dependencies
+        uses: bahmutov/npm-install@v1.7.4
+
+      - name: Compile game
+        run: make game
+
   unit-tests:
-    name: Unit Tests
+    name: Unit Testing
+    needs: [lint, compile]
     runs-on: windows-latest
     timeout-minutes: 10
     steps:
