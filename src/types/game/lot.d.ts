@@ -2,6 +2,7 @@ import { RemoteResponse } from "types/response";
 
 export interface LotModel extends Model {
   Primary: BasePart;
+  Canvas: BasePart;
   Spawn: SpawnLocation;
 }
 

@@ -25,9 +25,10 @@ const DEFAULT_CURSOR = $instance<MeshPart>("assets/game/ReplicatedStorage/Assets
   name: "WallPlacement",
   gridSize: PlacementFlags.GridSize,
 })
-export class ClientWallPlacement extends ClientBasePlacement implements OnPlacementStarted {
+export class ClientWallPlacement extends ClientBasePlacement<[Vector3, Vector3]> implements OnPlacementStarted {
   protected ghost!: BasePart;
   protected headPosition = new Vector3();
+  protected tailPosition = new Vector3();
   protected wallState = WallPlacementState.Head;
 
   public constructor() {
@@ -50,16 +51,16 @@ export class ClientWallPlacement extends ClientBasePlacement implements OnPlacem
   }
 
   protected fromTailToHead() {
-    const tail_position = this.cursorSpring.getPosition();
-    const distance = this.headPosition.sub(tail_position).Magnitude;
-
-    this.backToHead();
-    if (distance > 0) this.done();
+    const distance = this.headPosition.sub(this.tailPosition).Magnitude;
+    if (distance > 0) {
+      this.done(this.headPosition, this.tailPosition);
+    } else {
+      this.backToHead();
+    }
   }
 
   protected fromHeadToTail() {
     // TODO: we're going to care about collision detect system later
-    this.headPosition = this.cursorSpring.getPosition();
     this.ghost.Transparency = 0.9;
     this.wallState = WallPlacementState.Tail;
   }
@@ -93,8 +94,15 @@ export class ClientWallPlacement extends ClientBasePlacement implements OnPlacem
     if (union_opt.isNone()) return;
 
     const [, result] = union_opt.unwrap();
-    const cframe = this.placement.calculatePlacementCF(result.Position, this.rotation);
-    this.cursorSpring.setPosition(cframe.Position);
+    const position = this.placement.calculatePlacementCF(result.Position, this.rotation).Position;
+
+    if (this.wallState === WallPlacementState.Tail) {
+      this.tailPosition = position;
+    } else {
+      this.headPosition = position;
+    }
+
+    this.cursorSpring.setPosition(position);
   }
 
   protected onLeftClick() {

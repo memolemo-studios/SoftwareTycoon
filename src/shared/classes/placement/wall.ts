@@ -8,8 +8,8 @@ export class WallPlacement extends BasePlacement {
   // @override
   protected calculateXYGrid(x: number, y: number) {
     const grid_unit = this.gridUnit;
-    const final_x = MathUtil.floorToMultiple(x, grid_unit);
-    const final_y = MathUtil.floorToMultiple(y, grid_unit);
+    const final_x = MathUtil.roundToMultiple(x, grid_unit);
+    const final_y = MathUtil.roundToMultiple(y, grid_unit);
     return [final_x, final_y] as const;
   }
 }

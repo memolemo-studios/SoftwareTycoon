@@ -63,6 +63,8 @@
 		"softwaretycoon:out/client/controllers/player/CharacterController@OnCharacterDied": "client/controllers/player/CharacterController@OnCharacterDied",
 		"softwaretycoon:out/server/services/players/PlayerService@OnPlayerJoined": "server/services/players/PlayerService@OnPlayerJoined",
 		"softwaretycoon:out/server/services/players/PlayerService@OnPlayerLeft": "server/services/players/PlayerService@OnPlayerLeft",
-		"softwaretycoon:out/server/services/game/LotService@OnLotOwned": "server/services/game/LotService@OnLotOwned"
+		"softwaretycoon:out/server/services/game/LotService@OnLotOwned": "server/services/game/LotService@OnLotOwned",
+		"softwaretycoon:out/server/services/builder/WallBuilderService@WallBuilderService": "server/services/builder/WallBuilderService@WallBuilderService",
+		"softwaretycoon:out/server/classes/builders/wall@WallBuilder": "server/classes/builders/wall@WallBuilder"
 	}
 }

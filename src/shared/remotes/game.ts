@@ -16,6 +16,14 @@ const handleError: ErrorHandler = (event, _, index) => {
 
 /** Collection of remotes available to the game */
 const Remotes = Def.Create({
+  /** Placement namespace in Net */
+  Placement: Def.Namespace({
+    /** Attempts to build a wall */
+    BuildWall: Def.ServerAsyncFunction<(head: Vector3, tail: Vector3) => boolean>([
+      Mid.TypeChecking(t.Vector3, t.Vector3).WithErrorHandler(handleError),
+    ]),
+  }),
+
   /** Attempts to request a lot to the server */
   RequestLot: Def.ServerAsyncFunction<() => LotRequestResponse<string>>(),
 

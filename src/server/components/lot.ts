@@ -3,11 +3,13 @@ import { OnStart } from "@flamework/core";
 import Log, { Logger } from "@rbxts/log";
 import { Option, Result } from "@rbxts/rust-classes";
 import { HttpService, Players } from "@rbxts/services";
+import { WallBuilder } from "server/classes/builders/wall";
 import { LotService } from "server/services/game/LotService";
 import { LotAttributes, LotErrors, LotModel } from "types/game/lot";
 
 @Component({ tag: "Lot" })
 export class Lot extends BaseComponent<LotAttributes, LotModel> implements OnStart {
+  public wallBuilder!: WallBuilder;
   private logger!: Logger;
 
   public constructor(private lotService: LotService) {
@@ -18,6 +20,7 @@ export class Lot extends BaseComponent<LotAttributes, LotModel> implements OnSta
   public onStart() {
     this.setAttribute("ComponentId", HttpService.GenerateGUID(false));
     this.logger = Log.ForContext(this);
+    this.wallBuilder = new WallBuilder(this);
   }
 
   /**

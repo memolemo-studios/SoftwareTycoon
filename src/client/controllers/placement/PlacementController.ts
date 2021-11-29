@@ -4,6 +4,7 @@ import Log from "@rbxts/log";
 import { Option } from "@rbxts/rust-classes";
 import { Keyboard } from "client/input/keyboard";
 import { ClientBasePlacement } from "client/placement/base";
+import Remotes from "shared/remotes/game";
 import { FlameworkUtil } from "shared/utils/flamework";
 import { DecoratorMetadata } from "types/flamework";
 import { LotController } from "../game/LotController";
@@ -132,7 +133,7 @@ export class PlacementController implements OnInit, OnStart, OnRender {
     } else {
       this.lotController.getOwnerLot().map(lot => {
         assert(lot.instance.PrimaryPart, `Expected 'PrimaryPart' in lot ${lot.attributes.ComponentId!}`);
-        current_canvas = lot.instance.PrimaryPart!;
+        current_canvas = lot.instance.Canvas!;
         return true;
       });
     }
@@ -228,10 +229,10 @@ export class PlacementController implements OnInit, OnStart, OnRender {
       this.cameraWorkerController.startWorker("PlacementCameraWorker");
 
       const placement = this.startPlacement("WallPlacement").expect("failed to create one!");
-      placement.bindToDone(() => {
-        print("Done!");
+      placement.bindToDone((head, tail) => {
         this.inputController.toggleCharacterMovement(true);
         this.cameraWorkerController.terminateCurrentWorker();
+        Remotes.Client.GetNamespace("Placement").Get("BuildWall").CallServerAsync(head, tail);
       });
     });
   }
