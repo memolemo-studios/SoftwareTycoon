@@ -72,7 +72,8 @@ export class CursorSpring {
     const rotation = this.getRotation();
 
     // disallow if that model is not a real validated model
-    if (!this.isValidCursor()) return;
+    const valid_cursor = this.isValidCursor();
+    if (!valid_cursor) return;
 
     // create CFrame stuff
     const final_cframe = CFrameUtil.fromPositionAndRotation(position, rotation);

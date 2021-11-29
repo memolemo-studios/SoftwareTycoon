@@ -64,7 +64,7 @@ export declare function Placement(cfg: PlacementConfig): any;
 /** Placement registered info */
 export interface PlacementInfo {
   config: PlacementConfig;
-  ctor: Constructor<ClientBasePlacement>;
+  instance: ClientBasePlacement;
   flameworkId: string;
   hooks: {
     onInstantiate: boolean;
@@ -137,10 +137,10 @@ export class PlacementController implements OnInit, OnStart, OnRender {
       return Option.none();
     }
 
-    // create a new class yay!
-    const placement = Flamework.createDependency(info.ctor) as ClientBasePlacement;
-    placement.setup();
+    // start the placement!
+    const placement = info.instance;
     placement.setCanvas(current_canvas);
+    placement.start();
     this.placement = placement;
 
     return Option.some(placement);
@@ -184,17 +184,23 @@ export class PlacementController implements OnInit, OnStart, OnRender {
         have_started_hook = true;
       }
 
+      // creating a new placement class
+      const instance = Flamework.createDependency(ctor as Constructor) as ClientBasePlacement;
+
       // setting up it
       this.registeredPlacements.set(config.name, {
         flameworkId: id,
-        ctor: ctor as unknown as Constructor<ClientBasePlacement>,
         config,
+        instance,
         hooks: {
           onInstantiate: have_instantiate_hook,
           onStarted: have_started_hook,
           onPaused: have_paused_hook,
         },
       });
+
+      // really have to set it up because it depends on the info
+      instance.setup();
     }
   }
 
@@ -208,10 +214,13 @@ export class PlacementController implements OnInit, OnStart, OnRender {
       this.coreGuiController.enableEntireCoreGui();
       this.inputController.toggleCharacterMovement(false);
       this.cameraWorkerController.startWorker("PlacementCameraWorker");
-      // const placement = this.startPlacement("WallPlacement").expect("failed to create one!");
-      // placement.bindToDone(() => {
-      //   print("Done!");
-      // });
+
+      const placement = this.startPlacement("WallPlacement").expect("failed to create one!");
+      placement.bindToDone(() => {
+        print("Done!");
+        this.inputController.toggleCharacterMovement(true);
+        this.cameraWorkerController.terminateCurrentWorker();
+      });
     });
   }
 }

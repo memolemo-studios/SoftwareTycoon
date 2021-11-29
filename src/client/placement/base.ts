@@ -77,30 +77,7 @@ export class ClientBasePlacement<T extends PlacementDoneCallback = PlacementDone
       .expect(`${this.name} does not exists! Have you checked twice about the name parameter?`);
 
     // making classes
-    this.keyboard = new Keyboard();
-    this.mouse = new Mouse();
-    this.cursorSpring = new CursorSpring();
     this.info = info;
-
-    // cleanup stuff
-    this.bin.add(this.sessionBin);
-    this.bin.add(this.keyboard);
-    this.bin.add(this.mouse);
-    this.bin.add(() => this.cursorSpring.cleanup());
-
-    this.bin.add(
-      this.mouse.leftDown.Connect(() => {
-        this.onClick();
-      }),
-    );
-
-    this.bin.add(
-      this.keyboard.keyDown.Connect(() => {
-        if (this.keyboard.isKeyDown(Enum.KeyCode.R)) {
-          this.rotate();
-        }
-      }),
-    );
 
     // fire OnPlacementInstantiate
     if (info.hooks.onInstantiate) {
@@ -152,6 +129,8 @@ export class ClientBasePlacement<T extends PlacementDoneCallback = PlacementDone
    * @param deltaTime Render delta time
    */
   public render(deltaTime: number) {
+    // do not render if it is not placing
+    if (this.state !== ClientPlacementState.Placing) return;
     this.cursorSpring.update(deltaTime);
   }
 
@@ -189,17 +168,45 @@ export class ClientBasePlacement<T extends PlacementDoneCallback = PlacementDone
     // making sure it is not started before
     if (this.state > ClientPlacementState.Paused) return false;
 
+    // only create stuff if it is in idle
+    if (this.state === ClientPlacementState.Idle) {
+      // creating new classes
+      this.keyboard = new Keyboard();
+      this.mouse = new Mouse();
+      this.cursorSpring = new CursorSpring();
+
+      // cleanup stuff
+      this.bin.add(this.sessionBin);
+      this.bin.add(this.keyboard);
+      this.bin.add(this.mouse);
+      this.bin.add(() => this.cursorSpring.cleanup());
+
+      this.bin.add(
+        this.mouse.leftDown.Connect(() => {
+          this.onClick();
+        }),
+      );
+
+      this.bin.add(
+        this.keyboard.keyDown.Connect(() => {
+          if (this.keyboard.isKeyDown(Enum.KeyCode.R)) {
+            this.rotate();
+          }
+        }),
+      );
+    }
+
     // making sure abstract members must be prepared
     if (this.canvas === undefined || this.placement === undefined || this.canvas === undefined) {
       this.logger.Error("Failed to start because canvas, canvas or placement member is not defined!");
     }
 
     // done!!!
-    this.changeState(ClientPlacementState.Placing);
-    this.logger.Debug("Starting placement");
     if (this.info.hooks.onStarted === true) {
       (this as unknown as OnPlacementStarted).onPlacementStarted();
     }
+    this.changeState(ClientPlacementState.Placing);
+    this.logger.Debug("Starting placement");
 
     return true;
   }
@@ -278,11 +285,7 @@ export class ClientBasePlacement<T extends PlacementDoneCallback = PlacementDone
   public setCursor(cursor: Model | BasePart) {
     assert(cursor);
     this.placement.setCursor(cursor);
-
-    // TODO: support for BasePart...
-    if (classIs(cursor, "Model")) {
-      this.cursorSpring.setCursor(cursor);
-    }
+    this.cursorSpring.setCursor(cursor);
   }
 
   /**

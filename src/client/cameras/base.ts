@@ -155,6 +155,8 @@ export class BaseCameraWorker<T extends BaseCameraWorkerAttributes = BaseCameraW
     const camera_opt = controller.getCamera();
     if (camera_opt.isSome()) {
       this.camera = camera_opt.unwrap();
+      this.camera.CameraType = Enum.CameraType.Scriptable;
+      this.camera.CameraSubject = undefined;
       this.setupAttributes(this.camera);
     }
 
@@ -167,6 +169,8 @@ export class BaseCameraWorker<T extends BaseCameraWorkerAttributes = BaseCameraW
           this.attributes.setInstance(cam);
         }
         this.camera = cam;
+        this.camera.CameraSubject = undefined;
+        this.camera.CameraType = Enum.CameraType.Scriptable;
       }),
     );
 

@@ -1,13 +1,8 @@
 import { Controller, Dependency } from "@flamework/core";
 import Log from "@rbxts/log";
-import { Players, StarterPlayer } from "@rbxts/services";
 import { GameFlags } from "shared/flags";
 import { BaseCharacterModel } from "types/roblox";
 import { CharacterController, OnCharacterSpawned } from "../player/CharacterController";
-
-const MAX_CAM_ZOOM = StarterPlayer.CameraMaxZoomDistance;
-const MIN_CAM_ZOOM = StarterPlayer.CameraMinZoomDistance;
-const local_player = Players.LocalPlayer;
 
 @Controller({})
 export class InputController implements OnCharacterSpawned {
@@ -20,11 +15,6 @@ export class InputController implements OnCharacterSpawned {
     // base values
     const walk_speed = this.areInputsEnabled ? GameFlags.DefaultCharacterWalkSpeed : 0;
     const jump_power = this.areInputsEnabled ? GameFlags.DefaultCharacterJumpPower : 0;
-
-    // disable ability to zoom, and i set it to 20 to avoid being
-    // the camera being in first person mode
-    local_player.CameraMaxZoomDistance = this.areInputsEnabled ? MAX_CAM_ZOOM : 20;
-    local_player.CameraMinZoomDistance = this.areInputsEnabled ? MIN_CAM_ZOOM : 20;
 
     // setting properties
     const humanoid = character.WaitForChild("Humanoid");
