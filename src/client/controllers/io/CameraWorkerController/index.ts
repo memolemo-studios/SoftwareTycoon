@@ -5,6 +5,7 @@ import { Result } from "@rbxts/rust-classes";
 import { BaseCameraWorker } from "client/cameras/base";
 import { FlameworkUtil } from "shared/utils/flamework";
 import { DecoratorMetadata } from "types/flamework";
+import { CameraController } from "../CameraController";
 import {
   CameraWorker,
   CameraWorkerConfig,
@@ -16,6 +17,7 @@ import {
 
 interface WorkerInfo {
   ctor: Constructor<BaseCameraWorker>;
+  name: string;
   worker: BaseCameraWorker;
   flameworkId: string;
 }
@@ -28,11 +30,30 @@ export class CameraWorkerController implements OnInit, OnRender {
   private workers = new Map<string, WorkerInfo>();
   private currentWorker?: BaseCameraWorker;
 
+  public constructor(private cameraController: CameraController) {}
+
   /** @hidden */
   public onRender(delta_time: number) {
     debug.profilebegin("CameraWorkerController::onRender");
     this.currentWorker?.update(delta_time);
     debug.profileend();
+  }
+
+  /**
+   * Terminates to the current worker and goes back to the normal state
+   *
+   * **NOTE**: It will ignore the error *(such as the worker is not presented in the controller)*
+   */
+  public terminateCurrentWorker() {
+    // avoid terminating the undefined worker
+    if (this.currentWorker === undefined) return;
+
+    // easy as one, two, three
+    this.logger.Debug("Terminating current camera worker ({WorkerName})", this.currentWorker.config.name);
+    this.currentWorker.terminate();
+    this.currentWorker = undefined;
+
+    this.cameraController.focusToCharacter();
   }
 
   /** Attempts to start worker */
@@ -103,9 +124,10 @@ export class CameraWorkerController implements OnInit, OnRender {
 
       this.logger.Debug("Registered camera worker: {WorkerName}", id);
 
-      // // registration completed
+      // registration completed
       this.workers.set(config.name, {
         worker: instance,
+        name: config.name,
         ctor: ctor as Constructor<BaseCameraWorker>,
         flameworkId: id,
       });

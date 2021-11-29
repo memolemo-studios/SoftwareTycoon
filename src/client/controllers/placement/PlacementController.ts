@@ -4,12 +4,17 @@ import Log from "@rbxts/log";
 import { Option } from "@rbxts/rust-classes";
 import { Keyboard } from "client/input/keyboard";
 import { ClientBasePlacement } from "client/placement/base";
+import Remotes from "shared/remotes/game";
 import { FlameworkUtil } from "shared/utils/flamework";
 import { DecoratorMetadata } from "types/flamework";
 import { LotController } from "../game/LotController";
 import { CoreGuiController } from "../interface/CoreGuiController";
 import { CameraWorkerController } from "../io/CameraWorkerController";
 import { InputController } from "../io/InputController";
+
+declare global {
+  interface ClientPlacements {}
+}
 
 /** Hook into the OnPlacementInstantiate event */
 export interface OnPlacementInstantiate {
@@ -64,7 +69,7 @@ export declare function Placement(cfg: PlacementConfig): any;
 /** Placement registered info */
 export interface PlacementInfo {
   config: PlacementConfig;
-  ctor: Constructor<ClientBasePlacement>;
+  instance: ClientBasePlacement;
   flameworkId: string;
   hooks: {
     onInstantiate: boolean;
@@ -103,6 +108,8 @@ export class PlacementController implements OnInit, OnStart, OnRender {
    * does not exists in the collection
    * @param name Any placement name
    */
+  public startPlacement<T extends keyof ClientPlacements>(name: T, canvas?: BasePart): Option<ClientPlacements[T]>;
+  public startPlacement(name: string, canvas?: BasePart): Option<ClientBasePlacement>;
   public startPlacement(name: string, canvas?: BasePart): Option<ClientBasePlacement> {
     this.logger.Debug("Attempting to start placement ({Name})", name);
 
@@ -126,7 +133,7 @@ export class PlacementController implements OnInit, OnStart, OnRender {
     } else {
       this.lotController.getOwnerLot().map(lot => {
         assert(lot.instance.PrimaryPart, `Expected 'PrimaryPart' in lot ${lot.attributes.ComponentId!}`);
-        current_canvas = lot.instance.PrimaryPart!;
+        current_canvas = lot.instance.Canvas!;
         return true;
       });
     }
@@ -137,10 +144,16 @@ export class PlacementController implements OnInit, OnStart, OnRender {
       return Option.none();
     }
 
-    // create a new class yay!
-    const placement = Flamework.createDependency(info.ctor) as ClientBasePlacement;
-    placement.setup();
+    // start the placement and create RaycastParams!
+    const params = new RaycastParams();
+    params.FilterDescendantsInstances = [current_canvas];
+    params.FilterType = Enum.RaycastFilterType.Whitelist;
+    params.IgnoreWater = true;
+
+    const placement = info.instance;
     placement.setCanvas(current_canvas);
+    placement.setRaycastParams(params);
+    placement.start();
     this.placement = placement;
 
     return Option.some(placement);
@@ -184,17 +197,23 @@ export class PlacementController implements OnInit, OnStart, OnRender {
         have_started_hook = true;
       }
 
+      // creating a new placement class
+      const instance = Flamework.createDependency(ctor as Constructor) as ClientBasePlacement;
+
       // setting up it
       this.registeredPlacements.set(config.name, {
         flameworkId: id,
-        ctor: ctor as unknown as Constructor<ClientBasePlacement>,
         config,
+        instance,
         hooks: {
           onInstantiate: have_instantiate_hook,
           onStarted: have_started_hook,
           onPaused: have_paused_hook,
         },
       });
+
+      // really have to set it up because it depends on the info
+      instance.setup();
     }
   }
 
@@ -208,10 +227,13 @@ export class PlacementController implements OnInit, OnStart, OnRender {
       this.coreGuiController.enableEntireCoreGui();
       this.inputController.toggleCharacterMovement(false);
       this.cameraWorkerController.startWorker("PlacementCameraWorker");
-      // const placement = this.startPlacement("WallPlacement").expect("failed to create one!");
-      // placement.bindToDone(() => {
-      //   print("Done!");
-      // });
+
+      const placement = this.startPlacement("WallPlacement").expect("failed to create one!");
+      placement.bindToDone((head, tail) => {
+        this.inputController.toggleCharacterMovement(true);
+        this.cameraWorkerController.terminateCurrentWorker();
+        Remotes.Client.GetNamespace("Placement").Get("BuildWall").CallServerAsync(head, tail);
+      });
     });
   }
 }

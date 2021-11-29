@@ -35,7 +35,8 @@ export enum ClientPlacementState {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type PlacementDoneCallback<A extends any[] = any[]> = (...args: A) => void;
 
-export class ClientBasePlacement<T extends PlacementDoneCallback = PlacementDoneCallback> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export class ClientBasePlacement<T extends unknown[] = []> {
   protected bin = new Bin();
   protected canPlace = true;
   protected canvas!: BasePart;
@@ -51,7 +52,7 @@ export class ClientBasePlacement<T extends PlacementDoneCallback = PlacementDone
   protected sessionBin = new Bin();
   protected state = ClientPlacementState.Idle;
 
-  private onDoneConnections = new Array<T>();
+  private onDoneConnections = new Array<PlacementDoneCallback<T>>();
 
   // prettier-ignore
   public readonly onStateChanged = new Signal<(
@@ -77,30 +78,7 @@ export class ClientBasePlacement<T extends PlacementDoneCallback = PlacementDone
       .expect(`${this.name} does not exists! Have you checked twice about the name parameter?`);
 
     // making classes
-    this.keyboard = new Keyboard();
-    this.mouse = new Mouse();
-    this.cursorSpring = new CursorSpring();
     this.info = info;
-
-    // cleanup stuff
-    this.bin.add(this.sessionBin);
-    this.bin.add(this.keyboard);
-    this.bin.add(this.mouse);
-    this.bin.add(() => this.cursorSpring.cleanup());
-
-    this.bin.add(
-      this.mouse.leftDown.Connect(() => {
-        this.onClick();
-      }),
-    );
-
-    this.bin.add(
-      this.keyboard.keyDown.Connect(() => {
-        if (this.keyboard.isKeyDown(Enum.KeyCode.R)) {
-          this.rotate();
-        }
-      }),
-    );
 
     // fire OnPlacementInstantiate
     if (info.hooks.onInstantiate) {
@@ -135,7 +113,7 @@ export class ClientBasePlacement<T extends PlacementDoneCallback = PlacementDone
 
   /** This method should only called for `MouseClick` events */
   protected onClick() {
-    if (this.canPlace) this.done();
+    throw "Please override onClick method!";
   }
 
   protected updatePosition() {}
@@ -152,7 +130,14 @@ export class ClientBasePlacement<T extends PlacementDoneCallback = PlacementDone
    * @param deltaTime Render delta time
    */
   public render(deltaTime: number) {
+    // do not render if it is not placing
+    if (this.state !== ClientPlacementState.Placing) return;
     this.cursorSpring.update(deltaTime);
+  }
+
+  /** Sets the RaycastParams configuration */
+  public setRaycastParams(params: RaycastParams) {
+    this.placement.raycastParams = params;
   }
 
   /**
@@ -176,7 +161,7 @@ export class ClientBasePlacement<T extends PlacementDoneCallback = PlacementDone
    * Binds a callback and calls whenever the placement class is done
    * @param callback Callback to call when placement class is done
    */
-  public bindToDone(callback: T) {
+  public bindToDone(callback: PlacementDoneCallback<T>) {
     // to do at the same time
     this.onDoneConnections.push(callback);
   }
@@ -189,17 +174,45 @@ export class ClientBasePlacement<T extends PlacementDoneCallback = PlacementDone
     // making sure it is not started before
     if (this.state > ClientPlacementState.Paused) return false;
 
+    // only create stuff if it is in idle
+    if (this.state === ClientPlacementState.Idle) {
+      // creating new classes
+      this.keyboard = new Keyboard();
+      this.mouse = new Mouse();
+      this.cursorSpring = new CursorSpring();
+
+      // cleanup stuff
+      this.bin.add(this.sessionBin);
+      this.bin.add(this.keyboard);
+      this.bin.add(this.mouse);
+      this.bin.add(() => this.cursorSpring.cleanup());
+
+      this.bin.add(
+        this.mouse.leftDown.Connect(() => {
+          this.onClick();
+        }),
+      );
+
+      this.bin.add(
+        this.keyboard.keyDown.Connect(() => {
+          if (this.keyboard.isKeyDown(Enum.KeyCode.R)) {
+            this.rotate();
+          }
+        }),
+      );
+    }
+
     // making sure abstract members must be prepared
     if (this.canvas === undefined || this.placement === undefined || this.canvas === undefined) {
       this.logger.Error("Failed to start because canvas, canvas or placement member is not defined!");
     }
 
     // done!!!
-    this.changeState(ClientPlacementState.Placing);
-    this.logger.Debug("Starting placement");
     if (this.info.hooks.onStarted === true) {
       (this as unknown as OnPlacementStarted).onPlacementStarted();
     }
+    this.changeState(ClientPlacementState.Placing);
+    this.logger.Debug("Starting placement");
 
     return true;
   }
@@ -237,7 +250,7 @@ export class ClientBasePlacement<T extends PlacementDoneCallback = PlacementDone
    * This method will do a done state
    * @returns It will return true if it is successfully done
    */
-  protected done(...args: unknown[]) {
+  protected done(...args: T) {
     if (this.state >= ClientPlacementState.Done) return false;
 
     // calling on done connections
@@ -278,11 +291,18 @@ export class ClientBasePlacement<T extends PlacementDoneCallback = PlacementDone
   public setCursor(cursor: Model | BasePart) {
     assert(cursor);
     this.placement.setCursor(cursor);
+    this.cursorSpring.setCursor(cursor);
 
-    // TODO: support for BasePart...
-    if (classIs(cursor, "Model")) {
-      this.cursorSpring.setCursor(cursor);
-    }
+    // advantage of that feature in Lua
+    const position_spring = this.cursorSpring.positionSpring;
+    position_spring.angularFrequency = 10;
+    position_spring.dampingRatio = 1;
+
+    const rotation_spring = this.cursorSpring.rotationSpring;
+    rotation_spring.angularFrequency = 10;
+    rotation_spring.dampingRatio = 1;
+
+    this.setInterpolated(true);
   }
 
   /**
@@ -291,6 +311,11 @@ export class ClientBasePlacement<T extends PlacementDoneCallback = PlacementDone
    */
   public getCursor() {
     return this.placement.getCursor();
+  }
+
+  /** Sets the interpolation */
+  public setInterpolated(bool: boolean) {
+    this.cursorSpring.setInterpolated(bool);
   }
 
   /**
