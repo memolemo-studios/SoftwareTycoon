@@ -11,8 +11,10 @@ on:
 
 jobs:
   publish:
-    if: github.repository == 'memolemo-studios/SoftwareTycoon' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/dev')
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    if: |
+      github.repository == 'memolemo-studios/SoftwareTycoon'
+        && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/dev')
+        && github.event.workflow_run.conclusion == 'success'
 
     runs-on: ubuntu-latest
     timeout-minutes: 10
