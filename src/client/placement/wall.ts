@@ -7,6 +7,12 @@ import { CFrameUtil } from "shared/utils/cframe";
 import { OptionUtil } from "shared/utils/option";
 import { ClientBasePlacement, ClientPlacementState } from "./base";
 
+declare global {
+  interface ClientPlacements {
+    WallPlacement: ClientWallPlacement;
+  }
+}
+
 enum WallPlacementState {
   Head,
   Tail,

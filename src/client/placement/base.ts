@@ -134,6 +134,11 @@ export class ClientBasePlacement<T extends PlacementDoneCallback = PlacementDone
     this.cursorSpring.update(deltaTime);
   }
 
+  /** Sets the RaycastParams configuration */
+  public setRaycastParams(params: RaycastParams) {
+    this.placement.raycastParams = params;
+  }
+
   /**
    * This method can only be used for task scheduling events
    * such as `RenderStepped` or `Heartbeat`

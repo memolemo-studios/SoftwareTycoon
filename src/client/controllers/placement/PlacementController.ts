@@ -11,6 +11,10 @@ import { CoreGuiController } from "../interface/CoreGuiController";
 import { CameraWorkerController } from "../io/CameraWorkerController";
 import { InputController } from "../io/InputController";
 
+declare global {
+  interface ClientPlacements {}
+}
+
 /** Hook into the OnPlacementInstantiate event */
 export interface OnPlacementInstantiate {
   /**
@@ -103,6 +107,8 @@ export class PlacementController implements OnInit, OnStart, OnRender {
    * does not exists in the collection
    * @param name Any placement name
    */
+  public startPlacement<T extends keyof ClientPlacements>(name: T, canvas?: BasePart): Option<ClientPlacements[T]>;
+  public startPlacement(name: string, canvas?: BasePart): Option<ClientBasePlacement>;
   public startPlacement(name: string, canvas?: BasePart): Option<ClientBasePlacement> {
     this.logger.Debug("Attempting to start placement ({Name})", name);
 
@@ -137,9 +143,15 @@ export class PlacementController implements OnInit, OnStart, OnRender {
       return Option.none();
     }
 
-    // start the placement!
+    // start the placement and create RaycastParams!
+    const params = new RaycastParams();
+    params.FilterDescendantsInstances = [current_canvas];
+    params.FilterType = Enum.RaycastFilterType.Whitelist;
+    params.IgnoreWater = true;
+
     const placement = info.instance;
     placement.setCanvas(current_canvas);
+    placement.setRaycastParams(params);
     placement.start();
     this.placement = placement;
 
