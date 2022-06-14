@@ -66,7 +66,7 @@ export class PlayerEntity {
    *
    * @param callback Callback to modify or mutate player's data inside
    */
-  public updateData(callback: (data: PlayerData) => void) {
+  public UpdateData(callback: (data: PlayerData) => void) {
     // safe mutations
     const data = Dictionary.copyDeep(this.profile);
     callback(data);

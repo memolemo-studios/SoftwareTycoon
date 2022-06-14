@@ -116,10 +116,10 @@ export class PlayerService implements OnStart {
         .then((profile) =>
           profile.match<void>(
             (profile) => this.onPlayerJoin(player, profile),
-            (err) => this.playerDataService.kickPlayerWithErr(player, err),
+            (err) => this.playerDataService.KickPlayerWithErr(player, err),
           ),
         )
-        .catch((reason) => this.playerDataService.kickPlayerWithErr(player, reason));
+        .catch((reason) => this.playerDataService.KickPlayerWithErr(player, reason));
     };
 
     for (const player of Players.GetPlayers()) {

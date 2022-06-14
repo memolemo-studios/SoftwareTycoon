@@ -50,7 +50,7 @@ export class PlayerDataService implements OnInit {
    * @param player Player to kick from the game
    * @param err Either the variant of DataLoadError or unique string
    */
-  public kickPlayerWithErr(player: Player, err: DataLoadError | string) {
+  public KickPlayerWithErr(player: Player, err: DataLoadError | string) {
     // a variable to display a message to the log, we want to avoid
     // showing the actual error of unknown error.
     let logMessage: string;
@@ -70,7 +70,7 @@ export class PlayerDataService implements OnInit {
    * Generates a message with `DataLoadError` variant.
    * @param err Error to generate a message
    */
-  public generateMessageFromErr(err: DataLoadError) {
+  public GenerateMessageFromErr(err: DataLoadError) {
     switch (err.type) {
       case "FailedToLoad":
         return "Your data cannot load properly. Please rejoin.";
