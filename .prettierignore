@@ -1,0 +1,8 @@
+*.lua
+*.gitignore
+*.editorconfig
+*.log
+
+/yarn.lock
+/.prettierignore
+/src/shared/module.ts
