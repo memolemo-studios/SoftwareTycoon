@@ -198,6 +198,16 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
+"@flamework/components@^1.0.0-beta.7":
+  version "1.0.0-beta.7"
+  resolved "https://registry.yarnpkg.com/@flamework/components/-/components-1.0.0-beta.7.tgz#bb871d6e83dbeea0c3f6b31565c70fa8abd3b4d6"
+  integrity sha512-r6B3kCtnvqzs+YOs7B8NDPEaOVR4CMPp1cv/Uwwgws5jkmJDWV82yJ2XiMEbALNoiMvWVV236GeUsidLkntwXQ==
+  dependencies:
+    "@flamework/core" "^1.0.0-beta.4"
+    "@rbxts/maid" "^1.0.0-ts.1"
+    "@rbxts/services" "^1.1.5"
+    "@rbxts/t" "^2.1.4"
+
 "@flamework/core@^1.0.0-beta.0", "@flamework/core@^1.0.0-beta.4":
   version "1.0.0-beta.4"
   resolved "https://registry.yarnpkg.com/@flamework/core/-/core-1.0.0-beta.4.tgz#c55423c209d206fc7e5c694e4271dc8fc70f50df"
