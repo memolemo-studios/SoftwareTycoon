@@ -1,6 +1,11 @@
 import { Modding } from "@flamework/core";
 
-/** @metadata macro */
+/**
+ * Makes a set of listeners automatically without
+ * doing a labor magic to Flamework.
+ *
+ * @metadata macro
+ */
 export function makeListenersSet<T>(obj?: Modding.Generic<T, "id">) {
   assert(obj);
 
