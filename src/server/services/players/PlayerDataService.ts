@@ -111,16 +111,17 @@ export class PlayerDataService implements OnInit {
     const profile = this.profileStore.LoadProfileAsync(profileKey);
 
     // player's profile could not be loaded for some reason
-    if (!profile) return Result.err(DataLoadError.FailedToLoad());
+    if (!profile) return Result.err<DataProfile, DataLoadError>(DataLoadError.FailedToLoad());
 
     // player probably left the game while
     // their profile is loading at that time
-    if (!player.IsDescendantOf(Players)) return Result.err(DataLoadError.PlayerLeft());
+    if (!player.IsDescendantOf(Players))
+      return Result.err<DataProfile, DataLoadError>(DataLoadError.PlayerLeft());
 
     // gdpr (right to removal) compliance
     profile.AddUserId(player.UserId);
     profile.Reconcile();
 
-    return Result.ok(profile);
+    return Result.ok<DataProfile, DataLoadError>(profile);
   }
 }
