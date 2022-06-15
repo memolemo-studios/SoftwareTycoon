@@ -3,5 +3,5 @@ import { initLogger } from "shared/functions/initLogger";
 
 initLogger();
 
-Flamework.addPaths("src/client/controllers");
+Flamework.addPaths("src/client/controllers", "src/client/components");
 Flamework.ignite();
