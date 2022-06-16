@@ -58,6 +58,7 @@
 		"@rbxts/beacon": "^1.2.0",
 		"@rbxts/bin": "^1.2.6",
 		"@rbxts/log": "^0.6.3",
+		"@rbxts/message-templates": "^0.3.2",
 		"@rbxts/profileservice": "^1.4.1",
 		"@rbxts/promise-character": "^1.0.3",
 		"@rbxts/roact": "^1.4.2-ts.0",

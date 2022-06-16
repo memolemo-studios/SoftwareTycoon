@@ -320,7 +320,7 @@
   resolved "https://registry.yarnpkg.com/@rbxts/maid/-/maid-1.0.0-ts.1.tgz#3db8687be6293cb66e8ba7f53994781e8ef679af"
   integrity sha512-nm4eucrDE5NnpkHJaaZvMwFJjk9YLAXrLYyA/MWXHI8vr7jeGHmex1N2b90ewa9KqeH+RiWlkXmj2xBALonC4Q==
 
-"@rbxts/message-templates@^0.3.1":
+"@rbxts/message-templates@^0.3.1", "@rbxts/message-templates@^0.3.2":
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/@rbxts/message-templates/-/message-templates-0.3.2.tgz#85169980cf73f659282aa9846290ceaf06967167"
   integrity sha512-79onYskH3pgrBT73Zs+biQ31vAVvupKQaxGNWGjyGsxwNhO2YaN/qkut0bvOshaGa+ZzqAXApRVrN8ifIMPiMQ==
