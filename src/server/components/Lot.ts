@@ -58,16 +58,17 @@ export class Lot extends BaseLot {
    */
   public AssignOwner(player: Player): Result<[], LotOwnError> {
     this.logger.Info("Attempting to assign owner to {@Player}", player);
+    // @ts-ignore
     return errOrElse<Player, LotOwnError>(this.GetOwner(), (owner) =>
       LotOwnError.LotOwned({
         ownerId: owner.UserId,
       }),
-    ).and<[]>(
-      this.lotService.getFromPlayer(player).match<Result<[], LotOwnError>>(
-        (lot) => Result.err<[], LotOwnError>(LotOwnError.PlayerOwned({ lotId: lot.attributes.Id })),
+    ).and(
+      this.lotService.getFromPlayer(player).match(
+        (lot) => Result.err(LotOwnError.PlayerOwned({ lotId: lot.attributes.Id })),
         () => {
           this.assignOwner(player);
-          return Result.ok<[], LotOwnError>([]);
+          return Result.ok([]);
         },
       ),
     );

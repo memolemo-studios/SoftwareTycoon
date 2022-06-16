@@ -6,9 +6,13 @@ import { Option, Result } from "@rbxts/rust-classes";
  * It is like `okOrElse` but it returns as `Err` variant
  * belong with the error argument provided if the Option value is `Some`.
  */
-export function errOrElse<T, E>(option: Option<T>, err: (value: T) => E) {
-  return option.match(
-    (value) => Result.err<[], E>(err(value)),
-    () => Result.ok<[], E>([]),
+export function errOrElse<T extends defined, E extends defined>(
+  option: Option<T>,
+  err: (value: T) => E,
+) {
+  return option.match<Result<[], E>>(
+    (value) => Result.err(err(value)),
+    // @ts-ignore
+    () => Result.ok([]),
   );
 }

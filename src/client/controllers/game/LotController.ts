@@ -27,7 +27,8 @@ export class LotController {
       LocalPlayer.Kick("Too many lots");
       return Option.none<Lot>();
     }
-    return Option.wrap<Lot>(playerLots[0]);
+    // @ts-ignore
+    return Option.wrap(playerLots[0]);
   }
 
   /**

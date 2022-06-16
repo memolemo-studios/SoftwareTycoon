@@ -57,6 +57,7 @@ export class PlayerService implements OnStart {
    * @returns Undefined or defined type of PlayerEntity wrapped with Option.
    */
   public getEntity(player: Player): Option<PlayerEntity> {
+    // @ts-ignore
     return Option.wrap(this.entities.get(player));
   }
 
