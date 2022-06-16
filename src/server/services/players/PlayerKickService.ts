@@ -37,13 +37,15 @@ export class PlayerKickService {
    * @param reason Reason why player got kicked
    */
   public KickSafe(player: Player, severity: KickSeverity, reason: string) {
-    let message: string;
+    let message = "\n\n";
     switch (severity) {
       case KickSeverity.Bug:
-        message = `This game encountered a server bug, please report to our community chat to resolve the issue. Message: ${reason}`;
+        message +=
+          "This game encountered a server bug.\n" +
+          `Please report to our community chat to resolve the issue.\n\nMessage:\n${reason}`;
         break;
       case KickSeverity.FailedButFixable:
-        message = `${reason}. Please rejoin to try again.`;
+        message += `${reason}.\nPlease rejoin to try again.`;
         break;
     }
     if (player.IsDescendantOf(Players)) {
