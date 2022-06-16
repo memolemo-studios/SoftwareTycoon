@@ -37,7 +37,7 @@ export class PlayerKickService {
    * @param reason Reason why player got kicked
    */
   public KickSafe(player: Player, severity: KickSeverity, reason: string) {
-    let message = "\n\n";
+    let message = "\n";
     switch (severity) {
       case KickSeverity.Bug:
         message +=

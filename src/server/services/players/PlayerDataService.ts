@@ -50,20 +50,17 @@ export class PlayerDataService implements OnInit {
    * @param player Player to kick from the game
    * @param err Either the variant of DataLoadError or unique string
    */
-  public KickPlayerWithErr(player: Player, err: DataLoadError | string) {
+  public KickPlayerWithErr(player: Player, err: DataLoadError) {
     // a variable to display a message to the log, we want to avoid
     // showing the actual error of unknown error.
-    let logMessage: string;
-    let kickMessage: string;
-    if (typeIs(err, "string")) {
-      logMessage = err;
-      kickMessage = "internal error from PlayerDataService::LoadProfileAsync";
-    } else {
-      logMessage = err.type;
-      kickMessage = logMessage;
-    }
+    const logMessage = err.type ?? tostring(err);
+    const severity = err.type === undefined ? KickSeverity.Bug : KickSeverity.FailedButFixable;
+    const kickMessage =
+      severity === KickSeverity.Bug
+        ? "Internal error from PlayerDataService::LoadProfileAsync"
+        : logMessage;
     this.logger.Error("Cannot load profile for {@Player}: {Error}", player, logMessage);
-    this.playerKickService.KickSafe(player, KickSeverity.FailedButFixable, kickMessage);
+    this.playerKickService.KickSafe(player, severity, kickMessage);
   }
 
   /**
