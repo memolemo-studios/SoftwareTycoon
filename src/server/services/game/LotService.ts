@@ -1,5 +1,6 @@
 import { Components } from "@flamework/components";
-import { Service } from "@flamework/core";
+import { OnStart, Service } from "@flamework/core";
+import Log from "@rbxts/log";
 import { Option } from "@rbxts/rust-classes";
 import { Lot } from "server/components/Lot";
 import { KickSeverity, PlayerKickService } from "../players/PlayerKickService";
@@ -9,11 +10,21 @@ import { KickSeverity, PlayerKickService } from "../players/PlayerKickService";
  * of handling lots.
  */
 @Service({})
-export class LotService {
+export class LotService implements OnStart {
+  private logger = Log.ForContext(LotService);
+
   public constructor(
     private readonly components: Components,
     private readonly playerKickService: PlayerKickService,
   ) {}
+
+  /** @hidden */
+  public onStart(): void {
+    if (this.getAll().isEmpty()) {
+      this.logger.Warn("There are no available lots in this server!");
+      this.logger.Warn("Beware of potential problems later on.");
+    }
+  }
 
   /**
    * Gets all of the lots available in the game session.
