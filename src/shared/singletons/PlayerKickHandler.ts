@@ -1,4 +1,4 @@
-import { Service } from "@flamework/core";
+import { Controller, Service } from "@flamework/core";
 import Log from "@rbxts/log";
 import { Players } from "@rbxts/services";
 
@@ -11,15 +11,16 @@ export const enum KickSeverity {
  * This service handles player kicks.
  */
 @Service({})
-export class PlayerKickService {
-  private logger = Log.ForContext(PlayerKickService);
+@Controller({})
+export class PlayerKickHandler {
+  private logger = Log.ForContext(PlayerKickHandler);
 
   /**
    * Kicks the player out of the game with whatever reason and
    * how severe that kick is.
    *
    * If you want to kick the player for violating the guidelines
-   * such as exploting, you may want to use `PlayerKickService::ViolationKick`
+   * such as exploting, you may want to use `PlayerKickHandler::ViolationKick`
    * to take care of moderation inside.
    *
    * ```ts

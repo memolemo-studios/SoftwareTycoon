@@ -1,4 +1,4 @@
-import { OnStart, Reflect, Service } from "@flamework/core";
+import { OnInit, OnStart, Reflect, Service } from "@flamework/core";
 import Log from "@rbxts/log";
 import { Profile } from "@rbxts/profileservice/globals";
 import { Option } from "@rbxts/rust-classes";
@@ -7,7 +7,8 @@ import { PlayerEntity } from "server/entities/player";
 import { PlayerData } from "types/player";
 import { makeListenersSet } from "shared/macros/flamework";
 import { PlayerDataService } from "./PlayerDataService";
-import { KickSeverity, PlayerKickService } from "./PlayerKickService";
+import { KickSeverity, PlayerKickHandler } from "shared/singletons/PlayerKickHandler";
+import { Functions } from "server/remotes";
 
 /**
  * Hooks into the `OnPlayerJoin` lifecycle event.
@@ -39,7 +40,7 @@ export interface OnPlayerLeave {
  * allows to retrieve player's entity (PlayerEntity).
  */
 @Service({})
-export class PlayerService implements OnStart {
+export class PlayerService implements OnInit, OnStart {
   private joinListeners = makeListenersSet<OnPlayerJoin>();
   private leaveListeners = makeListenersSet<OnPlayerLeave>();
 
@@ -48,7 +49,7 @@ export class PlayerService implements OnStart {
 
   public constructor(
     private readonly playerDataService: PlayerDataService,
-    private readonly playerKickService: PlayerKickService,
+    private readonly playerKickHandler: PlayerKickHandler,
   ) {}
 
   /**
@@ -74,7 +75,7 @@ export class PlayerService implements OnStart {
       // if this line removed, the player would kick the game
       // but they already left the game.
       if (!player.IsDescendantOf(Players)) return;
-      this.playerKickService.KickSafe(
+      this.playerKickHandler.KickSafe(
         player,
         KickSeverity.FailedButFixable,
         "You should have gone left the game (data already released)",
@@ -104,6 +105,19 @@ export class PlayerService implements OnStart {
         listener.onPlayerLeave(player);
       });
     }
+  }
+
+  /** @hidden */
+  public onInit() {
+    Functions.RequestPlayerData.setCallback((player) =>
+      this.getEntity(player).match(
+        (profile) => profile.Data,
+        () => {
+          Log.Error("{@Player} requested data but it isn't loaded yet.", player);
+          error("Data is not loaded from server");
+        },
+      ),
+    );
   }
 
   /** @hidden */

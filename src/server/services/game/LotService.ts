@@ -3,7 +3,7 @@ import { OnStart, Service } from "@flamework/core";
 import Log from "@rbxts/log";
 import { Option } from "@rbxts/rust-classes";
 import { Lot } from "server/components/Lot";
-import { KickSeverity, PlayerKickService } from "../players/PlayerKickService";
+import { KickSeverity, PlayerKickHandler } from "shared/singletons/PlayerKickHandler";
 
 /**
  * This service provides basic required methods
@@ -15,7 +15,7 @@ export class LotService implements OnStart {
 
   public constructor(
     private readonly components: Components,
-    private readonly playerKickService: PlayerKickService,
+    private readonly playerKickHandler: PlayerKickHandler,
   ) {}
 
   /** @hidden */
@@ -42,7 +42,7 @@ export class LotService implements OnStart {
   public getFromPlayer(player: Player): Option<Lot> {
     const playerLots = this.getAll().filter((lot) => lot.GetOwner().contains(player));
     if (playerLots.size() > 1) {
-      this.playerKickService.KickSafe(
+      this.playerKickHandler.KickSafe(
         player,
         KickSeverity.Bug,
         "You've owned too many lots than the game expected",

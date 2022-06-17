@@ -3,6 +3,7 @@ import { Bin } from "@rbxts/bin";
 import Log from "@rbxts/log";
 import { Profile } from "@rbxts/profileservice/globals";
 import { Dictionary } from "@rbxts/sift";
+import { Events } from "server/remotes";
 import { PlayerData } from "types/player";
 import { DeepReadonly } from "types/utils";
 
@@ -74,6 +75,7 @@ export class PlayerEntity {
     this.profile.Data = data;
     this.logger.Verbose("{@Player}'s data has been updated to {@NewData}", data);
     this.Data = data as DeepReadonly<PlayerData>;
+    Events.OnDataChanged.fire(this.Instance, data);
     this.OnDataChanged.fire(this.Data);
   }
 }

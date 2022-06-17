@@ -1,6 +1,9 @@
 import { Networking } from "@flamework/networking";
+import { PlayerData } from "types/player";
 
-interface ServerFunctions {}
+interface ServerFunctions {
+  RequestPlayerData: () => PlayerData;
+}
 
 interface ClientFunctions {}
 

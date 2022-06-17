@@ -6,7 +6,7 @@ import { Players, RunService } from "@rbxts/services";
 import variantModule, { variant, VariantOf } from "@rbxts/variant";
 import { DEFAULT_PLAYER_DATA } from "shared/definitions/player";
 import { DataProfile } from "types/player";
-import { KickSeverity, PlayerKickService } from "./PlayerKickService";
+import { KickSeverity, PlayerKickHandler } from "shared/singletons/PlayerKickHandler";
 
 /**
  * There are variants of reasons why the player's data failed to load.
@@ -32,7 +32,7 @@ export class PlayerDataService implements OnInit {
   private profileStore = GetProfileStore("PlayerData", DEFAULT_PLAYER_DATA);
   private logger = Log.ForContext(PlayerDataService);
 
-  public constructor(private readonly playerKickService: PlayerKickService) {}
+  public constructor(private readonly playerKickHandler: PlayerKickHandler) {}
 
   /** @hidden */
   public onInit(): void | Promise<void> {
@@ -44,7 +44,7 @@ export class PlayerDataService implements OnInit {
   }
 
   /**
-   * Wrapper of `PlayerKickService::KickSafe` but it is
+   * Wrapper of `PlayerKickHandler::KickSafe` but it is
    * configured for data loading error.
    *
    * @param player Player to kick from the game
@@ -60,7 +60,7 @@ export class PlayerDataService implements OnInit {
         ? "Internal error from PlayerDataService::LoadProfileAsync"
         : logMessage;
     this.logger.Error("Cannot load profile for {@Player}: {Error}", player, logMessage);
-    this.playerKickService.KickSafe(player, severity, kickMessage);
+    this.playerKickHandler.KickSafe(player, severity, kickMessage);
   }
 
   /**
