@@ -1,0 +1,4 @@
+std = "roblox+remodel"
+
+[rules]
+shadowing = "allow"

@@ -6,6 +6,8 @@
 	"author": "memolemo-studios",
 	"license": "MPL-2.0",
 	"scripts": {
+		"bootstrap": "npm run bootstrap:assets",
+		"bootstrap:assets": "remodel run tools/extractAssets.lua",
 		"build": "rojo build --output game.rbxlx",
 		"chk": "npm run \"chk:eslint\" && npm run \"chk:prettier\" && npm run \"chk:lua\"",
 		"chk:eslint": "eslint \"./src/**/*.*\"",
