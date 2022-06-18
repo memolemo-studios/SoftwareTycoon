@@ -1,5 +1,18 @@
 import { Component } from "@flamework/components";
+import { OnStart } from "@flamework/core";
+import { Players } from "@rbxts/services";
 import { BaseLot as BaseLot } from "shared/components/Lot";
+import { ComponentTags } from "types/game/components";
 
-@Component({})
-export class Lot extends BaseLot {}
+@Component({
+  tag: ComponentTags.Lot,
+})
+export class Lot extends BaseLot implements OnStart {
+  /** @hidden */
+  public onStart(): void {
+    this.onAttributeChanged("Owner", (newOwner) => {
+      const player = Players.GetPlayerByUserId(newOwner ?? -100);
+      this.OnOwned.fire(player);
+    });
+  }
+}
