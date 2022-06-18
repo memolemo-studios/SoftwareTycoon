@@ -6,6 +6,13 @@
 	],
 	"tree": {
 		"$className": "DataModel",
+		"Lighting": {
+			"$path": "assets/game/Lighting"
+		},
+		"ServerStorage": {
+			"$className": "ServerStorage",
+			"$path": "assets/game/ServerStorage"
+		},
 		"ServerScriptService": {
 			"$className": "ServerScriptService",
 			"TS": {
@@ -37,10 +44,7 @@
 			}
 		},
 		"Workspace": {
-			"$className": "Workspace",
-			"$properties": {
-				"FilteringEnabled": true
-			}
+			"$path": "assets/game/Workspace"
 		},
 		"HttpService": {
 			"$className": "HttpService",

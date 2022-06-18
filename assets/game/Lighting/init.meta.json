@@ -1,0 +1,16 @@
+{
+	"className": "Lighting",
+	"ignoreUnknownInstances": true,
+	"properties": {
+		"Technology": "Future",
+		"Ambient": [0.27451, 0.27451, 0.27451],
+		"ColorShift_Bottom": [0,0,0],
+		"ColorShift_Top": [0,0,0],
+		"GlobalShadows": true,
+		"OutdoorAmbient": [0.27451,0.27451,0.274511],
+		"Brightness": 3,
+		"EnvironmentDiffuseScale": 1,
+		"EnvironmentSpecularScale": 1,
+		"ClockTime": 14.5
+	}
+}
