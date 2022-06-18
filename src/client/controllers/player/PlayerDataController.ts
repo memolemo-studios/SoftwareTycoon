@@ -80,11 +80,10 @@ export class PlayerDataController implements OnInit {
         KickSeverity.Bug,
         "Cannot load data from the server",
       );
+      // terminate the session, assuming that a promise will
+      // never end :)
+      coroutine.yield();
     }
-
-    // terminate the session, assuming that a promise will
-    // never end :)
-    coroutine.yield();
   }
 
   /**
