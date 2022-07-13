@@ -1,10 +1,9 @@
 import { BaseComponent } from "@flamework/components";
-import { OnStart } from "@flamework/core";
 import { Signal } from "@rbxts/beacon";
 import { Bin } from "@rbxts/bin";
 import Log from "@rbxts/log";
 import { Option } from "@rbxts/rust-classes";
-import { Players } from "@rbxts/services";
+import { HttpService, Players, RunService } from "@rbxts/services";
 import { LotAttributes, LotModel } from "types/game/lot";
 
 /**
@@ -13,7 +12,7 @@ import { LotAttributes, LotModel } from "types/game/lot";
  *
  * It is served as a base class to avoid code duplication.
  */
-export class BaseLot extends BaseComponent<LotAttributes, LotModel> implements OnStart {
+export class BaseLot extends BaseComponent<LotAttributes, LotModel> {
   protected bin = new Bin();
   protected logger = Log.ForContext(BaseLot);
 
@@ -51,7 +50,11 @@ export class BaseLot extends BaseComponent<LotAttributes, LotModel> implements O
   }
 
   /** @hidden */
-  public onStart() {
+  protected initialize() {
+    // flamework won't initialize component ids, I made my own instead.
+    if (RunService.IsServer()) {
+      this.attributes.Id = HttpService.GenerateGUID(false);
+    }
     this.bin.add(this.OnOwned);
     this.maid.GiveTask(() => this.bin.destroy());
     this.onAttributeChanged("Owner", (newOwner) => {

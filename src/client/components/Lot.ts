@@ -10,9 +10,6 @@ import { ComponentTags } from "types/game/components";
 export class Lot extends BaseLot implements OnStart {
   /** @hidden */
   public onStart(): void {
-    this.onAttributeChanged("Owner", (newOwner) => {
-      const player = Players.GetPlayerByUserId(newOwner ?? -100);
-      this.OnOwned.fire(player);
-    });
+    this.initialize();
   }
 }

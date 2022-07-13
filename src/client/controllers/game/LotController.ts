@@ -1,14 +1,21 @@
 import { Components } from "@flamework/components";
-import { Controller, Dependency } from "@flamework/core";
+import { Controller, Dependency, OnStart } from "@flamework/core";
 import { Option } from "@rbxts/rust-classes";
 import { Players } from "@rbxts/services";
 import { Lot } from "client/components/Lot";
+import { Functions } from "client/remotes";
 
 const LocalPlayer = Players.LocalPlayer;
 
 @Controller({})
-export class LotController {
+export class LotController implements OnStart {
   private readonly components = Dependency<Components>();
+
+  /** @hidden */
+  public async onStart() {
+    const lot = await Functions.RequestLot();
+    print(lot);
+  }
 
   /**
    * Gets the client player's lot if it does exists.

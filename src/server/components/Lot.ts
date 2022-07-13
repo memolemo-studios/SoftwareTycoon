@@ -1,4 +1,5 @@
 import { Component } from "@flamework/components";
+import { OnStart } from "@flamework/core";
 import { Result } from "@rbxts/rust-classes";
 import { HttpService } from "@rbxts/services";
 import { LotService } from "server/services/game/LotService";
@@ -6,18 +7,18 @@ import { BaseLot } from "shared/components/Lot";
 import { LotOwnError } from "shared/definitions/errors/lot";
 import { errOrElse } from "shared/utils/result";
 import { ComponentTags } from "types/game/components";
-import { LotAttributes } from "types/game/lot";
 
 @Component({
   tag: ComponentTags.Lot,
-  defaults: identity<Partial<LotAttributes>>({
-    Id: HttpService.GenerateGUID(false),
-    Owner: undefined,
-  }),
 })
-export class Lot extends BaseLot {
+export class Lot extends BaseLot implements OnStart {
   public constructor(private readonly lotService: LotService) {
     super();
+  }
+
+  /** @hidden */
+  public onStart() {
+    this.initialize();
   }
 
   /**
