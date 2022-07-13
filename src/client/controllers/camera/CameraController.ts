@@ -1,4 +1,4 @@
-import { Controller, OnInit, OnStart } from "@flamework/core";
+import { Controller, OnStart } from "@flamework/core";
 import Log from "@rbxts/log";
 import { Option } from "@rbxts/rust-classes";
 import { Workspace } from "@rbxts/services";
@@ -22,18 +22,9 @@ export interface OnCameraChanged {
 const waitingThreads = new Array<thread>();
 
 @Controller({})
-export class CameraController implements OnInit, OnStart {
+export class CameraController implements OnStart {
   private onChanged = makeListenersSet<OnCameraChanged>();
   private logger = Log.ForContext(CameraController);
-
-  // TODO: Move this into a function. An exploiter can modify this method here.
-  private onCameraChanged(camera: Camera) {
-    this.logger.Verbose("Workspace.CurrentCamera changed");
-    this.onChanged.forEach((v) => task.spawn(() => v.onCameraChanged(camera)));
-    for (const thread of waitingThreads) {
-      task.spawn(() => coroutine.resume(thread));
-    }
-  }
 
   /**
    * Gets the current camera safely without relying on
@@ -65,19 +56,24 @@ export class CameraController implements OnInit, OnStart {
   }
 
   /** @hidden */
-  public onInit() {
+  public onStart() {
+    const onCameraChanged = (camera: Camera) => {
+      this.logger.Verbose("Workspace.CurrentCamera changed");
+      this.onChanged.forEach((v) => task.spawn(() => v.onCameraChanged(camera)));
+      for (const thread of waitingThreads) {
+        task.spawn(() => coroutine.resume(thread));
+      }
+    };
+
     Workspace.GetPropertyChangedSignal("CurrentCamera").Connect(() => {
       const camera = Workspace.CurrentCamera;
       if (!camera) return;
-      this.onCameraChanged(camera);
+      onCameraChanged(camera);
     });
-  }
 
-  /** @hidden */
-  public onStart() {
     const camera = Workspace.CurrentCamera;
     if (camera !== undefined) {
-      this.onCameraChanged(camera);
+      onCameraChanged(camera);
     }
   }
 }
